@@ -15,7 +15,7 @@ const Navbar = () => {
   const navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <img src="${logoAsset}" widht=70 height=70>
+          <a class="navbar-brand" href="#">Vinci Store</a>
           <button
             class="navbar-toggler"
             type="button"
