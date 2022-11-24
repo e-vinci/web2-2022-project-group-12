@@ -1,39 +1,72 @@
-import { main } from "@popperjs/core";
 import { clearPage } from "../../utils/render";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RegisterPage = () => {
     clearPage();
-    renderFrom();
+    const main = document.querySelector('main');
+    
+
+
+    const formRegister = `   
+    <div class="container mt-3">
+
+        <div class="mb-3 mt-3">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" name="firstname">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="name">Prénom</label>
+            <input type="text" class="form-control" id="prenom" placeholder="Entrez votre prénom" name="lastname">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Entrez votre email" name="email">
+        </div>
+
+        <div class ="mb-3 mt-3">
+        <label for="sex">Sex</label>
+        </br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="homme" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Homme</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="femme" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">Femme</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="autre" value="option3" >
+                <label class="form-check-label" for="inlineCheckbox3">Autre</label>
+            </div>
+
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="mdp" placeholder="Entrez votre mot de passe" name="password">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="password">Confirmation du mot de passe</label>
+            <input type="password" class="form-control" id="mdp2" placeholder="Confirmer votre mot de passe" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    </div> `;
+
+    main.innerHTML = formRegister;
+    
+
 }
 
-const form =`
- <form action="action_page.php">
-<div class="container">
-  <h1>Register</h1>
-  <p>Please fill in this form to create an account.</p>
-  <hr>
+const main = document.addEventListener('submit',registerUser)
 
-  <label for="email"><b>Email</b></label>
-  <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-  <label for="psw"><b>Password</b></label>
-  <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-
-  <label for="psw-repeat"><b>Repeat Password</b></label>
-  <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-  <hr>
-
-  <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-  <button type="submit" class="registerbtn">Register</button>
-</div>
-
-<div class="container signin">
-  <p>Already have an account? <a href="#">Sign in</a>.</p>
-</div>
-</form>" `
-
-const renderFrom = () => {
-    const body = document.querySelector('main');
-    body.innerHTML = form
+const registerUser = () => {
+    
 }
 export default RegisterPage;
