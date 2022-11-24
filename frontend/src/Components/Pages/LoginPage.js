@@ -1,6 +1,13 @@
-const LoginPage = () => {
+import { clearPage } from "../../utils/render";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const LoginPage = () =>{
+    clearPage();
     const main = document.querySelector('main');
-    main.innerHTML = "Test";
+
+    const formLogin = ``;
+    main.innerHTML = formLogin;
+
 }
 
 export default LoginPage;

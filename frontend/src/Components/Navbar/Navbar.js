@@ -1,6 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
+<<<<<<< HEAD
 import logoAsset from "../../assets/logo.png"
+=======
+ // import logoAsset from "../../assets/logo.png"
+
+>>>>>>> 32b5f8afef9fb4acfb57ccfa550b7edee5629b1d
 /**
  * Render the Navbar which is styled by using Bootstrap
  * Each item in the Navbar is tightly coupled with the Router configuration :
@@ -32,12 +37,6 @@ const Navbar = () => {
                 <a class="nav-link" href="#" data-uri="/">
                   <img alt="Logo" src=${logoAsset} height=70 width=70>
                 </a>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/game">Game</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/new">New Page</a>
-              </li>  
               <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/register">Register</a>
               </li>    
