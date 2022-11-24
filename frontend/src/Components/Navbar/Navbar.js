@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import logoAsset from "../../assets/logo.png"
+ // import logoAsset from "../../assets/logo.png"
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -33,14 +33,11 @@ const Navbar = () => {
                 <a class="nav-link" aria-current="page" href="#" data-uri="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/game">Game</a>
+                <a class="nav-link" href="#" data-uri="/register">Inscription</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/new">New Page</a>
+                <a class="nav-link" href="#" data-uri="/new">Connexion</a>
               </li>  
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/register">Register</a>
-              </li>                       
             </ul>
           </div>
         </div>
