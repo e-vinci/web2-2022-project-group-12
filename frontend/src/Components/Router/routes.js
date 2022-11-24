@@ -7,7 +7,7 @@ import LoginPage from '../Pages/LoginPage'
 const routes = {
   '/': HomePage,
   '/new': NewPage,
-  '/register' : RegisterPage,
+  '/register': RegisterPage,
   '/login' : LoginPage
 };
 

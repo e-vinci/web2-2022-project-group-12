@@ -11,7 +11,7 @@ import logoAsset from "../../assets/logo.png"
 
 const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
-
+  
   const navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -51,5 +51,7 @@ const Navbar = () => {
   `;
   navbarWrapper.innerHTML = navbar;
 };
+
+
 
 export default Navbar;
