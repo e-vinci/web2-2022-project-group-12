@@ -1,7 +1,7 @@
 ######### NORMAL OPERATION  ###########
 
 ### Read all pizzas
-GET http://localhost:3000/pizzas
+GET http://localhost:3000/register
 
 ### Read all pizzas with File variable
 @baseUrl = http://localhost:3000
