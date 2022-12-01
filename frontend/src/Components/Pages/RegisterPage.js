@@ -1,14 +1,9 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigate from '../Router/Navigate';
-import addUser from '../../../../api/routes/register';
 
 
-const RegisterPage = () => {
-  clearPage();
-  const main = document.querySelector('main');
 
-  const formRegister = `   
+const formRegister = `   
     <div class="container mt-3">
 
         <div class="mb-3 mt-3">
@@ -55,25 +50,64 @@ const RegisterPage = () => {
             <label for="password">Confirmation du mot de passe</label>
             <input type="password" class="form-control" id="mdp2" placeholder="Confirmer votre mot de passe" name="password">
         </div>
-        <button id="button" type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="register" >Submit</button>
 
 
     </div>`;
 
-  main.innerHTML = formRegister;
+const RegisterPage = () => {
+    clearPage();
+    const main = document.querySelector('main');
+    main.innerHTML = formRegister;
 
-  function registerUser(event) {
-    event.preventdefault();
-    const firstname = document.querySelector('#firstname');
-    const lastname = document.querySelector('#lasname');
-    const email = document.querySelector('#email');
-    const sex = 'femme';
-    const password = document.querySelector('#password');
-    const data = {firstname,lastname,email,sex,password};
-    
-    
-  };
-  const button = main.querySelector('#button');
-  button.addEventListener('click', registerUser);
-};
+    const btn = document.getElementById('register');
+
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        const lastname = document.getElementById('nom').value;
+        const firstname = document.getElementById('prenom').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('mdp').value;
+        const passwordConfirmed = document.getElementById('mdp2').value;
+        
+        const newData = {
+            lastname,
+            firstname,
+            email,
+            password,
+            passwordConfirmed,
+            sex:'M'
+        }
+
+        try {
+
+            const options = {
+              method: "POST", // *GET, POST, PUT, DELETE, etc.
+              body: JSON.stringify(newData),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            };
+      
+            const reponse = await fetch("/api/users/register",options);
+      
+            if (!reponse.ok) {
+              throw new Error(
+                // eslint-disable-next-line no-irregular-whitespace
+                `fetch error : ${  reponse.status  } : ${  reponse.statusText}`
+              );
+            }
+            const user = await reponse.json();
+          } catch (err) {
+            console.error("error: ", err);
+          }
+
+    })
+
+
+
+}
+
+
 export default RegisterPage;

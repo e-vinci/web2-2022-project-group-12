@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import logoAsset from '../../assets/logo.png';
+import logoAsset from "../../assets/logo.png"
 /**
  * Render the Navbar which is styled by using Bootstrap
  * Each item in the Navbar is tightly coupled with the Router configuration :
@@ -14,17 +14,6 @@ const Navbar = () => {
   const navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
@@ -36,8 +25,15 @@ const Navbar = () => {
               </li>    
               <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/login">Login Page</a>
-              </li>                    
+              </li>  
+              <li class="nav-item">
+              <a class="nav-link" href="#" data-uri="/test">Test</a>
+            </li>                   
             </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="button">Search</button>
+            </form>
           </div>
         </div>
       </nav>
