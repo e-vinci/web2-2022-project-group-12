@@ -13,7 +13,7 @@ const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
 
   const navbar = `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -36,7 +36,7 @@ const Navbar = () => {
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button">Search</button>
+                <button class="btn btn-light" type="button">Search</button>
             </form>
           </div>
         </div>

@@ -4,11 +4,16 @@ import { clearPage } from '../../utils/render';
 
 const text = `
 <div class="text-center">
-  <h1 class="display-1">Your sales stats</h1>
+  <h2 class="display-2">Your sales stats</h2>
 </div>
 <div style="display:block;margin:0 auto; width:20%">
   <div>
     <canvas id="myChart" height="250" width="400"></canvas>
+  </div>
+</div>
+<div style="display:block;margin:0 auto; width:20%">
+  <div>
+    <canvas id="myChart2" height="250" width="400"></canvas>
   </div>
 </div>
 `;
@@ -35,6 +40,25 @@ const StatisticPage = () => {
       document.getElementById('myChart'),
       {
         type: 'polarArea',
+        data: {
+          labels: data.map(row => row.year),
+          datasets: [
+            {
+              label: 'Acquisitions by year',
+              data: data.map(row => row.count)
+            }
+          ]
+        },
+        options: {
+          responsive: true
+        }
+      }
+    );
+
+    new Chart(
+      document.getElementById('myChart2'),
+      {
+        type: 'bar',
         data: {
           labels: data.map(row => row.year),
           datasets: [
