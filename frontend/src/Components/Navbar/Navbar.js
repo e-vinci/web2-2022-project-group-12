@@ -28,8 +28,11 @@ const Navbar = () => {
                 <a class="nav-link" href="#" data-uri="/login">Login Page</a>
               </li>  
               <li class="nav-item">
-              <a class="nav-link" href="#" data-uri="/test">Test</a>
-            </li>                   
+                <a class="nav-link" href="#" data-uri="/test">Test</a>
+              </li>
+              <li>
+                <a class="nav-link" href="#" data-uri="/stats">Statistiques</a>
+              </li>                   
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="text" placeholder="Search">
