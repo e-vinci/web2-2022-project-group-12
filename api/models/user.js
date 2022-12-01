@@ -16,7 +16,6 @@ async addUser(body){
 async doIExist(email,password){
     const user = await (await db.query(`SELECT email, password from "public"."users" WHERE email = $1 AND password = $2`,[email,password])).rows;
     if(user.length === 0){
-            console.log("je suis passé");
             return null
         };
     const authentificatedUser = {

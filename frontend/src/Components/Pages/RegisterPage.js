@@ -51,7 +51,7 @@ const formRegister = `
         </div>
         <button type="submit" class="btn btn-primary" id="register" >Submit</button>
 
-
+        
     </div>`;
 
 const RegisterPage = () => {
@@ -71,11 +71,11 @@ const RegisterPage = () => {
         const passwordConfirmed = document.getElementById('mdp2').value;
         
         const newData = {
-            lastname : lastname,
-            firstname : firstname,
-            email : email,
-            password : password,
-            passwordConfirmed : passwordConfirmed,
+            lastname,
+            firstname,
+            email,
+            password,
+            passwordConfirmed,
             sex:'M'
         }
 
@@ -93,7 +93,7 @@ const RegisterPage = () => {
       
             if (!reponse.ok) {
               throw new Error(
-                "fetch error : " + reponse.status + " : " + reponse.statusText
+                `fetch error : ${  reponse.status  } : ${  reponse.statusText}`
               );
             }
             const user = await reponse.json();
@@ -101,16 +101,6 @@ const RegisterPage = () => {
             console.error("error: ", err);
           }
 
-    })
-
-
-
-}
-
-
-   
-
-
-
-
+    });
+};
 export default RegisterPage;

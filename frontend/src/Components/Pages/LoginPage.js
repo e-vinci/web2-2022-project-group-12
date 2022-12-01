@@ -1,10 +1,6 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const LoginPage = () => {
-  clearPage();
-  const main = document.querySelector('main');
-
   const formLogin = `
     <form class="form-horizontal" action="/action_page.php">
     <div class="form-group">
@@ -32,10 +28,15 @@ const LoginPage = () => {
       </div>
     </div>
   </form> `;
-  main.innerHTML = formLogin;
-};
+  
+
+  const LoginPage = () => {
+    clearPage();
+    const main = document.querySelector('main');
+    main.innerHTML = formLogin;
 
     const btn = document.getElementById('login');
+
     btn.addEventListener('click',async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value;
@@ -68,5 +69,5 @@ const LoginPage = () => {
         console.error("error: ", err);
       }
     });
-
+  };
 export default LoginPage;
