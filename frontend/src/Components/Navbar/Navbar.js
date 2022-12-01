@@ -1,11 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-<<<<<<< HEAD
-import logoAsset from "../../assets/logo.png"
-=======
- // import logoAsset from "../../assets/logo.png"
+import logoAsset from '../../assets/logo.png';
 
->>>>>>> 32b5f8afef9fb4acfb57ccfa550b7edee5629b1d
 /**
  * Render the Navbar which is styled by using Bootstrap
  * Each item in the Navbar is tightly coupled with the Router configuration :
@@ -14,23 +10,11 @@ import logoAsset from "../../assets/logo.png"
  */
 
 const Navbar = () => {
-
   const navbarWrapper = document.querySelector('#navbarWrapper');
 
   const navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
@@ -50,7 +34,5 @@ const Navbar = () => {
   `;
   navbarWrapper.innerHTML = navbar;
 };
-
-
 
 export default Navbar;
