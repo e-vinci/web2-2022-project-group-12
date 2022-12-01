@@ -1,6 +1,5 @@
-import { clearPage } from '../../utils/render';
+import { clearPage } from "../../utils/render";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 
 const formRegister = `   
@@ -56,14 +55,14 @@ const formRegister = `
     </div>`;
 
 const RegisterPage = () => {
-    clearPage();
-    const main = document.querySelector('main');
-    main.innerHTML = formRegister;
+  clearPage();
+  const main = document.querySelector('main');
+  main.innerHTML = formRegister;
 
-    const btn = document.getElementById('register');
+  const btn = document.getElementById('register');
 
-    btn.addEventListener('click', async (e) => {
-        e.preventDefault();
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
 
         const lastname = document.getElementById('nom').value;
         const firstname = document.getElementById('prenom').value;
@@ -72,11 +71,11 @@ const RegisterPage = () => {
         const passwordConfirmed = document.getElementById('mdp2').value;
         
         const newData = {
-            lastname,
-            firstname,
-            email,
-            password,
-            passwordConfirmed,
+            lastname : lastname,
+            firstname : firstname,
+            email : email,
+            password : password,
+            passwordConfirmed : passwordConfirmed,
             sex:'M'
         }
 
@@ -94,8 +93,7 @@ const RegisterPage = () => {
       
             if (!reponse.ok) {
               throw new Error(
-                // eslint-disable-next-line no-irregular-whitespace
-                `fetch error : ${  reponse.status  } : ${  reponse.statusText}`
+                "fetch error : " + reponse.status + " : " + reponse.statusText
               );
             }
             const user = await reponse.json();
@@ -108,6 +106,11 @@ const RegisterPage = () => {
 
 
 }
+
+
+   
+
+
 
 
 export default RegisterPage;
