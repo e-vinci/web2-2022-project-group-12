@@ -14,5 +14,4 @@ app.use(cookieParser());
 
 app.use('/users', usersRouter);
 app.use('/pizzas', pizzaRouter);
-
 module.exports = app;

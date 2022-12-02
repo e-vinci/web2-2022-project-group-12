@@ -1,13 +1,7 @@
-import { clearPage } from "../../utils/render";
+import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const RegisterPage = () => {
-    clearPage();
-    const main = document.querySelector('main');
-    
-
-
-    const formRegister = `   
+const formRegister = `   
     <div class="container mt-3">
 
         <div class="mb-3 mt-3">
@@ -54,16 +48,55 @@ const RegisterPage = () => {
             <label for="password">Confirmation du mot de passe</label>
             <input type="password" class="form-control" id="mdp2" placeholder="Confirmer votre mot de passe" name="password">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="register" >Submit</button>
 
+        
+    </div>`;
 
-    </div> `;
+const RegisterPage = () => {
+  clearPage();
+  const main = document.querySelector('main');
+  main.innerHTML = formRegister;
 
-    main.innerHTML = formRegister;
-    
+  const btn = document.getElementById('register');
 
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
 
+    const lastname = document.getElementById('nom').value;
+    const firstname = document.getElementById('prenom').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('mdp').value;
+    const passwordConfirmed = document.getElementById('mdp2').value;
 
-}
+    const newData = {
+      lastname,
+      firstname,
+      email,
+      password,
+      passwordConfirmed,
+      sex: 'M',
+    };
 
+    try {
+      const options = {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify(newData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const reponse = await fetch('/api/users/register', options);
+
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      }
+      /* const user = await reponse.json(); */
+    } catch (err) {
+        
+      console.error('error: ', err);
+    }
+  });
+};
 export default RegisterPage;

@@ -1,14 +1,18 @@
-
 import HomePage from '../Pages/HomePage';
-import NewPage from '../Pages/NewPage';
 import RegisterPage from '../Pages/RegisterPage';
-import LoginPage from '../Pages/LoginPage'
+import LoginPage from '../Pages/LoginPage';
+import Test from '../Pages/Test';
+import StatisticPage from '../Pages/StatisticPage';
+import BasicSalerPage from '../Pages/BasicSellerPage';
 
 const routes = {
   '/': HomePage,
-  '/new': NewPage,
-  '/register' : RegisterPage,
-  '/login' : LoginPage
+  '/register': RegisterPage,
+  '/login': LoginPage,
+  '/test': Test,
+  '/stats': StatisticPage,
+  '/basicseller': BasicSalerPage,
+
 };
 
 export default routes;
