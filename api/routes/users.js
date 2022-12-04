@@ -2,7 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-const {User} = require("../models/user")
+const {User} = require("../models/user");
+
 const userModel = new User();
 
 
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // inscription
-router.post('/register', async function(req,res,next){
+router.post('/register', async function(req,res){
   console.log(req.body)
   const user = await userModel.addUser(req.body);
   return res.json(user);
