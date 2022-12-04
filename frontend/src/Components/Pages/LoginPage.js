@@ -6,7 +6,7 @@ const LoginPage = () => {
   const main = document.querySelector('main');
 
   const formLogin = `
-    <form class="form-horizontal" action="/action_page.php">
+    <form class="form-horizontal" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="email">Email:</label>
       <div class="col-sm-10">
