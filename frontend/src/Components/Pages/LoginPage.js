@@ -73,7 +73,7 @@ import Navigate from '../Router/Navigate';
         const user = await reponse.json();
         await setAuthenticatedUser(user);
         await Navbar();
-        await Navigate("/");
+        await Navigate("");
       } catch (err) {
         // eslint-disable-next-line
         console.error("error: ", err);
