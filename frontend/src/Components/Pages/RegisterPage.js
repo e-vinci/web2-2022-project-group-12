@@ -94,7 +94,7 @@ const RegisterPage = () => {
       }
       /* const user = await reponse.json(); */
     } catch (err) {
-        
+      // eslint-disable-next-line no-console
       console.error('error: ', err);
     }
   });

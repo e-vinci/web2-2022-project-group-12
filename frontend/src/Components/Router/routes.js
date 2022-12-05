@@ -5,6 +5,7 @@ import Test from '../Pages/Test';
 import StatisticPage from '../Pages/StatisticPage';
 import BasicSalerPage from '../Pages/BasicSellerPage';
 
+
 const routes = {
   '/': HomePage,
   '/register': RegisterPage,
@@ -12,7 +13,7 @@ const routes = {
   '/test': Test,
   '/stats': StatisticPage,
   '/basicseller': BasicSalerPage,
-
+  '/logout' : "/logout"
 };
 
 export default routes;

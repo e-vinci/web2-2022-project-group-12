@@ -28,6 +28,7 @@ router.post('/login', async(req,res)=>{
   if(user === null) return console.error("Le user n'existe pas");
   const emailUser = user.email;
   const logedInUser = await login(emailUser);
+  
   return res.json(logedInUser);
 })
 
