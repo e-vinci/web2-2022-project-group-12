@@ -4,6 +4,8 @@ import LoginPage from '../Pages/LoginPage';
 import Test from '../Pages/Test';
 import StatisticPage from '../Pages/StatisticPage';
 import BasicSalerPage from '../Pages/BasicSellerPage';
+import MyCartPage from '../Pages/MyCartPage';
+
 
 
 const routes = {
@@ -13,7 +15,8 @@ const routes = {
   '/test': Test,
   '/stats': StatisticPage,
   '/basicseller': BasicSalerPage,
-  '/logout' : "/logout"
+  '/logout' : "/logout",
+  '/cart' : MyCartPage
 };
 
 export default routes;

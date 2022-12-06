@@ -3,6 +3,7 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
+import { shoppingCart } from '../../utils/utilsCart';
 
 
 
@@ -74,6 +75,7 @@ import Navigate from '../Router/Navigate';
         await setAuthenticatedUser(user);
         await Navbar();
         await Navigate("");
+        await shoppingCart();
       } catch (err) {
         // eslint-disable-next-line
         console.error("error: ", err);

@@ -1,5 +1,6 @@
 import { clearAuthenticatedUser } from '../../utils/auths';
 import { usePathPrefix } from '../../utils/path-prefix';
+import { deleteCart } from '../../utils/utilsCart';
 import Navbar from '../Navbar/Navbar';
 import Navigate from './Navigate';
 import routes from './routes';
@@ -54,6 +55,7 @@ function onFrontendLoad() {
 
 function logout(){
    clearAuthenticatedUser();
+   deleteCart();
    Navbar();
    Navigate("");
 }
