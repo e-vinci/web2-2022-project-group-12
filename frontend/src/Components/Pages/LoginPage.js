@@ -1,5 +1,11 @@
+import { setAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from '../Navbar/Navbar';
+import Navigate from '../Router/Navigate';
+import { shoppingCart } from '../../utils/utilsCart';
+
+
 
   const formLogin = `
     <form class="form-horizontal" >
@@ -55,21 +61,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
             "Content-Type": "application/json",
           },
         };
-  
+       
         const reponse = await fetch("/api/users/login",options);
-  
+        
         if (!reponse.ok) {
           throw new Error(
             // eslint-disable-next-line no-irregular-whitespace
             `fetch error : ${  reponse.status  } : ${  reponse.statusText}`
           );
         }
-        /* const user = await reponse.json(); */
-        
+       
+        const user = await reponse.json();
+        await setAuthenticatedUser(user);
+        await Navbar();
+        await Navigate("");
+        await shoppingCart();
       } catch (err) {
         // eslint-disable-next-line
         console.error("error: ", err);
       }
+      
     });
   };
 export default LoginPage;

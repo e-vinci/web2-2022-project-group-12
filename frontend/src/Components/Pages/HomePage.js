@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import img from '../../img/produit1.png';
-
+import 'animate.css';
+import Navbar from '../Navbar/Navbar';
 // import img2 from '../../img/produit2.png';
 
 // HTML CODE
@@ -63,6 +64,7 @@ const html = `
   `;
 
 const HomePage = async () => {
+  Navbar();
   const main = document.querySelector('main');
   countAllProduct();
   main.innerHTML = html;

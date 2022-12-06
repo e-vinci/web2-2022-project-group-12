@@ -1,14 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage } from '../../utils/render';
 
-/* <form>
-      <div class="mb-3 mt-3">
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Choose a file</label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div>
-      </div>
-</form> */ 
 
 const html = `
   <h2>Add a product</h2>

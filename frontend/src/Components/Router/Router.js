@@ -1,4 +1,8 @@
+import { clearAuthenticatedUser } from '../../utils/auths';
 import { usePathPrefix } from '../../utils/path-prefix';
+import { deleteCart } from '../../utils/utilsCart';
+import Navbar from '../Navbar/Navbar';
+import Navigate from './Navigate';
 import routes from './routes';
 
 const Router = () => {
@@ -22,6 +26,9 @@ function onNavBarClick() {
     if (!componentToRender) {
       throw Error(`The ${uri} ressource does not exist.`);
     }
+    if(componentToRender === "/logout"){
+      logout();
+    }
 
     componentToRender();
     window.history.pushState({}, '', usePathPrefix(uri));
@@ -44,6 +51,13 @@ function onFrontendLoad() {
 
     componentToRender();
   });
+}
+
+function logout(){
+   clearAuthenticatedUser();
+   deleteCart();
+   Navbar();
+   Navigate("");
 }
 
 export default Router;

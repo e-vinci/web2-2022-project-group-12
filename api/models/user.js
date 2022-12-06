@@ -26,7 +26,6 @@ async doIExist(email,password){
         email : user[0].email,
         password : user[0].password
     }
-
     return authentificatedUser;
 }
 
