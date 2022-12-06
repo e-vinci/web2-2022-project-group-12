@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import img from '../../img/produit1.png';
+
 // import img2 from '../../img/produit2.png';
 
 // HTML CODE
@@ -13,9 +14,21 @@ const html = `
   <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
   <div class="carousel-indicators" id="carousel-buttons">
 
-  </div>
-  <div class="carousel-inner" id = "carousel-items">
+        </div>
+        <div class="carousel-inner" id = "carousel-items">
 
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -51,6 +64,7 @@ const html = `
 
 const HomePage = async () => {
   const main = document.querySelector('main');
+  countAllProduct();
   main.innerHTML = html;
 
   const carrouselListItem = document.getElementById('carousel-items');
@@ -88,11 +102,41 @@ const HomePage = async () => {
   }
   carouselButtons.innerHTML = items;
 
+  try {
+    const options = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const reponse = await fetch('/api/products/getAll', options);
+    
+
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+    }
+    const product = await reponse.json(); 
+    showProduct(product);
+  }
+  
+  catch (err) {
+      
+    console.error('error: ', err);
+  }
+
+};
+
+async function showProduct(product){
+
   const cardProduct = document.getElementById('imgProduct');
   const nbImage = 10;
-  items = ``;
-  i = 0;
+  let items = ``;
+  let i = 0;
+  
   while (i < nbImage){
+    const nameProduct = product[0].productname;
+    const priceProduct = product[0].prix;
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4" >
     <div class="card" style="border-radius: 15px;" >
@@ -105,12 +149,11 @@ const HomePage = async () => {
     <div class="mask"></div>
   </a>
   </div>
- 
-  
+
   <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">Dell Xtreme 270</a></p>
+                <p><a href="#!" class="text-dark">${nameProduct}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
@@ -127,8 +170,8 @@ const HomePage = async () => {
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">$3,999</a></p>
-              <p class="text-dark">#### 8787</p>
+              <p><a href="#!" class="text-dark">${priceProduct}</a></p>
+              
             </div>
             <p class="small text-muted">VISA Platinum</p>
           </div>
@@ -145,7 +188,33 @@ const HomePage = async () => {
   i += 1;
   }
   cardProduct.innerHTML = items;
-
 };
 
+async function countAllProduct(){
+
+  try {
+    const options = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const reponse = await fetch('/api/products/countAll', options);
+    
+
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+    }
+   
+  }
+  
+  catch (err) {
+      
+    console.error('error: ', err);
+  }
+}
+
+
 export default HomePage;
+

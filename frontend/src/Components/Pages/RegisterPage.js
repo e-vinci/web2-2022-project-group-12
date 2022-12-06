@@ -119,16 +119,16 @@ const RegisterPage = () => {
         },
       };
 
-      const response = await fetch('/api/users/register', options);
+      const reponse = await fetch('/api/users/register', options);
 
-      if (!response.ok) {
-        throw new Error(`fetch error: ${response.status} : ${response.statusText}`);
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
-    
+      /* const user = await reponse.json(); */
     } catch (err) {
+        
       console.error('error: ', err);
     }
   });
 };
-
 export default RegisterPage;

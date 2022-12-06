@@ -1,5 +1,6 @@
-const db = require('../db/db');
 const bcrypt = require("bcrypt");
+const db = require('../db/db');
+
 const saltRounds = 10;
 
 class User{
@@ -15,6 +16,20 @@ async addUser(body){
     };
     return user;
 };
+
+async doIExist(email,password){
+    const user = await (await db.query(`SELECT email, password from "public"."users" WHERE email = $1 AND password = $2`,[email,password])).rows;
+    if(user.length === 0){
+            return null
+        };
+    const authentificatedUser = {
+        email : user[0].email,
+        password : user[0].password
+    }
+
+    return authentificatedUser;
+}
+
 
 }
 module.exports = {User};

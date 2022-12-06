@@ -1,0 +1,6 @@
+######### NORMAL OPERATION  ###########
+@baseUrl = http://localhost:3000
+
+#register user
+POST {{baseUrl}}/register/register_user
+
