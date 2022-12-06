@@ -9,8 +9,8 @@ class Product{
 
     async countProduct(){
         const numberOfProduct = await (await db.query(`SELECT COUNT(*) FROM products`)).rows;
-        console.log (" le nombre de produits est " , numberOfProduct[0]);
-        return numberOfProduct;
+        console.log (" le nombre de produits est " , numberOfProduct[0].count);
+        return numberOfProduct[0].count;
     }
 
     async addProduct (body){

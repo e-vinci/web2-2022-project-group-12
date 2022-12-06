@@ -16,10 +16,8 @@ router.get('/getAll', async(req,res)=>{
 
 // Compte tous les produits dans la db
 router.get('/countAll' , async(req,res)=>{
-    console.log("ok");
     const count = await productModel.countProduct();
     if(!count) console.log("ca fnctionne aps");
-    console.log(" nombre : " , count);
     res.send(count);
 })
 
