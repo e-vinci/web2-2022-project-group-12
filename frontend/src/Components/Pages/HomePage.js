@@ -132,13 +132,14 @@ const HomePage = async () => {
 async function showProduct(product){
 
   const cardProduct = document.getElementById('imgProduct');
-  const nbImage = 10;
+  let nbImage = await countAllProduct();
+  nbImage = nbImage.count;
   let items = ``;
   let i = 0;
   
   while (i < nbImage){
-    const nameProduct = product[0].productname;
-    const priceProduct = product[0].prix;
+    const nameProduct = product[i].productname;
+    const priceProduct = product[i].prix;
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4" >
     <div class="card" style="border-radius: 15px;" >
@@ -193,7 +194,7 @@ async function showProduct(product){
 };
 
 async function countAllProduct(){
-
+  let number;
   try {
     const options = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -204,17 +205,19 @@ async function countAllProduct(){
 
     const reponse = await fetch('/api/products/countAll', options);
     
-
+    
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
-   
+    number = await reponse.json(); 
+    
+
   }
-  
   catch (err) {
       
     console.error('error: ', err);
   }
+  return number;
 }
 
 
