@@ -3,7 +3,7 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
-import { shoppingCart } from '../../utils/utilsCart';
+import { loadCart } from '../../utils/utilsCart';
 
 
 
@@ -74,8 +74,9 @@ import { shoppingCart } from '../../utils/utilsCart';
         const user = await reponse.json();
         await setAuthenticatedUser(user);
         await Navbar();
+        const cart = await loadCart(email);
+        console.log("Le cart apres connexion est : ", cart);
         await Navigate("/");
-        await shoppingCart();
         } catch (err) {
         // eslint-disable-next-line
         console.error("error: ", err);
