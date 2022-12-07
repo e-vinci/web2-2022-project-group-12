@@ -1,7 +1,7 @@
-const bcrypt = require("bcrypt");
+ const bcrypt = require("bcrypt");
 const db = require('../db/db');
 
-const saltRounds = 10;
+ const saltRounds = 10;
 
 class User{
 
@@ -12,7 +12,7 @@ async addUser(body){
         firstname: body.firstname,
         lastname: body.lastname,
         email: body.email,
-        password: hashedPassword,
+        password: hashedPassword
     };
     return user;
 };
