@@ -13,7 +13,7 @@ const MyCartPage = () => {
   for (const item in cart.objects) { 
     console.log(cart.objects[item].name);
 
-    html += `name : ${  cart.objects[item].name  }price : ${  cart.objects[item].count  }nombre : ${ cart.objects[item].price}`;
+    html += `name : ${  cart.objects[item].name  }price : ${  cart.objects[item].price  }nombre : ${ cart.objects[item].count}`;
 
 }
  const main = document.querySelector('main');
