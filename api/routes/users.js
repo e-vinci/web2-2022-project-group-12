@@ -14,11 +14,11 @@ router.get('/', (req, res) => {
 });
 
 // inscription
-router.post('/register', async (req,res)=> {
+router.post('/register', async (req,res)=>{
   console.log(req.body)
   const user = await userModel.addUser(req.body);
   return res.json(user);
-})
+});
 
 router.post('/login', async(req,res)=>{
   console.log(req.body);
@@ -30,6 +30,6 @@ router.post('/login', async(req,res)=>{
   const logedInUser = await login(emailUser);
   
   return res.json(logedInUser);
-})
+});
 
 module.exports = router;
