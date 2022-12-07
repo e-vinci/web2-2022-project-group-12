@@ -1,5 +1,7 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { shoppingCart } from '../../utils/utilsCart';
+import Navigate from '../Router/Navigate';
 
 // Fromulaire Bootstrap
 const formRegister = `
@@ -124,6 +126,8 @@ const RegisterPage = () => {
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
+      shoppingCart(email);
+      Navigate("login");
       /* const user = await reponse.json(); */
     } catch (err) {
       // eslint-disable-next-line no-console
