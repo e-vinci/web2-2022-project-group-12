@@ -3,7 +3,7 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
-import { loadCart } from '../../utils/utilsCart';
+import { loadCart, shoppingCart } from '../../utils/utilsCart';
 
 
 
@@ -74,7 +74,16 @@ import { loadCart } from '../../utils/utilsCart';
         const user = await reponse.json();
         await setAuthenticatedUser(user);
         await Navbar();
-        const cart = await loadCart(email);
+        let string = "shoppingCart";
+        string += user.email;
+        console.log(user.email);
+        console.log(email);
+        console.log(string)
+        if ( await localStorage.getItem(string) == null){
+          await shoppingCart(user.email);
+        }
+        
+        const cart = await loadCart(user.email);
         console.log("Le cart apres connexion est : ", cart);
         await Navigate("/");
         } catch (err) {
