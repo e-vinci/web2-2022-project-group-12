@@ -14,10 +14,16 @@ router.get('/getAll', async(req,res)=>{
     res.send(result);
 })
 
+// Permet de récupérer un produit en particulier avec id
+router.get('/getIdProduct/:id' , async(req,res)=>{
+    const result = await productModel.getOneProduct(req.params.id);
+    res.send(result);
+
+})
+
 // Compte tous les produits dans la db
 router.get('/countAll' , async(req,res)=>{
     const count = await productModel.countProduct();
-    if(!count) console.log("ca fnctionne aps");
     res.send(count);
 })
 
