@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import img from '../../img/produit1.png';
 import 'animate.css';
-import Navbar from '../Navbar/Navbar';
+import { addItemToCart } from '../../utils/utilsCart';
 // import img2 from '../../img/produit2.png';
 
 // HTML CODE
@@ -31,15 +31,6 @@ const html = `
       </div>
     </div>
   </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
 </div>
 
@@ -64,7 +55,6 @@ const html = `
   `;
 
 const HomePage = async () => {
-  Navbar();
   const main = document.querySelector('main');
   countAllProduct();
   main.innerHTML = html;
@@ -113,31 +103,39 @@ const HomePage = async () => {
     };
 
     const reponse = await fetch('/api/products/getAll', options);
-    
 
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
-    const product = await reponse.json(); 
-    showProduct(product);
-  }
-  
-  catch (err) {
-      
+    const product = await reponse.json();
+    await showProduct(product);
+    
+    const btn = document.getElementsByName('btnAddtoCart');
+    for(let y=0;y<btn.length; y+=1){
+    btn[y].addEventListener('click', async (e) => {
+    e.preventDefault();
+    // eslint-disable-next-line no-console
+    console.log(btn[y].value);
+    addItemToCart(btn[y].value,5,1);
+    // eslint-disable-next-line no-console
+  })};
+    
+  } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
-
 };
 
-async function showProduct(product){
 
+
+async function showProduct(product) {
   const cardProduct = document.getElementById('imgProduct');
-  let nbImage = await countAllProduct();
-  nbImage = nbImage.count;
+  const nbImage = await countAllProduct();
   let items = ``;
   let i = 0;
-  
-  while (i < nbImage){
+
+  while (i < nbImage) {
+    const id = product[i].id_product;
     const nameProduct = product[i].productname;
     const priceProduct = product[i].prix;
     items += `
@@ -182,18 +180,18 @@ async function showProduct(product){
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
               <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" class="btn btn-primary">Buy now</button>
+              <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-primary">Add to cart</button>
             </div>
           </div>
           </div>
           </div>
   `;
-  i += 1;
+    i += 1;
   }
   cardProduct.innerHTML = items;
-};
+}
 
-async function countAllProduct(){
+async function countAllProduct() {
   let number;
   try {
     const options = {
@@ -204,22 +202,16 @@ async function countAllProduct(){
     };
 
     const reponse = await fetch('/api/products/countAll', options);
-    
-    
+
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
-    number = await reponse.json(); 
-    
-
-  }
-  catch (err) {
-      
+    number = await reponse.json();
+  } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
   return number;
 }
 
-
 export default HomePage;
-

@@ -74,9 +74,9 @@ import { shoppingCart } from '../../utils/utilsCart';
         const user = await reponse.json();
         await setAuthenticatedUser(user);
         await Navbar();
-        await Navigate("");
+        await Navigate("/");
         await shoppingCart();
-      } catch (err) {
+        } catch (err) {
         // eslint-disable-next-line
         console.error("error: ", err);
       }

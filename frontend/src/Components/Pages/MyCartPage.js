@@ -1,4 +1,5 @@
-import { Item, loadCart, saveCart } from '../../utils/utilsCart';
+import { loadCart } from "../../utils/utilsCart";
+
 
 const MyCartPage = () => {
   // si la session contient un panier, afficher un bouton pour le supprimer (Ceci sert uniquepent de test de localStorage)
@@ -19,32 +20,8 @@ const MyCartPage = () => {
   const btn = document.getElementById('removeButton');
   btn.addEventListener('click', deleteCartTest);
 
-  let cart = loadCart();
-
-  
-  function addItemToCart(name, price, count) {
-    cart = loadCart();
-    // eslint-disable-next-line no-restricted-syntax
-    for (const item in cart) {
-      if (cart[item].name === name) {
-        cart[item].count += count;
-        saveCart(cart);
-        return;
-      }
-    }
-    const itemToadd = new Item(name, price, count);
-    cart.push(itemToadd);
-    saveCart(cart);
-  };
-
-  addItemToCart("pomme",5,5);
-  // eslint-disable-next-line no-console
-  console.log("LE PAINIER EST", cart);
-  addItemToCart("pomme",5,5);
-  addItemToCart("orange",5,5);
-// eslint-disable-next-line no-console
-  console.log("LE PAINIER EST", cart);
-
+  const cart = loadCart();
+  console.log(cart);
 
 };
 export default MyCartPage;
