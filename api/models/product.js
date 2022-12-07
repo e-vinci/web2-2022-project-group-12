@@ -8,10 +8,14 @@ class Product{
         return product;
     }
 
+    async getOneProduct(id){
+        const product = await (await db.query(`SELECT * FROM products WHERE id_product = $1`, [id])).rows;
+        return product[0];
+    }
+
     
     async countProduct(){
         const numberOfProduct = await (await db.query(`SELECT COUNT(*) FROM products`)).rows;
-        console.log (" le nombre de produits est " , numberOfProduct[0].count);
         return numberOfProduct[0].count;
     }
 
