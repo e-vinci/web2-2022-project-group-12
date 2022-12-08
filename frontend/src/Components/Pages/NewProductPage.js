@@ -1,90 +1,106 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navigate from '../Router/Navigate';
 
-const NewProductPage = () =>{
+
+// formulaire NewProduct
+const formNewProduct = `  
+<h2>Add a product</h2>
+<form>   
+<div class="container mt-3">
+
+    <div class="mb-3 mt-3">
+        <label for="name">Product Name :</label>
+        <input type="text" class="form-control" id="productName" placeholder="Enter the product name" name="productName">
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label for="name">Product Description :</label>
+        <input type="text" class="form-control" id="description" placeholder="Enter the product description" name="description">
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label for="name">Type :</label>
+        <input type="text" class="form-control" id="type" placeholder="Enter the type of product" name="type">
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label for="email">Price :</label>
+        <input type="int" class="form-control" id="price" placeholder="Enter the price" name="price">
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label for="email">Color :</label>
+        <input type="int" class="form-control" id="color" placeholder="Enter the color of the product" name="color">
+    </div>
     
+    <div class="mb-3 mt-3">
+        <label class="control-label small" for="file_img">Add image(jpg/png):</label> 
+        <input type="file" class="form-control" name="file_img" id="image">
+    </div>
+
+    
+
+    <button type="submit" class="btn btn-primary" id="addProduct" >Add Product</button>
+</div> 
+</form>
+`;
+
+
+const NewProductPage = () => {
     clearPage();
     const main = document.querySelector('main');
-
-    const formNewProduct = `  
-    <div class="container">
-    <section class="panel panel-default">
-    
-        <div class="panel-heading"> 
-            <h3 class="panel-title">Add new product</h3> 
-        </div> 
-
-        <div class="panel-body">
-
-        <form action="designer-finish.html" class="form-horizontal" role="form">
-
-        </div> <!-- form-group // -->
-        <div class="form-group">
-            <label for="name" class="col-sm-3 control-label">Product name</label>
-            <div class="col-sm-9">
-            <input type="text" class="form-control" name="name" id="name" >
-        </div>
-        </div> <!-- form-group // -->
-
-        <div class="form-group">
-            <label for="about" class="col-sm-3 control-label">Description</label>
-            <div class="col-sm-9">
-            <textarea class="form-control"></textarea>
-            </div>
-        </div> <!-- form-group // -->
-
-        <div class="form-group">
-            <label for="qty" class="col-sm-3 control-label">Quantity</label>
-            <div class="col-sm-3">
-        <input type="text" class="form-control" name="quantity" id="qty" >
-            </div>
-        </div> <!-- form-group // -->
-
-        <div class="form-group">
-        <label for="price" class="col-sm-3 control-label">Price</label>
-            <div class="col-sm-3">
-        <input type="number" min="0.00" max="10000.00" step="0.1" class="form-control" name="price" id="price" />
-        </div>
-        </div> <!-- form-group // -->
-        
-        <div class="form-group">
-            <div class="col-sm-3">
-            <label class="control-label small" for="file_img">Add image(jpg/png):</label> <input type="file" name="file_img">
-            </div>
-        </div> <!-- form-group // -->
-
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Different colors?</label>
-        </div>
-
-        <div class="form-group">
-            <label for="tech" class="col-sm-3 control-label">Colour</label>
-            <div class="col-sm-3">
-        <select class="form-control">
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-            <option value="orange">Orange</option>
-            <option value="pink">Pink</option>
-        </select>
-            </div>
-        </div> <!-- form-group // -->
-
-        <hr>
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" class="btn btn-primary">Add</button>
-            </div>
-        </div> <!-- form-group // -->
-        </form>
-
-        </div><!-- panel-body // -->
-    </section><!-- panel// -->
-
-    </div>
-    `;
-
     main.innerHTML = formNewProduct;
-}
+
+    const btn = document.getElementById('addProduct');
+
+    // Ajout du Produit aprés avoir appuyé sur le bouton submit
+    btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    // Récupération de toute les données avec les id
+    const productname = document.getElementById('name').value;
+    const description= document.getElementById('description').value;
+    const type = document.getElementById('type').value
+    const price = document.getElementById('price').value;
+    const color = document.getElementById('color').value;
+
+
+    if(productname.value === undefined || description.value === undefined || type.value === undefined || price.value === undefined || color.value === undefined){
+        console.error("Veuillez compléter tous les champs");
+      }
+
+
+    // Création d'un nouvel objet json
+    const NewProduct = {
+        productname,
+        description,
+        type,
+        price,
+        color,
+      };
+
+      try {
+        const options = {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          body: JSON.stringify(NewProduct),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+
+        const reponse = await fetch('/api/products/add', options);
+
+        if (!reponse.ok) {
+          throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+        }
+        Navigate("ProductPage");
+        /* const user = await reponse.json(); */
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('error: ', err);
+      }
+  });
+};
 
 export default NewProductPage;

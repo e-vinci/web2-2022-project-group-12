@@ -5,6 +5,7 @@ import Test from '../Pages/Test';
 import StatisticPage from '../Pages/StatisticPage';
 import BasicSalerPage from '../Pages/BasicSellerPage';
 import MyCartPage from '../Pages/MyCartPage';
+import NewProductPage from '../Pages/NewProductPage';
 
 
 
@@ -16,7 +17,8 @@ const routes = {
   '/stats': StatisticPage,
   '/basicseller': BasicSalerPage,
   '/logout' : "/logout",
-  '/cart' : MyCartPage
+  '/cart' : MyCartPage,
+  '/addProduct' : NewProductPage
 };
 
 export default routes;
