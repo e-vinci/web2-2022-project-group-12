@@ -5,7 +5,7 @@ import { getCartTotal, loadCart, removeItemFromCart } from "../../utils/utilsCar
 import Navigate from "../Router/Navigate";
 
 const html = `
-<div class="col-md-4 order-md-2 mb-4">
+<div class="col-md-4 order-md-2 mb-4 mx-auto" style="margin-top: 200px">
 <h4 class="d-flex justify-content-between align-items-center mb-3">
   <span class="text-muted">Your cart</span>
   <span class="badge badge-secondary badge-pill">3</span>
@@ -14,17 +14,24 @@ const html = `
 
 </ul>
 
-<button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
+<button type="button" class="btn btn-success btn-lg" id="checkoutButton" style ="margin-left : 75%">Checkout</button>
 `;
 
 const MyCartPage = () => {
   // si la session contient un panier, afficher un bouton pour le supprimer (Ceci sert uniquepent de test de localStorage)
   clearPage();
-  const main = document.querySelector('main');
-  main.innerHTML = html;
-  let html2 = ``;
   const userEmail = getAuthenticatedUser().email;
   const cart = loadCart(userEmail);
+  const main = document.querySelector('main');
+  if(cart.objects.length === 0){
+    main.innerHTML = `<h1 class="cover-heading  " style="margin-top : 200px; text-align : center">Votre panier est vide &#128524</h1>`;
+  }else{
+  
+  
+  main.innerHTML = html;
+  let html2 = ``;
+  
+  
   console.log("le panier est", cart.objects);
 
 
@@ -53,7 +60,7 @@ html2 += `<li class="list-group-item d-flex justify-content-between">
 <span>Total Price</span>
 <strong>${totalPrice} €</strong>
 </li>`
-console.log(html2);
+
 id.innerHTML = html2;
 
 const btn = document.getElementsByClassName('deleteArticleButton');
@@ -71,11 +78,8 @@ const btn = document.getElementsByClassName('deleteArticleButton');
   btnCheckout.addEventListener('click', (e)=>{
     e.preventDefault();
     Navigate("checkout");
-  } )
-
-
-
-
+  });
+}
 
 };
   

@@ -1,3 +1,4 @@
+
 import { clearPage } from "../../utils/render";
 import { getCartTotal } from "../../utils/utilsCart";
 
