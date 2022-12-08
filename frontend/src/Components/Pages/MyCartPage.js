@@ -1,27 +1,24 @@
+import { getAuthenticatedUser } from "../../utils/auths";
+import { clearPage } from "../../utils/render";
 import { loadCart } from "../../utils/utilsCart";
 
 
 const MyCartPage = () => {
   // si la session contient un panier, afficher un bouton pour le supprimer (Ceci sert uniquepent de test de localStorage)
-  if (sessionStorage.getItem('shoppingCart') != null) {
-    const main = document.querySelector('main');
-    main.innerHTML = `<button type="button" id="removeButton"class="btn btn-primary">Supprimer Panier</button>`;
-  } else {
-    // si non (ou quand on clique sur supprimer panier, affiche qu'il n'y a pas de panier)
-    const main = document.querySelector('main');
-    main.innerHTML = "Il n'y a pas de panier ";
-  }
-  // supprimer le panier
-  const deleteCartTest = () => {
-    sessionStorage.removeItem('shoppingCart');
-    MyCartPage();
-  };
+  clearPage();
+  const userEmail = getAuthenticatedUser().email;
+  const cart = loadCart(userEmail);
+  let html="";
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
+  for (const item in cart.objects) { 
+    console.log(cart.objects[item].name);
 
-  const btn = document.getElementById('removeButton');
-  btn.addEventListener('click', deleteCartTest);
+    html += `name : ${  cart.objects[item].name  }price : ${  cart.objects[item].price  }nombre : ${ cart.objects[item].count}`;
 
-  const cart = loadCart();
-  console.log(cart);
-
+}
+ const main = document.querySelector('main');
+ main.innerHTML += html
 };
+  
+
 export default MyCartPage;

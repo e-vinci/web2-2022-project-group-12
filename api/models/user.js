@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 const bcrypt = require("bcrypt");
 const db = require('../db/db');
 

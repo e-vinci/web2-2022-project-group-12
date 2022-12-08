@@ -1,41 +1,62 @@
 import Navigate from "../Components/Router/Navigate";
 import { getAuthenticatedUser } from "./auths";
 
-const shoppingCart = () => {
-  const cart = [];
-  saveCart(cart);
+const shoppingCart = (email) => {
+    const items = [];
+    const cart = {
+     objects : items,
+     email
+  }
+  console.log("Cart created");
+  createCart(cart,email);
 };
 
+function createCart(cart,email){
+    let string = "shopppingCart";
+    string+=email;
+    localStorage.setItem(string,JSON.stringify(cart));
+}
+
 function saveCart(cart) {
-    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
+    const user = getAuthenticatedUser();
+    let string = "shopppingCart";
+    string+=user.email;
+    localStorage.setItem(string, JSON.stringify(cart));
   }
-  saveCart();
 
-
-function loadCart() {
-  const cart = JSON.parse(sessionStorage.getItem('shoppingCart'));
+function loadCart(emailUser) {
+    console.log("Lemial du user load cart est ", emailUser);
+    let string = "shopppingCart";
+    string+=emailUser
+  const cart = JSON.parse(localStorage.getItem(string));
+  if(cart.email === emailUser){
   return cart;
+}
+return  console.error("le user n'a pas de cart")
 }
 
 function deleteCart() {
-  sessionStorage.removeItem('shoppingCart');
+  localStorage.removeItem('shoppingCart');
 }
 
 
 function addItemToCart(name, price, count) {
     const user = getAuthenticatedUser();
     if(user!==undefined){
-     const cart = loadCart();
+        console.log("email",user.email);
+     const cart = loadCart(user.email);
+     console.log("tentative d'ajout dans le cart", cart);
     // eslint-disable-next-line no-restricted-syntax
-        for (const item in cart) {
-            if (cart[item].name === name) {
-            cart[item].count += count;
+        for (const item in cart.objects) {
+            if (cart.objects[item].name === name) {
+            cart.objects[item].count += count;
             saveCart(cart);
         return;
       }
     }
     const itemToadd = new Item(name, price, count);
-    cart.push(itemToadd);
+    cart.objects.push(itemToadd);
+    console.log(cart);
     saveCart(cart);
     // eslint-disable-next-line no-console
     console.log(cart);

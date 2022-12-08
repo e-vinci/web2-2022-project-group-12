@@ -30,7 +30,7 @@ const Navbar = () => {
                   <a class="nav-link" href="#" data-uri="/register">Register</a>
                 </li>    
                 <li class="nav-item">
-                  <a class="nav-link" href="#" data-uri="/login">Login Page</a>
+                  <a class="nav-link" href="#" data-uri="/login">Login</a>
                 </li>  
                 <li class="nav-item">
                   <a class="nav-link" href="#" data-uri="/test">Test</a>
@@ -64,12 +64,6 @@ const Navbar = () => {
                     <img alt="Logo" src=${logoAsset} height=70 width=70>
                   </a>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" data-uri="/register">Register</a>
-                </li>    
-                <li class="nav-item">
-                  <a class="nav-link" href="#" data-uri="/login">Login Page</a>
-                </li>  
-                <li class="nav-item">
                   <a class="nav-link" href="#" data-uri="/test">Test</a>
                 </li>
                 <li>
@@ -79,10 +73,10 @@ const Navbar = () => {
                   <a class="nav-link" href="#" data-uri="/basicseller">Basic Seller</a>
                 </li> 
                 <li>
-                  <a class="nav-link" href="#" data-uri="/cart">My Cart !</a>
+                  <a class="nav-link" href="#" data-uri="/cart">My Cart</a>
                 </li>
                 <li>
-                  <a class="nav-link" href="#" data-uri="/logout">logout !</a>
+                  <a class="nav-link" href="#" data-uri="/logout">Logout</a>
                 </li>         
               </ul>
                 <form class="d-flex">

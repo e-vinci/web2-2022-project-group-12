@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import img from '../../img/produit1.png';
 import 'animate.css';
+import image from '../../assets/image1.png';
 import { addItemToCart } from '../../utils/utilsCart';
 // import img2 from '../../img/produit2.png';
 
@@ -143,7 +145,7 @@ async function showProduct(product) {
     <div class="card" style="border-radius: 15px;" >
     <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light" >
-    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
+    <img src="${image}"
     style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
     alt="Laptop"/>
   <a href="#!">
@@ -202,7 +204,6 @@ async function countAllProduct() {
     };
 
     const reponse = await fetch('/api/products/countAll', options);
-
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
