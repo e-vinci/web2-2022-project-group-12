@@ -1,3 +1,8 @@
+import { clearAuthenticatedUser } from '../../utils/auths';
+import { usePathPrefix } from '../../utils/path-prefix';
+import { deleteCart } from '../../utils/utilsCart';
+import Navbar from '../Navbar/Navbar';
+import Navigate from './Navigate';
 import routes from './routes';
 
 const Router = () => {
@@ -7,18 +12,26 @@ const Router = () => {
 };
 
 function onNavBarClick() {
-  const navItems = document.querySelectorAll('.nav-link');
+  const navbarWrapper = document.querySelector('#navbarWrapper');
 
-  navItems.forEach((item) => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      const uri = e.target?.dataset?.uri;
-      const componentToRender = routes[uri];
-      if (!componentToRender) throw Error(`The ${uri} ressource does not exist.`);
+  navbarWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+    const navBarItemClicked = e.target;
+    let uri = navBarItemClicked?.dataset?.uri;
+    if (!uri) {
+      const parent = navBarItemClicked.parentElement;
+      uri = parent?.dataset?.uri;
+    }
+    const componentToRender = routes[uri];
+    if (!componentToRender) {
+      throw Error(`The ${uri} ressource does not exist.`);
+    }
+    if(componentToRender === "/logout"){
+      logout();
+    }
 
-      componentToRender();
-      window.history.pushState({}, '', uri);
-    });
+    componentToRender();
+    window.history.pushState({}, '', usePathPrefix(uri));
   });
 }
 
@@ -38,6 +51,13 @@ function onFrontendLoad() {
 
     componentToRender();
   });
+}
+
+function logout(){
+   clearAuthenticatedUser();
+   deleteCart();
+   Navbar();
+   Navigate("");
 }
 
 export default Router;

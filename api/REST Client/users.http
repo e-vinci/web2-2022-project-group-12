@@ -2,3 +2,18 @@
 
 ### Read all users
 GET {{baseUrl}}/users
+
+
+### Register one user
+
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "lastname" : "bck",
+    "firstname" : "med",
+    "email" : "oui@gmail.com",
+    "password" : "123",
+    "passwordConfirmed" : "123",
+    "sex":"M"
+}
