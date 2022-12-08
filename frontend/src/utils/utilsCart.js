@@ -67,6 +67,27 @@ function addItemToCart(name, price, count) {
     }
   };
 
+  function removeItemFromCart(name){
+    console.log("l'objet a supprimer est : ", name);
+    const user = getAuthenticatedUser();
+    const cart = loadCart(user.email);
+    console.log("cart avant remove ", cart)
+    // eslint-disable-next-line no-restricted-syntax
+    for(const item in cart.objects) {
+      if(cart.objects[item].name === name) {
+        cart.objects[item].count -= 1;
+        if(cart.objects[item].count === 0) {
+          cart.objects.splice(item,1);
+        }
+        console.log("Normaly Items has been removed");
+        console.log(cart);
+        break;
+      }
+  }
+  saveCart(cart);
+}
+
+
 
 function Item(name, price, count) {
   this.name = name;
@@ -76,4 +97,4 @@ function Item(name, price, count) {
 
 
 
-export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart, Item };
+export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart,removeItemFromCart, Item };

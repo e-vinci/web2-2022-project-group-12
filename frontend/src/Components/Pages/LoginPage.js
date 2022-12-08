@@ -76,16 +76,14 @@ import { loadCart, shoppingCart } from '../../utils/utilsCart';
         await Navbar();
         let string = "shoppingCart";
         string += user.email;
-        console.log(user.email);
-        console.log(email);
-        console.log(string)
         if ( await localStorage.getItem(string) == null){
           await shoppingCart(user.email);
         }
         
         const cart = await loadCart(user.email);
+        // eslint-disable-next-line no-console
         console.log("Le cart apres connexion est : ", cart);
-        await Navigate("/");
+        await Navigate("");
         } catch (err) {
         // eslint-disable-next-line
         console.error("error: ", err);
