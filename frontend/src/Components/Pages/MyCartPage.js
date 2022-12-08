@@ -1,7 +1,7 @@
 
 import { getAuthenticatedUser } from "../../utils/auths";
 import { clearPage } from "../../utils/render";
-import { loadCart, removeItemFromCart } from "../../utils/utilsCart";
+import { getCartTotal, loadCart, removeItemFromCart } from "../../utils/utilsCart";
 import Navigate from "../Router/Navigate";
 
 const html = `
@@ -14,6 +14,7 @@ const html = `
 
 </ul>
 
+<button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
 `;
 
 const MyCartPage = () => {
@@ -45,8 +46,13 @@ for(let i = 0 ; i<length;i+=1){
   <button type="button" class="deleteArticleButton">Supprimer Article</button>
   </li>
 `
-
 }
+
+const totalPrice = getCartTotal();
+html2 += `<li class="list-group-item d-flex justify-content-between">
+<span>Total Price</span>
+<strong>${totalPrice} €</strong>
+</li>`
 console.log(html2);
 id.innerHTML = html2;
 
@@ -61,6 +67,12 @@ const btn = document.getElementsByClassName('deleteArticleButton');
       Navigate("cart");
     });
   }
+  const btnCheckout = document.getElementById('checkoutButton');
+  btnCheckout.addEventListener('click', (e)=>{
+    e.preventDefault();
+    Navigate("checkout");
+  } )
+
 
 
 

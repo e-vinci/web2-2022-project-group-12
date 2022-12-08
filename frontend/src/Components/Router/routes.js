@@ -8,6 +8,7 @@ import MyCartPage from '../Pages/MyCartPage';
 import NewProductPage from '../Pages/NewProductPage';
 import UserPage from '../Pages/UserPage';
 import UpdateUser from '../Pages/UpdateUser';
+import CheckoutPage from '../Pages/CheckoutPage';
 
 
 
@@ -22,7 +23,8 @@ const routes = {
   '/cart' : MyCartPage,
   '/addProduct' : NewProductPage,
   '/user' : UserPage,
-  '/update' : UpdateUser
+  '/update' : UpdateUser,
+  '/checkout' : CheckoutPage
 };
 
 

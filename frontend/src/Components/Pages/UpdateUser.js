@@ -1,4 +1,4 @@
-import { getAuthenticatedUser } from '../../utils/auths';
+
 import { clearPage } from '../../utils/render';
 
 const html = `<h1>yo</hi>`;

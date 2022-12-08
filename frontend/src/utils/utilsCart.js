@@ -88,6 +88,18 @@ function addItemToCart(name, price, count) {
   saveCart(cart);
 }
 
+function getCartTotal(){
+  const user = getAuthenticatedUser();
+    const cart = loadCart(user.email);
+    let sum =0;
+    const {length} = cart.objects;
+  for(let i=0; i<length; i+=1){
+    sum += cart.objects[i].price * cart.objects[i].count; 
+    console.log(sum);
+}
+return sum;
+}
+
 
 
 function Item(name, price, count) {
@@ -98,4 +110,4 @@ function Item(name, price, count) {
 
 
 
-export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart,removeItemFromCart, Item };
+export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart,removeItemFromCart,getCartTotal, Item };
