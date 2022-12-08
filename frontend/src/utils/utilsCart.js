@@ -29,6 +29,7 @@ function loadCart(emailUser) {
     let string = "shoppingCart";
     string+=emailUser
   const cart = JSON.parse(localStorage.getItem(string));
+  console.log( "test",cart);
   if(cart.email === emailUser){
   return cart;
 }

@@ -4,7 +4,6 @@ import img from '../../img/produit1.png';
 import 'animate.css';
 import image from '../../assets/image1.png';
 import { addItemToCart } from '../../utils/utilsCart';
-// import img2 from '../../img/produit2.png';
 
 // HTML CODE
 const html = `
@@ -109,21 +108,32 @@ const HomePage = async () => {
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
+
     const product = await reponse.json();
     await showProduct(product);
     
     const btn = document.getElementsByName('btnAddtoCart');
+
     for(let y=0;y<btn.length; y+=1){
-      btn[y].addEventListener('click', async (e) => {
+     btn[y].addEventListener('click', async (e) => {
       e.preventDefault();
-      // eslint-disable-next-line no-console
       console.log(btn[y].value);
       addItemToCart(btn[y].value,5,1);
-    // eslint-disable-next-line no-console
-  })};
+    })};
+
+    const a = document.getElementById('aProductName');
+
+    a.addEventListener('click' , async (e) =>{
+      e.preventDefault();
+      const id = a.name;
+      // eslint-disable-next-line prefer-template
+      a.href = "/test?id_product="+id;
+      window.location.href = a.href;
+    }); 
     
-  } catch (err) {
-    // eslint-disable-next-line no-console
+  } 
+  
+  catch (err) {
     console.error('error: ', err);
   }
 };
@@ -156,7 +166,7 @@ async function showProduct(product) {
   <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">${nameProduct}</a></p>
+                <p><a href="#!" id="aProductName"  class="text-dark" name="${id}">${nameProduct}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
