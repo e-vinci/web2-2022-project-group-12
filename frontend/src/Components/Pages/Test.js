@@ -1,14 +1,21 @@
 import { clearPage } from "../../utils/render";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { addItemToCart } from '../../utils/utilsCart';
 
-const TestPage = () =>{
+const TestPage = async () =>{
     clearPage();
     const main = document.querySelector('main');
+    const id = window.location.search;
+
+    const url = id.split ('=');
+    const product = await getProductById(url[1]);
+
     const test = `
+    <h></h2>
     <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card" style="border-radius: 15px;">
+        <div class="card" style="border-radius: 50px;">
           <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
@@ -21,7 +28,7 @@ const TestPage = () =>{
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">Dell Xtreme 270</a></p>
+                <p><a href="#!" class="text-dark">${product.productname}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
@@ -38,8 +45,7 @@ const TestPage = () =>{
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">$3,999</a></p>
-              <p class="text-dark">#### 8787</p>
+              <p><a href="#!" class="text-dark">${product.prix}</a></p>
             </div>
             <p class="small text-muted">VISA Platinum</p>
           </div>
@@ -47,7 +53,7 @@ const TestPage = () =>{
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
               <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" class="btn btn-primary">Buy now</button>
+              <button type="button" name="btnAddtoCart" class="btn btn-primary">Buy now</button>
             </div>
           </div>
         </div>
@@ -57,5 +63,45 @@ const TestPage = () =>{
           `
     main.innerHTML = test;
 
+    const btn = document.getElementsByName('btnAddtoCart');
+
+    for(let y=0;y<btn.length; y+=1){
+     btn[y].addEventListener('click', async (e) => {
+      e.preventDefault();
+      console.log(btn[y].value);
+      addItemToCart(btn[y].value,5,1);
+    })};
 }
+
+
+async function getProductById(id){
+
+  let product;
+
+  try {
+    const options = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    // eslint-disable-next-line prefer-template
+    const reponse = await fetch('/api/products/getIdProduct/' + id, options);
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+    }
+
+    product = await reponse.json();
+
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('error: ', err);
+  }
+  return product;
+  
+}
+
+
+
 export default TestPage;

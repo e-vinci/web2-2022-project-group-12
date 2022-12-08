@@ -20,13 +20,14 @@ class Product{
     }
 
     async addProduct (body){
-        await db.query(`INSERT INTO products (productname,type,prix) VALUES( $1, $2, $3 )`,[body.productName,body.type,body.prix]);
-        console.log(body.productName,body.type,body.prix);
+        await db.query(`INSERT INTO products (productname,description,type,price,color) VALUES( $1, $2, $3, $4, $5)`,[body.productName,body.description,body.type,body.prix,body.color]);
+        console.log(body.productName,body.description,body.type,body.price,body.color);
         const product = {
             productName: body.productName,
+            description: body.description,
             type: body.type,
-            prix: body.prix,
-            
+            price: body.price,
+            color: body.color,
         };
         return product;
     };
