@@ -12,23 +12,25 @@ const shoppingCart = (email) => {
 };
 
 function createCart(cart,email){
-    let string = "shopppingCart";
+    let string = "shoppingCart";
     string+=email;
     localStorage.setItem(string,JSON.stringify(cart));
 }
 
 function saveCart(cart) {
     const user = getAuthenticatedUser();
-    let string = "shopppingCart";
+    let string = "shoppingCart";
     string+=user.email;
     localStorage.setItem(string, JSON.stringify(cart));
   }
 
 function loadCart(emailUser) {
     console.log("Lemial du user load cart est ", emailUser);
-    let string = "shopppingCart";
-    string+=emailUser
+    let string = "shoppingCart";
+    string+=emailUser;
+    console.log(string)
   const cart = JSON.parse(localStorage.getItem(string));
+  console.log( "test",cart);
   if(cart.email === emailUser){
   return cart;
 }

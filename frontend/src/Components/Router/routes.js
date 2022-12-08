@@ -19,4 +19,6 @@ const routes = {
   '/cart' : MyCartPage
 };
 
-export default routes;
+
+
+export default routes ;

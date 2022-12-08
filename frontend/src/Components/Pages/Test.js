@@ -1,10 +1,16 @@
 import { clearPage } from "../../utils/render";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const TestPage = () =>{
+const TestPage = async () =>{
     clearPage();
     const main = document.querySelector('main');
+    const id = window.location.search;
+
+    const url = id.split ('=');
+    const product = await getProductById(url[1]);
+
     const test = `
+    <h2></h2>
     <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">
@@ -21,7 +27,7 @@ const TestPage = () =>{
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">Dell Xtreme 270</a></p>
+                <p><a href="#!" class="text-dark">${product.productname}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
@@ -38,7 +44,7 @@ const TestPage = () =>{
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">$3,999</a></p>
+              <p><a href="#!" class="text-dark">${product.prix}</a></p>
               <p class="text-dark">#### 8787</p>
             </div>
             <p class="small text-muted">VISA Platinum</p>
@@ -57,5 +63,41 @@ const TestPage = () =>{
           `
     main.innerHTML = test;
 
+    
+    
+    
+    
 }
+
+
+async function getProductById(id){
+
+  let product;
+
+  try {
+    const options = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    // eslint-disable-next-line prefer-template
+    const reponse = await fetch('/api/products/getIdProduct/' + id, options);
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+    }
+
+    product = await reponse.json();
+
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('error: ', err);
+  }
+  return product;
+  
+}
+
+
+
 export default TestPage;
