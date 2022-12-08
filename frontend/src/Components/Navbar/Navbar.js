@@ -40,7 +40,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a class="nav-link" href="#" data-uri="/basicseller">Basic Seller</a>
-                </li>          
+                </li>
               </ul>
                 <form class="d-flex">
                   <input class="form-control me-2" type="text" placeholder="Search">
@@ -74,6 +74,9 @@ const Navbar = () => {
                 </li> 
                 <li>
                   <a class="nav-link" href="#" data-uri="/cart">My Cart</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#" data-uri="/user">My profile</a>
                 </li>
                 <li>
                   <a class="nav-link" href="#" data-uri="/logout">Logout</a>
