@@ -23,8 +23,6 @@ const BasicSalerPage = () => {
     
   });
 
-  
- 
 };
 
 export default BasicSalerPage;
