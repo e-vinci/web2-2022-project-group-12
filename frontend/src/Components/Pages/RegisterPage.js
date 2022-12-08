@@ -1,7 +1,11 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { shoppingCart } from '../../utils/utilsCart';
+import Navigate from '../Router/Navigate';
 
-const formRegister = `   
+// Fromulaire Bootstrap
+const formRegister = `
+  <form>   
     <div class="container mt-3">
 
         <div class="mb-3 mt-3">
@@ -51,7 +55,8 @@ const formRegister = `
         <button type="submit" class="btn btn-primary" id="register" >Submit</button>
 
 
-    </div> `;
+    </div> 
+  </form>`;
 
 const RegisterPage = () => {
   clearPage();
@@ -60,22 +65,51 @@ const RegisterPage = () => {
 
   const btn = document.getElementById('register');
 
+  // Ajout de l'utilisateur aprés avoir appuyé sur le bouton submit
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
 
+    // Récupération de toute les données avec les id
     const lastname = document.getElementById('nom').value;
     const firstname = document.getElementById('prenom').value;
     const email = document.getElementById('email').value;
+    const homme = document.getElementById('homme').checked;
+    const femme = document.getElementById('femme').checked;
+    const autre = document.getElementById('autre').checked;
     const password = document.getElementById('mdp').value;
     const passwordConfirmed = document.getElementById('mdp2').value;
+    let sex;
 
+    // vérification des checkbox
+   
+    if(homme === true){
+      sex = 'M';
+    }
+    if(femme === true){
+      sex = 'F';
+    }
+    if(autre === true){
+      sex = 'A';
+    }
+
+    if(lastname.value === undefined || firstname.value === undefined || email.value === undefined || password.value === undefined || passwordConfirmed.value === undefined){
+      console.error("Veuillez compléter tous les champs");
+    }
+
+    if(password !== passwordConfirmed){
+      console.error("Les mots de passes sont différents");
+    }
+
+
+
+    // Création d'un nouvel objet json
     const newData = {
       lastname,
       firstname,
       email,
       password,
       passwordConfirmed,
-      sex: 'M',
+      sex,
     };
 
     try {
@@ -87,16 +121,18 @@ const RegisterPage = () => {
         },
       };
 
-      const response = await fetch('/api/users/register', options);
+      const reponse = await fetch('/api/users/register', options);
 
-      if (!response.ok) {
-        throw new Error(`fetch error: ${response.status} : ${response.statusText}`);
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
-      // const user = await reponse.json();
+      shoppingCart(email);
+      Navigate("login");
+      /* const user = await reponse.json(); */
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error('error: ', err);
     }
   });
 };
-
 export default RegisterPage;

@@ -24,7 +24,7 @@ const StatisticPage = () => {
   main.innerHTML = text;
 
 
-  (async function () {
+  ( async () => {
     const data = [
       { year: 2010, count: 10 },
       { year: 2011, count: 20 },
@@ -36,6 +36,7 @@ const StatisticPage = () => {
       { year: 2017, count: 45 }
     ];
 
+    // eslint-disable-next-line no-new
     new Chart(
       document.getElementById('myChart'),
       {
@@ -55,6 +56,7 @@ const StatisticPage = () => {
       }
     );
 
+    // eslint-disable-next-line no-new
     new Chart(
       document.getElementById('myChart2'),
       {
