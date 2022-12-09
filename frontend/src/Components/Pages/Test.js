@@ -9,7 +9,7 @@ const TestPage = async () =>{
 
     const url = id.split ('=');
     const product = await getProductById(url[1]);
-
+    console.log("LURL EST",url[1]);
     const test = `
     <h></h2>
     <div class="container py-5">

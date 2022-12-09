@@ -4,6 +4,7 @@ import img from '../../img/produit1.png';
 import 'animate.css';
 import image from '../../assets/image1.png';
 import { addItemToCart } from '../../utils/utilsCart';
+import Navigate from '../Router/Navigate';
 
 // HTML CODE
 const html = `
@@ -121,15 +122,7 @@ const HomePage = async () => {
       addItemToCart(btn[y].value,5,1);
     })};
 
-    const a = document.getElementById('aProductName');
-
-    a.addEventListener('click' , async (e) =>{
-      e.preventDefault();
-      const id = a.name;
-      // eslint-disable-next-line prefer-template
-      a.href = "/test?id_product="+id;
-      window.location.href = a.href;
-    }); 
+    
     
   } 
   
@@ -147,6 +140,7 @@ async function showProduct(product) {
   let i = 0;
 
   while (i < nbImage) {
+    console.log("JE SUIS PASSE")
     const id = product[i].id_product;
     const nameProduct = product[i].productname;
     const priceProduct = product[i].prix;
@@ -166,7 +160,7 @@ async function showProduct(product) {
   <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" id="aProductName"  class="text-dark" name="${id}">${nameProduct}</a></p>
+                <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
@@ -201,7 +195,22 @@ async function showProduct(product) {
     i += 1;
   }
   cardProduct.innerHTML = items;
+
+  const a = document.getElementsByClassName('aProductName');
+      
+  const lenght = a.length;
+
+  for(let j = 0; j<lenght;j+=1){
+
+    a[j].addEventListener('click' , async (e) => {
+      e.preventDefault();
+      const id = a[j].name;
+      // eslint-disable-next-line prefer-template
+      Navigate("/test?id_product=",id);
+  })}; 
 }
+
+
 
 async function countAllProduct() {
   let number;
