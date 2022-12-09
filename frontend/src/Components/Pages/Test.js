@@ -19,7 +19,7 @@ const TestPage = async () =>{
           <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
-              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+              style="border-top-left-radius: 50%; border-top-right-radius: 50%;" class="img-fluid"
               alt="Laptop" />
             <a href="#!">
               <div class="mask"></div>
