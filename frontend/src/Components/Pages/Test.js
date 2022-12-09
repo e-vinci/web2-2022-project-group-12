@@ -53,7 +53,7 @@ const TestPage = async () =>{
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
               <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" name="btnAddtoCart" class="btn btn-primary">Buy now</button>
+              <button type="button" name="btnAddtoCart" class="btn btn-primary">Add to cart</button>
             </div>
           </div>
         </div>

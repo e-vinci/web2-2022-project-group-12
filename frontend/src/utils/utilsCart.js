@@ -109,5 +109,4 @@ function Item(name, price, count) {
 }
 
 
-
 export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart,removeItemFromCart,getCartTotal, Item };

@@ -14,7 +14,7 @@ const html = `
 
 </ul>
 
-<button type="button" class="btn btn-success btn-lg" id="checkoutButton" style ="margin-left : 75%">Checkout</button>
+<button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
 `;
 
 const MyCartPage = () => {
@@ -50,7 +50,7 @@ for(let i = 0 ; i<length;i+=1){
   <span class="text-muted">${cart.objects[i].price}</span>
   <small class="text-muted">Nombre : ${cart.objects[i].count}</small>
   <small class="text-muted">Total price : ${totalPriceForThisArticle}</small>
-  <button type="button" class="deleteArticleButton">Supprimer Article</button>
+  <button type="button" class="deleteArticleButton btn btn-light">Supprimer Article</button>
   </li>
 `
 }
@@ -60,6 +60,7 @@ html2 += `<li class="list-group-item d-flex justify-content-between">
 <span>Total Price</span>
 <strong>${totalPrice} €</strong>
 </li>`
+
 
 id.innerHTML = html2;
 
@@ -77,7 +78,7 @@ const btn = document.getElementsByClassName('deleteArticleButton');
   const btnCheckout = document.getElementById('checkoutButton');
   btnCheckout.addEventListener('click', (e)=>{
     e.preventDefault();
-    Navigate("checkout");
+    Navigate("/checkout");
   });
 }
 
