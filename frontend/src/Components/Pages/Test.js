@@ -2,14 +2,18 @@ import { clearPage } from "../../utils/render";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addItemToCart } from '../../utils/utilsCart';
 
+// Cette page permet l'affichage des données d'un seul produit en cliquant sur un bouton de la homepage
+
 const TestPage = async () =>{
     clearPage();
     const main = document.querySelector('main');
-    const id = window.location.search;
 
+    // permet d'aller chercher un paramètre dans l'url
+    const id = window.location.search;
     const url = id.split ('=');
     const product = await getProductById(url[1]);
-
+    
+    // html de la page 
     const test = `
     <h></h2>
     <div class="container py-5">
@@ -19,7 +23,7 @@ const TestPage = async () =>{
           <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
-              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+              style="border-top-left-radius: 50%; border-top-right-radius: 50%;" class="img-fluid"
               alt="Laptop" />
             <a href="#!">
               <div class="mask"></div>
@@ -53,7 +57,7 @@ const TestPage = async () =>{
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
               <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" name="btnAddtoCart" class="btn btn-primary">Buy now</button>
+              <button type="button" name="btnAddtoCart" class="btn btn-primary">Add to cart</button>
             </div>
           </div>
         </div>
@@ -63,8 +67,8 @@ const TestPage = async () =>{
           `
     main.innerHTML = test;
 
+    // Permet d'ajouter le produit dans le panier 
     const btn = document.getElementsByName('btnAddtoCart');
-
     for(let y=0;y<btn.length; y+=1){
      btn[y].addEventListener('click', async (e) => {
       e.preventDefault();
@@ -76,6 +80,7 @@ const TestPage = async () =>{
 
 async function getProductById(id){
 
+  // Permet d'aller chercher les informations du produit 
   let product;
 
   try {

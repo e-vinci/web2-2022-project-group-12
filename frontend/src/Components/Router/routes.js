@@ -6,6 +6,9 @@ import StatisticPage from '../Pages/StatisticPage';
 import BasicSalerPage from '../Pages/BasicSellerPage';
 import MyCartPage from '../Pages/MyCartPage';
 import NewProductPage from '../Pages/NewProductPage';
+import UserPage from '../Pages/UserPage';
+import UpdateUser from '../Pages/UpdateUser';
+import CheckoutPage from '../Pages/CheckoutPage';
 
 
 
@@ -18,7 +21,10 @@ const routes = {
   '/basicseller': BasicSalerPage,
   '/logout' : "/logout",
   '/cart' : MyCartPage,
-  '/addProduct' : NewProductPage
+  '/addProduct' : NewProductPage,
+  '/user' : UserPage,
+  '/update' : UpdateUser,
+  '/checkout' : CheckoutPage
 };
 
 

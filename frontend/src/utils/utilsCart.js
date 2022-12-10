@@ -27,8 +27,7 @@ function saveCart(cart) {
 function loadCart(emailUser) {
     console.log("Lemial du user load cart est ", emailUser);
     let string = "shoppingCart";
-    string+=emailUser;
-    console.log(string)
+    string+=emailUser
   const cart = JSON.parse(localStorage.getItem(string));
   console.log( "test",cart);
   if(cart.email === emailUser){
@@ -69,6 +68,39 @@ function addItemToCart(name, price, count) {
     }
   };
 
+  function removeItemFromCart(name){
+    console.log("l'objet a supprimer est : ", name);
+    const user = getAuthenticatedUser();
+    const cart = loadCart(user.email);
+    console.log("cart avant remove ", cart)
+    // eslint-disable-next-line no-restricted-syntax
+    for(const item in cart.objects) {
+      if(cart.objects[item].name === name) {
+        cart.objects[item].count -= 1;
+        if(cart.objects[item].count === 0) {
+          cart.objects.splice(item,1);
+        }
+        console.log("Normaly Items has been removed");
+        console.log(cart);
+        break;
+      }
+  }
+  saveCart(cart);
+}
+
+function getCartTotal(){
+  const user = getAuthenticatedUser();
+    const cart = loadCart(user.email);
+    let sum =0;
+    const {length} = cart.objects;
+  for(let i=0; i<length; i+=1){
+    sum += cart.objects[i].price * cart.objects[i].count; 
+    console.log(sum);
+}
+return sum;
+}
+
+
 
 function Item(name, price, count) {
   this.name = name;
@@ -77,5 +109,4 @@ function Item(name, price, count) {
 }
 
 
-
-export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart, Item };
+export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart,removeItemFromCart,getCartTotal, Item };
