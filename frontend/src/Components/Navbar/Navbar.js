@@ -31,9 +31,6 @@ const Navbar = () => {
                   <li class="nav-item">
                     <a class="nav-link px-2 text-white" href="#" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
                   </li>  
-                  <li class="nav-item">
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/test">Test</a>
-                  </li>
                   <li>
                     <a class="nav-link px-2 text-white" href="#" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                   </li>
@@ -62,9 +59,6 @@ const Navbar = () => {
                   <a class="nav-link" href="#" data-uri="/">
                     <img alt="Logo" src=${logoAsset} height=70 width=70>
                   </a>
-                <li class="nav-item">
-                  <a class="nav-link" href="#" data-uri="/test">Test</a>
-                </li>
                 <li>
                   <a class="nav-link" href="#" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                 </li>
@@ -84,7 +78,7 @@ const Navbar = () => {
                 <form class="d-flex">
                   <input class="form-control me-2" type="text" placeholder="Search">
                   <button class="btn btn-light" id ="cart" type="submit">Search</button>
-                /form>
+                </form>
             </div>
           </div>
         </nav>
