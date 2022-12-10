@@ -166,7 +166,7 @@ async function showProduct(product) {
   <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" id="aProductName"  class="text-dark" name="${id}">${nameProduct}</a></p>
+                <p><a href=" " id="aProductName"  class="text-dark" name="${id}">${nameProduct}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
