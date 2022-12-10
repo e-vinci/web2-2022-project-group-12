@@ -41,6 +41,9 @@ const Navbar = () => {
                 <li>
                   <a class="nav-link" href="#" data-uri="/basicseller">Basic Seller</a>
                 </li>
+                <li>
+                  <a class="nav-link" href="#" data-uri="/paypal">PayPal</a>
+                </li>
               </ul>
                 <form class="d-flex">
                   <input class="form-control me-2" type="text" placeholder="Search">

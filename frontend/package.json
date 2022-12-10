@@ -27,6 +27,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@paypal/paypal-js": "^5.1.4",
     "@popperjs/core": "^2.9.2",
     "animate": "^1.0.0",
     "animate.css": "^4.1.1",

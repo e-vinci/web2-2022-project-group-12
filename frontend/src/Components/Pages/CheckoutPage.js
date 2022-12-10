@@ -1,9 +1,10 @@
-
 import { getAuthenticatedUser } from "../../utils/auths";
 import { clearPage } from "../../utils/render";
 import { getCartTotal, loadCart } from "../../utils/utilsCart";
+import Navigate from "../Router/Navigate";
 
 const html = `
+
 <div class="container">
 <div class="row">
     <div class="col-md-8 order-md-1">
@@ -48,7 +49,10 @@ const html = `
             <label for="country">Country</label>
             <select class="custom-select d-block w-100" id="country" required="">
               <option value="">Choose...</option>
-              <option>United States</option>
+              <option>Belgium</i></option>
+              <option>France</i></option> 
+              <option>Ukraine</i></option>
+              <option>Poland</i></option>
             </select>
             <div class="invalid-feedback">
               Please select a valid country.
@@ -62,59 +66,12 @@ const html = `
             </div>
           </div>
         </div>
-
+        
         <h4 class="mb-3">Payment</h4>
-
-        <div class="d-block my-3">
-          <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-            <label class="custom-control-label" for="credit">Credit card</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-            <label class="custom-control-label" for="debit">Debit card</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-            <label class="custom-control-label" for="paypal">Paypal</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="cc-name">Name on card</label>
-            <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-            <small class="text-muted">Full name as displayed on card</small>
-            <div class="invalid-feedback">
-              Name on card is required
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="cc-number">Credit card number</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-            <div class="invalid-feedback">
-              Credit card number is required
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 mb-3">
-            <label for="cc-expiration">Expiration</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-            <div class="invalid-feedback">
-              Expiration date required
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="cc-expiration">CVV</label>
-            <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-            <div class="invalid-feedback">
-              Security code required
-            </div>
-          </div>
-        </div>
-        <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin-bottom : 120px">Continue to checkout</button>
+        
+        <button class="btn btn-primary btn-lg btn-block" type="button" id="paypalID" style="margin-bottom : 120px">Pay with Paypal</button>
       </form>
+      
     </div>
     <div id="firstDiv" class ="col-md-4 order-md-2 mb-4"></div>
   </div>
@@ -143,7 +100,7 @@ const CheckoutPage = () => {
     console.log("TEST2");
     console.log("le panier est", cart.objects);
   
-  
+    
   // eslint-disable-next-line prefer-destructuring
   const length = cart.objects.length;
   
@@ -161,7 +118,9 @@ const CheckoutPage = () => {
     <small class="text-muted">Total price : ${totalPriceForThisArticle}</small>
     </li>
   `
-  }
+  };
+
+
   console.log("TEST3");
   const totalPrice = getCartTotal();
   html2 += `
@@ -178,11 +137,14 @@ const CheckoutPage = () => {
   main.innerHTML = html; 
   const id = document.getElementById('firstDiv');
   id.innerHTML = html2;
- 
-  
-   
 
-  
+  const paypalBtn = document.getElementById('paypalID');
+    paypalBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('paypal listener');
+      Navigate("/paypal");
+    }
+    );
 }
 
 export default CheckoutPage;
