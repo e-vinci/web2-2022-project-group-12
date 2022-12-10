@@ -6,8 +6,6 @@ import image from '../../assets/image1.png';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 
-// Page d'acceuil du site 
-
 // HTML CODE
 const html = `
 <div class="text-center">
@@ -162,7 +160,7 @@ async function showProduct(product) {
   <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" id="aProductName"  class="text-dark" name="${id}">${nameProduct}</a></p>
+                <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
