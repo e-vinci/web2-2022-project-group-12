@@ -10,17 +10,17 @@ const formRegister = `
 
         <div class="mb-3 mt-3">
             <label for="name">Last name</label>
-            <input type="text" class="form-control" id="nom" placeholder="Enter your last name" name="firstname">
+            <input type="text" class="form-control" id="nom" placeholder="Enter your last name..." name="firstname">
         </div>
 
         <div class="mb-3 mt-3">
             <label for="name">First name</label>
-            <input type="text" class="form-control" id="prenom" placeholder="Enter your first name" name="lastname">
+            <input type="text" class="form-control" id="prenom" placeholder="Enter your first name..." name="lastname">
         </div>
 
         <div class="mb-3 mt-3">
             <label for="email">E-mail</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter your e-mail" name="email">
+            <input type="email" class="form-control" id="email" placeholder="Enter your e-mail..." name="email">
         </div>
 
         <div class ="mb-3 mt-3">

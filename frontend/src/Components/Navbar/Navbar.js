@@ -66,19 +66,19 @@ const Navbar = () => {
                   <a class="nav-link" href="#" data-uri="/test">Test</a>
                 </li>
                 <li>
-                  <a class="nav-link" href="#" data-uri="/stats">Statistics</a>
+                  <a class="nav-link" href="#" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                 </li>
                 <li>
-                  <a class="nav-link" href="#" data-uri="/basicseller">Basic Seller</a>
+                  <a class="nav-link" href="#" data-uri="/basicseller"><i class="bi bi-shop"></i> Basic Seller</a>
                 </li> 
                 <li>
-                  <a class="nav-link" href="#" data-uri="/cart">My Cart</a>
+                  <a class="nav-link" href="#" data-uri="/cart"><i class="bi bi-cart"></i></a>
                 </li>
                 <li>
-                  <a class="nav-link" href="#" data-uri="/user">My profile</a>
+                  <a class="nav-link" href="#" data-uri="/user"><i class="bi bi-person"></i></a>
                 </li>
                 <li>
-                  <a class="nav-link" href="#" data-uri="/logout">Logout</a>
+                  <a class="nav-link" href="#" data-uri="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                 </li>         
               </ul>
                 <form class="d-flex">
