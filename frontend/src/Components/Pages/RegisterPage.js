@@ -9,18 +9,18 @@ const formRegister = `
     <div class="container mt-3">
 
         <div class="mb-3 mt-3">
-            <label for="name">Nom</label>
-            <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" name="firstname">
+            <label for="name">Last name</label>
+            <input type="text" class="form-control" id="nom" placeholder="Enter your last name" name="firstname">
         </div>
 
         <div class="mb-3 mt-3">
-            <label for="name">Prénom</label>
-            <input type="text" class="form-control" id="prenom" placeholder="Entrez votre prénom" name="lastname">
+            <label for="name">First name</label>
+            <input type="text" class="form-control" id="prenom" placeholder="Enter your first name" name="lastname">
         </div>
 
         <div class="mb-3 mt-3">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Entrez votre email" name="email">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your e-mail" name="email">
         </div>
 
         <div class ="mb-3 mt-3">
@@ -28,31 +28,31 @@ const formRegister = `
         </br>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="homme" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Homme</label>
+                <label class="form-check-label" for="inlineCheckbox1">M</label>
             </div>
 
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="femme" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">Femme</label>
+                <label class="form-check-label" for="inlineCheckbox2">F</label>
             </div>
 
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="autre" value="option3" >
-                <label class="form-check-label" for="inlineCheckbox3">Autre</label>
+                <label class="form-check-label" for="inlineCheckbox3">Don't specify</label>
             </div>
 
         </div>
 
         <div class="mb-3 mt-3">
-            <label for="password">Mot de passe</label>
-            <input type="password" class="form-control" id="mdp" placeholder="Entrez votre mot de passe" name="password">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="mdp" placeholder="Enter your password here..." name="password">
         </div>
 
         <div class="mb-3 mt-3">
-            <label for="password">Confirmation du mot de passe</label>
-            <input type="password" class="form-control" id="mdp2" placeholder="Confirmer votre mot de passe" name="password">
+            <label for="password">Confirm your password</label>
+            <input type="password" class="form-control" id="mdp2" placeholder="Repeat your password here..." name="password">
         </div>
-        <button type="submit" class="btn btn-primary" id="register" >Submit</button>
+        <button type="submit" class="btn btn-primary" id="register" >Sign up</button>
 
 
     </div> 
@@ -93,11 +93,11 @@ const RegisterPage = () => {
     }
 
     if(lastname.value === undefined || firstname.value === undefined || email.value === undefined || password.value === undefined || passwordConfirmed.value === undefined){
-      console.error("Veuillez compléter tous les champs");
+      console.error("Please, complete all the forms");
     }
 
     if(password !== passwordConfirmed){
-      console.error("Les mots de passes sont différents");
+      console.error("Passwords don't match");
     }
 
 
