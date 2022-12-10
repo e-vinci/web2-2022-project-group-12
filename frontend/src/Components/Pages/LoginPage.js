@@ -12,16 +12,16 @@ import { loadCart, shoppingCart } from '../../utils/utilsCart';
     <div class="container mt-3">
       <div class="col-xs-3">
           <div class="mb-3 mt-3">
-              <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" placeholder="Entrez votre email" name="email">
+              <label for="email">E-mail</label>
+              <input type="text" class="form-control" id="email" placeholder="Enter your e-mail here..." name="email">
           </div>
       </div>
       <div class="col-xs-3">
           <div class="mb-3 mt-3">
-              <label for="password">Mot de passe</label>
-              <input type="password" class="form-control" id="pwd" placeholder="Entrez votre mot de passe" name="password">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="pwd" placeholder="Enter your password here..." name="password">
           </div>
-          <button type="submit" class="btn btn-primary" id="login" >Submit</button>
+          <button type="submit" class="btn btn-primary" id="login" >Sign in</button>
       </div>
     </div> 
   </form>`;
