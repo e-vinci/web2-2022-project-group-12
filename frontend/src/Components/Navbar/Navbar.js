@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import logoAsset from "../../assets/logo.png"
-import 'animate.css'
+import logoAsset from "../../assets/logo.png";
+import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 /**
@@ -26,16 +26,16 @@ const Navbar = () => {
                       <img alt="Logo" src=${logoAsset} height=70 width=70>
                     </a>
                   <li class="nav-item">
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/register">Sign up</a>
+                    <a class="nav-link px-2 text-white" href="#" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
                   </li>    
                   <li class="nav-item">
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/login">Sign in</a>
+                    <a class="nav-link px-2 text-white" href="#" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
                   </li>  
                   <li class="nav-item">
                     <a class="nav-link px-2 text-white" href="#" data-uri="/test">Test</a>
                   </li>
                   <li>
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/stats">Statistics</a>
+                    <a class="nav-link px-2 text-white" href="#" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                   </li>
                   <li>
                     <a class="nav-link px-2 text-white" href="#" data-uri="/basicseller">Basic Seller</a>
@@ -43,7 +43,7 @@ const Navbar = () => {
                 </ul>
                   <form class="d-flex">
                     <input class="form-control me-2" type="text" placeholder="Search">
-                    <button class="btn btn-light" type="button">Search</button>
+                    <button class="btn btn-light" type="button"><i class="bi bi-search"></i></button>
                   </form>
               </div>
             </div>
