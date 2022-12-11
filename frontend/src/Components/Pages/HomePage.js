@@ -1,20 +1,14 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-import image from '../../assets/image1.png';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
-
-
-
 
 // HTML CODE
 const html = `
 <div class="text-center">
   <h1 class="display-1"> Vinci Store </h1>
 </div>
-
-
 
 <div class = "carousselContainer ">
   <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -39,17 +33,6 @@ const html = `
 </div>
 </div>
 
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
 <div class="text-center">
   <h1 class="display-1"> Products </h1>
 </div>
@@ -61,24 +44,26 @@ const html = `
   `;
 
 const HomePage = async () => {
+
   const main = document.querySelector('main');
   countAllProduct();
   main.innerHTML = html;
-
+  // eslint-disable-next-line no-useless-escape
+  const imageCaroussel = importAll(require.context('../../assets/caroussel', true, /\.png$/));
+  
+  
   const carrouselListItem = document.getElementById('carousel-items');
   let i = 0;
   let items = ``;
-  // const images = ["web2-2022-project-group-12/frontend/src/assets/caroussel0.png","frontend/src/assets/caroussel1.png"];
   while (i < 2) {
-    
     
     if (i === 0) {
       items += `<div class="carousel-item active" data-bs-interval="10000">
-    <img src="${ image}" id="item-${i}" class="d-block w-100" alt="img">
+    <img src="${imageCaroussel[i]}" id="item-${i}" class="d-block w-100" alt="img">
    </div>`;
     } else {
       items += `<div class="carousel-item" data-bs-interval="10000">
-    <img src="${ image}" class="d-block w-100" alt="img">
+    <img src="${imageCaroussel[i]}" class="d-block w-100" alt="img">
    </div>`;
     }
 
@@ -147,7 +132,7 @@ async function showProduct(product) {
   let i = 0;
 
   while (i < nbImage) {
-    console.log("JE SUIS PASSE")
+    const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
     const nameProduct = product[i].productname;
     const priceProduct = product[i].prix;
@@ -156,7 +141,7 @@ async function showProduct(product) {
     <div class="card" style="border-radius: 15px;" >
     <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light" >
-    <img src="${image}"
+    <img src="${imageProduit[i]}"
     style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
     alt="Laptop"/>
   <a href="#!">
@@ -238,6 +223,10 @@ async function countAllProduct() {
     console.error('error: ', err);
   }
   return number;
+}
+
+function importAll(r) {
+  return r.keys().map(r);
 }
 
 export default HomePage;
