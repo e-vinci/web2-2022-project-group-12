@@ -32,4 +32,10 @@ router.post('/login', async(req,res)=>{
   return res.json(logedInUser);
 });
 
+// Permet de récupérer un produit en particulier avec id
+router.get('/getIdStore/:id' , async(req,res)=>{
+  const result = await userModel.getOneUser(req.params.id);
+  res.send(result);
+});
+
 module.exports = router;

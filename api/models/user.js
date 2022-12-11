@@ -5,30 +5,36 @@ const db = require('../db/db');
 
 class User{
 
-async addUser(body){
-    const hashedPassword = await bcrypt.hash(body.password, saltRounds);
-    await db.query(`INSERT INTO users (firstname,lastname,email,password,sex) VALUES( $1, $2, $3, $4, $5 )`,[body.firstname,body.lastname,body.email,hashedPassword,body.sex]);
-    const user = {
-        firstname: body.firstname,
-        lastname: body.lastname,
-        email: body.email,
-        password: hashedPassword
-    };
-    return user;
-};
-
-async doIExist(email,password){
-    const user = await (await db.query(`SELECT email, password from "public"."users" WHERE email = $1 AND password = $2`,[email,password])).rows;
-    if(user.length === 0){
-            return null
+    async addUser(body){
+        const hashedPassword = await bcrypt.hash(body.password, saltRounds);
+        await db.query(`INSERT INTO users (firstname,lastname,email,password,sex) VALUES( $1, $2, $3, $4, $5 )`,[body.firstname,body.lastname,body.email,hashedPassword,body.sex]);
+        const user = {
+            firstname: body.firstname,
+            lastname: body.lastname,
+            email: body.email,
+            password: hashedPassword
         };
-    const authentificatedUser = {
-        email : user[0].email,
-        password : user[0].password
-    }
-    return authentificatedUser;
+        return user;
+    };
+
+    async doIExist(email,password){
+        const user = await (await db.query(`SELECT email, password FROM "public"."users" WHERE email = $1 AND password = $2`,[email,password])).rows;
+        if(user.length === 0){
+                return null
+            };
+        const authentificatedUser = {
+            email : user[0].email,
+            password : user[0].password
+        }
+        return authentificatedUser;
+    };
+
+    async getOneUser(id){
+        const user = await (await db.query(`SELECT * FROM users WHERE id_user = $1`, [id])).rows;
+        return user[0];
+    };
+
 }
 
 
-}
 module.exports = {User};
