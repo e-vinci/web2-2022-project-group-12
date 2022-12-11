@@ -26,7 +26,7 @@ router.post('/login', async(req,res)=>{
   const {password} = req.body;
   const user = await userModel.doIExist(email,password);
 
-  if(user === null) return console.error("Le user n'existe pas");
+  if(user ===  null) return console.error("Le user n'existe pas");
 
   const emailUser = user.email;
   const logedInUser = await login(emailUser);

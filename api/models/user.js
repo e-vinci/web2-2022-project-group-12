@@ -18,10 +18,14 @@ class User{
     };
 
     async doIExist(email,password){
-        const user = await (await db.query(`SELECT LOWER(u.email), u.password FROM projetWeb.users u WHERE email = $1 AND password = $2`,[email,password])).rows;
+        const user = await (await db.query(`SELECT LOWER(u.email), u.password FROM projetWeb.users u WHERE LOWER(u.email) = $1`,[email.toLowerCase()])).rows;
         if(user.length === 0){
                 return null
-            };
+        }
+        if(!(bcrypt.compareSync(password, user[0].password))){
+            console.log("mots de passe ne matchents pas");
+            return null;
+        }
         const authentificatedUser = {
             email : user[0].email,
             password : user[0].password
