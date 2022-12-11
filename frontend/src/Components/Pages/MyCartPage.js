@@ -45,7 +45,7 @@ for(let i = 0 ; i<length;i+=1){
   html2 += `
   <li class="list-group-item d-flex justify-content-between lh-condensed">
   <div>
-    <h6 class="my-0">${cart.objects[i].name}</h6>
+    <a href="" class="buttonToItem" class="my-0">${cart.objects[i].name}</a>
   </div>
   <span class="text-muted">${cart.objects[i].price}</span>
   <small class="text-muted">Nombre : ${cart.objects[i].count}</small>
@@ -61,18 +61,30 @@ html2 += `<li class="list-group-item d-flex justify-content-between">
 <strong>${totalPrice} €</strong>
 </li>`
 
-
 id.innerHTML = html2;
+
+const btnToArticle = document.getElementsByClassName('buttonToItem');
+for(let y=0;y<btnToArticle.length; y+=1){
+  // eslint-disable-next-line no-loop-func
+   btnToArticle[y].addEventListener('click', async (e) => {
+    e.preventDefault();
+     console.log("Je suis dans le event listener");
+     // eslint-disable-next-line no-console
+     Navigate("/test?id_product=",cart.objects[y].name);
+   });
+ }
+
 
 const btn = document.getElementsByClassName('deleteArticleButton');
   for(let y=0;y<btn.length; y+=1){
    // eslint-disable-next-line no-loop-func
     btn[y].addEventListener('click', async (e) => {
-      console.log("Je suis dans le event listener");
       e.preventDefault();
+      console.log("Je suis dans le event listener");
+      
       // eslint-disable-next-line no-console
       removeItemFromCart(cart.objects[y].name);
-      Navigate("cart");
+      Navigate("/cart");
     });
   }
   const btnCheckout = document.getElementById('checkoutButton');
