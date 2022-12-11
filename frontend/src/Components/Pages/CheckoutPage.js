@@ -89,10 +89,10 @@ const CheckoutPage = () => {
     let html2 = `
     
     <div col-md-8 order-md-2 mb-4" style="margin-left : 50px; margin-top : 30px">
-    <h4 class="d-flex justify-content-between align-items-center mb-3">
-      <span class="mb-3">Your cart</span>
-      <span class="badge badge-secondary badge-pill">3</span>
-    </h4>
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="mb-3">Your cart</span>
+        <span class="badge badge-secondary badge-pill">3</span>
+      </h4>
     <ul class="list-group mb-3" id="listItem">
     
     `;
