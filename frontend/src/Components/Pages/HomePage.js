@@ -1,8 +1,12 @@
+/* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
-import img from '../../img/produit1.png';
 import 'animate.css';
+import image from '../../assets/image1.png';
 import { addItemToCart } from '../../utils/utilsCart';
-// import img2 from '../../img/produit2.png';
+import Navigate from '../Router/Navigate';
+
+
+
 
 // HTML CODE
 const html = `
@@ -11,12 +15,13 @@ const html = `
 </div>
 
 
+
 <div class = "carousselContainer ">
   <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
   <div class="carousel-indicators" id="carousel-buttons">
 
         </div>
-        <div class="carousel-inner" id = "carousel-items">
+        <div class="carousel-inner" id ="carousel-items">
 
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -34,9 +39,7 @@ const html = `
 </div>
 </div>
 
-<div class="text-center">
-  <h1 class="display-1"> Products </h1>
-</div>
+
 <br/>
 <br/>
 <br/>
@@ -47,6 +50,9 @@ const html = `
 <br/>
 <br/>
 
+<div class="text-center">
+  <h1 class="display-1"> Products </h1>
+</div>
 <div class="container py-5">
     <div class="row justify-content" id="imgProduct">
       
@@ -62,14 +68,17 @@ const HomePage = async () => {
   const carrouselListItem = document.getElementById('carousel-items');
   let i = 0;
   let items = ``;
-  while (i < 10) {
+  // const images = ["web2-2022-project-group-12/frontend/src/assets/caroussel0.png","frontend/src/assets/caroussel1.png"];
+  while (i < 2) {
+    
+    
     if (i === 0) {
       items += `<div class="carousel-item active" data-bs-interval="10000">
-    <img src="${img}" id="item-${i}" class="d-block w-100" alt="img">
+    <img src="${ image}" id="item-${i}" class="d-block w-100" alt="img">
    </div>`;
     } else {
       items += `<div class="carousel-item" data-bs-interval="10000">
-    <img src="${img}" class="d-block w-100" alt="img">
+    <img src="${ image}" class="d-block w-100" alt="img">
    </div>`;
     }
 
@@ -80,7 +89,7 @@ const HomePage = async () => {
   i = 0;
   items = ``;
   const carouselButtons = document.getElementById('carousel-buttons');
-  while (i < 10) {
+  while (i < 2) {
     if (i === 0) {
       items += `<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i +
         1}"></button>
@@ -107,21 +116,24 @@ const HomePage = async () => {
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
+
     const product = await reponse.json();
     await showProduct(product);
     
     const btn = document.getElementsByName('btnAddtoCart');
+
     for(let y=0;y<btn.length; y+=1){
-    btn[y].addEventListener('click', async (e) => {
-    e.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(btn[y].value);
-    addItemToCart(btn[y].value,5,1);
-    // eslint-disable-next-line no-console
-  })};
+     btn[y].addEventListener('click', async (e) => {
+      e.preventDefault();
+      console.log(btn[y].value);
+      addItemToCart(btn[y].value,5,1);
+    })};
+
     
-  } catch (err) {
-    // eslint-disable-next-line no-console
+    
+  } 
+  
+  catch (err) {
     console.error('error: ', err);
   }
 };
@@ -135,6 +147,7 @@ async function showProduct(product) {
   let i = 0;
 
   while (i < nbImage) {
+    console.log("JE SUIS PASSE")
     const id = product[i].id_product;
     const nameProduct = product[i].productname;
     const priceProduct = product[i].prix;
@@ -143,7 +156,7 @@ async function showProduct(product) {
     <div class="card" style="border-radius: 15px;" >
     <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light" >
-    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
+    <img src="${image}"
     style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
     alt="Laptop"/>
   <a href="#!">
@@ -154,7 +167,7 @@ async function showProduct(product) {
   <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">${nameProduct}</a></p>
+                <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
                 <p class="small text-muted">Laptops</p>
               </div>
               <div>
@@ -174,7 +187,6 @@ async function showProduct(product) {
               <p><a href="#!" class="text-dark">${priceProduct}</a></p>
               
             </div>
-            <p class="small text-muted">VISA Platinum</p>
           </div>
           <hr class="my-0" />
           <div class="card-body">
@@ -189,7 +201,22 @@ async function showProduct(product) {
     i += 1;
   }
   cardProduct.innerHTML = items;
+
+  const a = document.getElementsByClassName('aProductName');
+      
+  const lenght = a.length;
+
+  for(let j = 0; j<lenght;j+=1){
+
+    a[j].addEventListener('click' , async (e) => {
+      e.preventDefault();
+      const id = a[j].name;
+      // eslint-disable-next-line prefer-template
+      Navigate("/product?id_product=",id);
+  })}; 
 }
+
+
 
 async function countAllProduct() {
   let number;
@@ -202,7 +229,6 @@ async function countAllProduct() {
     };
 
     const reponse = await fetch('/api/products/countAll', options);
-
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }

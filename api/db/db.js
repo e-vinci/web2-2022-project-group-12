@@ -14,8 +14,8 @@ const pool = new Pool({
 
 pool.connect()
     .then( () => console.log("Connected Successfuly on pool"))
-    .catch(e => console.log)
+    .catch((e) => console.log(JSON.stringify(e)))
 
 module.exports = {
-    query: (text, params) => pool.query(text, params),
+    query: (text, params) => pool.query(text, params)
 }

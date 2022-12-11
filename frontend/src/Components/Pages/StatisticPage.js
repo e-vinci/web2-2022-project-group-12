@@ -3,7 +3,7 @@ import { clearPage } from '../../utils/render';
 
 const text = `
 <div class="text-center">
-  <h2 class="display-2">Your sales stats</h2>
+  <h2 class="display-2">Your insights</h2>
 </div>
 <div style="display:block;margin:0 auto; width:20%">
   <div>
