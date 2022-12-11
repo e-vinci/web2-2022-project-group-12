@@ -3,7 +3,7 @@ import RegisterPage from '../Pages/RegisterPage';
 import LoginPage from '../Pages/LoginPage';
 import Test from '../Pages/Test';
 import StatisticPage from '../Pages/StatisticPage';
-import BasicSalerPage from '../Pages/BasicSellerPage';
+import NewProductPage from '../Pages/NewProductPage';
 import MyCartPage from '../Pages/MyCartPage';
 
 
@@ -14,7 +14,7 @@ const routes = {
   '/login': LoginPage,
   '/test': Test,
   '/stats': StatisticPage,
-  '/basicseller': BasicSalerPage,
+  '/add': NewProductPage,
   '/logout' : "/logout",
   '/cart' : MyCartPage
 };

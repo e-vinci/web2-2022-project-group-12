@@ -16,12 +16,13 @@
     "exec": "npm run lint && node"
   },
   "dependencies": {
+    "@paypal/paypal-js": "^5.1.4",
     "bcrypt": "^5.1.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "env": "^0.0.2",
-    "express": "~4.16.1",
+    "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "pg": "^8.8.0"

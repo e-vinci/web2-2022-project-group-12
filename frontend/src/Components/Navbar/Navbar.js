@@ -39,7 +39,7 @@ const Navbar = () => {
                   <a class="nav-link" href="#" data-uri="/stats">Statistics</a>
                 </li>
                 <li>
-                  <a class="nav-link" href="#" data-uri="/basicseller">Basic Seller</a>
+                  <a class="nav-link" href="#" data-uri="/add">Add Product</a>
                 </li>          
               </ul>
                 <form class="d-flex">

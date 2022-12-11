@@ -30,7 +30,7 @@ const html = `
 `;
 
 // Calling the page to render
-const BasicSalerPage = () => {
+const NewProductPage = () => {
   clearPage();
   const main = document.querySelector('main');
   main.innerHTML = html;
@@ -74,4 +74,4 @@ const BasicSalerPage = () => {
  
 };
 
-export default BasicSalerPage;
+export default NewProductPage;
