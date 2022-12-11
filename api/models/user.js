@@ -7,7 +7,7 @@ class User{
 
     async addUser(body){
         const hashedPassword = await bcrypt.hash(body.password, saltRounds);
-        await db.query(`INSERT INTO users (firstname,lastname,email,password,sex) VALUES( $1, $2, $3, $4, $5 )`,[body.firstname,body.lastname,body.email,hashedPassword,body.sex]);
+        await db.query(`INSERT INTO projetWeb.users (first_name,last_name,email,password,sex) VALUES( $1, $2, $3, $4, $5 )`,[body.firstname,body.lastname,body.email.toLowerCase(),hashedPassword,body.sex]);
         const user = {
             firstname: body.firstname,
             lastname: body.lastname,
@@ -18,7 +18,7 @@ class User{
     };
 
     async doIExist(email,password){
-        const user = await (await db.query(`SELECT email, password FROM "public"."users" WHERE email = $1 AND password = $2`,[email,password])).rows;
+        const user = await (await db.query(`SELECT LOWER(u.email), u.password FROM projetWeb.users u WHERE email = $1 AND password = $2`,[email,password])).rows;
         if(user.length === 0){
                 return null
             };
@@ -30,7 +30,7 @@ class User{
     };
 
     async getOneUser(id){
-        const user = await (await db.query(`SELECT * FROM users WHERE id_user = $1`, [id])).rows;
+        const user = await (await db.query(`SELECT * FROM projetWeb.users u WHERE U.id_user = $1`, [id])).rows;
         return user[0];
     };
 

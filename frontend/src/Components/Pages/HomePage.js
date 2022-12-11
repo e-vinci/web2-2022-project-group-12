@@ -149,8 +149,8 @@ async function showProduct(product) {
   while (i < nbImage) {
     console.log("JE SUIS PASSE")
     const id = product[i].id_product;
-    const nameProduct = product[i].productname;
-    const priceProduct = product[i].prix;
+    const nameProduct = product[i].name;
+    const priceProduct = product[i].price;
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4" >
     <div class="card" style="border-radius: 15px;" >
