@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import logoAsset from "../../assets/logo.png"
-import 'animate.css'
+import logoAsset from "../../assets/logo.png";
+import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 /**
@@ -32,9 +32,6 @@ const Navbar = () => {
                 <li class="nav-item">
                   <a class="nav-link" href="#" data-uri="/login">Login</a>
                 </li>  
-                <li class="nav-item">
-                  <a class="nav-link" href="#" data-uri="/test">Test</a>
-                </li>
                 <li>
                   <a class="nav-link" href="#" data-uri="/stats">Statistics</a>
                 </li>
@@ -64,8 +61,6 @@ const Navbar = () => {
                     <img alt="Logo" src=${logoAsset} height=70 width=70>
                   </a>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" data-uri="/test">Test</a>
-                </li>
                 <li>
                   <a class="nav-link" href="#" data-uri="/stats">Statistics</a>
                 </li>

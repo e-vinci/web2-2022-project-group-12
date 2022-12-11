@@ -1,7 +1,7 @@
 import HomePage from '../Pages/HomePage';
 import RegisterPage from '../Pages/RegisterPage';
 import LoginPage from '../Pages/LoginPage';
-import Test from '../Pages/Test';
+import Product from '../Pages/Product';
 import StatisticPage from '../Pages/StatisticPage';
 import BasicSalerPage from '../Pages/BasicSellerPage';
 import MyCartPage from '../Pages/MyCartPage';
@@ -16,7 +16,7 @@ const routes = {
   '/': HomePage,
   '/register': RegisterPage,
   '/login': LoginPage,
-  '/test': Test,
+  '/product': Product,
   '/stats': StatisticPage,
   '/basicseller': BasicSalerPage,
   '/logout' : "/logout",
