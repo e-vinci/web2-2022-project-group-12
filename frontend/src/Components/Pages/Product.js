@@ -32,7 +32,7 @@ const ProductPage = async () =>{
             <div class="d-flex justify-content-between">
               <div>
                 <p><a href="#!" class="text-dark">${product.productname}</a></p>
-                <p class="small text-muted">Laptops</p>
+                <p class="small text-muted">by ${product.id_user}</p>
               </div>
               <div>
                 <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
@@ -105,7 +105,5 @@ async function getProductById(id){
   return product;
   
 }
-
-
 
 export default ProductPage;
