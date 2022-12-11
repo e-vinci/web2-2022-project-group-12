@@ -4,7 +4,7 @@ import { addItemToCart } from '../../utils/utilsCart';
 
 // Cette page permet l'affichage des données d'un seul produit en cliquant sur un bouton de la homepage
 
-const TestPage = async () =>{
+const ProductPage = async () =>{
     clearPage();
     const main = document.querySelector('main');
 
@@ -14,7 +14,7 @@ const TestPage = async () =>{
     const product = await getProductById(url[1]);
     
     // html de la page 
-    const test = `
+    const html = `
     <h></h2>
     <div class="container py-5">
     <div class="row justify-content-center">
@@ -65,7 +65,7 @@ const TestPage = async () =>{
     </div>
   </div>
           `
-    main.innerHTML = test;
+    main.innerHTML = html;
 
     // Permet d'ajouter le produit dans le panier 
     const btn = document.getElementsByName('btnAddtoCart');
@@ -109,4 +109,4 @@ async function getProductById(id){
 
 
 
-export default TestPage;
+export default ProductPage;
