@@ -1,6 +1,8 @@
 const {Pool} = require('pg')
 require('dotenv').config();
 
+// require('dotenv').config({ path: '../local.env'}); // ceci est pour la db locale à mishok
+
 const pool = new Pool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,

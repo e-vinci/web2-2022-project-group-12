@@ -6,12 +6,8 @@ import Navigate from '../Router/Navigate';
 const UserPage = () => {
   // Get logged in user
   const user = getAuthenticatedUser();
-  if (user === undefined) {
-    alert("Veuillez vous connecter");
-    Navigate('login');
-  }
-  const name = user.firstname
-  ;
+  console.log("User: " + user);
+  console.log("Username: " + user.first_name);
 
   const html = `
   <div class="text-center">

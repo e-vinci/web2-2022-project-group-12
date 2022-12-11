@@ -31,8 +31,8 @@ const ProductPage = async () =>{
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">${product.productname}</a></p>
-                <p class="small text-muted">Laptops</p>
+                <p><a href="#!" class="text-dark">${product.name}</a></p>
+                <p class="small text-muted">by ${product.id_user}</p>
               </div>
               <div>
                 <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
@@ -48,7 +48,7 @@ const ProductPage = async () =>{
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">${product.prix}</a></p>
+              <p><a href="#!" class="text-dark">${product.price}</a></p>
             </div>
             <p class="small text-muted">VISA Platinum</p>
           </div>
@@ -105,7 +105,5 @@ async function getProductById(id){
   return product;
   
 }
-
-
 
 export default ProductPage;
