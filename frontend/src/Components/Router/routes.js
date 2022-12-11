@@ -5,7 +5,6 @@ import Product from '../Pages/Product';
 import StatisticPage from '../Pages/StatisticPage';
 import NewProductPage from '../Pages/NewProductPage';
 import MyCartPage from '../Pages/MyCartPage';
-import NewProductPage from '../Pages/NewProductPage';
 import UserPage from '../Pages/UserPage';
 import UpdateUser from '../Pages/UpdateUser';
 import CheckoutPage from '../Pages/CheckoutPage';
