@@ -20,7 +20,8 @@ class Product{
     }
 
     async addProduct (body){
-        await db.query(`INSERT INTO projetWeb.products (name,description,price,color) VALUES( $1, $2, $3, $4)`,[body.productName,body.description,body.prix,body.color]);
+        // insert into projetWeb.products (name,price,description,color,id_user,id_category) values ('Sac',65,'Sac à main en cuir','noir',1,2);
+        await db.query(`INSERT INTO projetWeb.products (name,description,price,color) VALUES( $1, $2, $3, $4)`,[body.productName,body.description,body.price,body.color]);
         console.log(body.productName,body.description,body.price,body.color);
         const product = {
             productName: body.productName,
