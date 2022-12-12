@@ -6,6 +6,7 @@ import { getAuthenticatedUser } from '../../utils/auths';
 import { setSearch } from '../../utils/utilsSearch';
 import Navigate from '../Router/Navigate';
 import { countProductCart} from '../../utils/utilsCart';
+import { clearPage } from '../../utils/render';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -15,10 +16,11 @@ import { countProductCart} from '../../utils/utilsCart';
  */
 
 const Navbar = () => {
+  clearPage();
   const navbarWrapper = document.querySelector('#navbarWrapper');
-  const authenticatedUser = getAuthenticatedUser();
+  const user = getAuthenticatedUser();
   
-  if (authenticatedUser === undefined) {
+  if (user === undefined) {
     const navbar = `
     <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
