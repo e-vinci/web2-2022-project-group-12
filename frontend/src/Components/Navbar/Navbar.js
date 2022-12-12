@@ -3,6 +3,8 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
 import logoAsset from '../../assets/logo.png';
 import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
+import { setSearch } from '../../utils/utilsSearch';
+import Navigate from '../Router/Navigate';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -13,8 +15,8 @@ import { getAuthenticatedUser } from '../../utils/auths';
 
 const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
-  const authenticatedUser = getAuthenticatedUser();
-  if (authenticatedUser === undefined) {
+  const user = getAuthenticatedUser();
+  if (user === undefined) {
     const navbar = `
       <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <div class="container-fluid">
@@ -39,8 +41,8 @@ const Navbar = () => {
                 </ul>
                 <div>
                   <form class="d-flex">
-                    <input class="form-control me-2" type="text" placeholder="Search">
-                    <button class="btn btn-light" id ="cart" type="submit">Search</button>
+                    <input class="form-control me-2" type="text" placeholder="Search" id="search">
+                    <button class="btn btn-light" id ="searchbtn" type="button">Search</button>
                   </form>
                 </div>
               </div>
@@ -49,6 +51,7 @@ const Navbar = () => {
         
     `;
     navbarWrapper.innerHTML = navbar;
+    
   } else {
     const navbar = `
     
@@ -78,8 +81,8 @@ const Navbar = () => {
                 </ul>
                 <div>
                   <form class="d-flex">
-                    <input class="form-control me-2" type="text" placeholder="Search">
-                    <button class="btn btn-light" id ="cart" type="submit">Search</button>
+                    <input class="form-control me-2" type="text" placeholder="Search" id="search">
+                    <button class="btn btn-light" id ="searchbtn" type="button">Search</button>
                   </form>
                 </div>
             </div>
@@ -89,6 +92,44 @@ const Navbar = () => {
   `;
     navbarWrapper.innerHTML = navbar;
   }
-};
+    const btn = document.getElementById('searchbtn');
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      console.log('CLICKEDD');
+      // Récupération de toute les données avec les id
+      const data = document.getElementById('search').value;
+
+      if (data === undefined) {
+        console.error('Search vide, ignorer l action');
+      } else {
+        try {
+          const options = {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          };
+          console.log(JSON.stringify(data));
+          // eslint-disable-next-line prefer-template
+          const results = await fetch('/api/products/search/'+data, options);
+          const products = await results.json();
+          console.log(products);
+
+          setSearch(products);
+
+          if (!results.ok) {
+            throw new Error(`fetch error : ${results.status}${results.statusText}`);
+          }
+          Navigate('/search');
+          /* const user = await reponse.json(); */
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error('error: ', err);
+        }
+
+      }
+    });
+  };
 
 export default Navbar;

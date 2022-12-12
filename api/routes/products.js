@@ -32,4 +32,12 @@ router.post('/add', async (req, res) => {
   return res.json(product);
 });
 
+// Compte tous les produits dans la db
+router.get('/search/:key', async (req, res) => {
+  console.log('Search est ', req.params.key);
+  const results = await productModel.Search(req.params.key);
+  res.send(results);
+});
+
+
 module.exports = router;
