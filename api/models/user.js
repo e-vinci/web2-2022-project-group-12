@@ -21,7 +21,8 @@ class User{
 
     // Recupere l'email, l'id et le password d'un user et verifie donc si il existe bien dans la db grace à l'email //
     async doIExist(email,password){
-        const user = await (await db.query(`SELECT LOWER(u.email), u.password, u.id_user FROM projetWeb.users u WHERE LOWER(u.email) = $1`,[email.toLowerCase()])).rows;
+        const user = await (await db.query(`SELECT u.email, u.password, u.id_user FROM projetWeb.users u WHERE u.email = $1`,[email])).rows;
+    
         if(user.length === 0){
                 return null
         }
@@ -34,6 +35,7 @@ class User{
             email : user[0].email,
             password : user[0].password
         }
+        console.log("l'email back est ", authentificatedUser.email)
         return authentificatedUser;
     };
 

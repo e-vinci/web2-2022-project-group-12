@@ -51,13 +51,6 @@ div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-la
 `;
 
 const UpdateUser = () => {
-  const user = getAuthenticatedUser();
-  const name = user.lastname;
-  const fname = user.firstname;
-  const email = user.email;
-  const sex = email.sex
-
-  
   clearPage();
   const main = document.querySelector('main');
   main.innerHTML = html;

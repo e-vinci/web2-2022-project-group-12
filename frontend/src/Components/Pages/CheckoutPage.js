@@ -2,7 +2,6 @@ import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import { getCartTotal, loadCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
-import PaypalPage from './Paypal';
 
 const html = `
 
@@ -144,9 +143,10 @@ const CheckoutPage = () => {
     }
     if(bool === false){
     console.log('paypal listener');
-    PaypalPage();
-    }
+    Navigate('/paypal');
+    }else{
     Navigate('/checkout');
+  }
   });
 };
 

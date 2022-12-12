@@ -1,7 +1,9 @@
 import { loadScript } from "@paypal/paypal-js";
+import { getAuthenticatedUser } from "../../utils/auths";
 
 import { clearPage } from "../../utils/render";
 import { getCartTotal } from "../../utils/utilsCart";
+import Navigate from "../Router/Navigate";
 
 const html = `
 
@@ -13,11 +15,16 @@ const html = `
   
  
    `
-
-   
   
 const PaypalPage = () =>{
     clearPage();
+    
+    const user = getAuthenticatedUser();
+    console.log(user);
+    if(user === undefined){
+      Navigate('/login');
+      console.error("User pas login");
+    }else{
     
     const main = document.querySelector('main');
     main.innerHTML = html;
@@ -25,7 +32,7 @@ const PaypalPage = () =>{
     const idToPay = document.getElementById('priceToPay');
     const script = document.createElement('script');
 
-    script.src = 'https://www.paypal.com/sdk/js?client-id=Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL&currency=EUR&buyer-country=DE&commit=false';
+    script.src = 'https://www.paypal.com/sdk/js?client-id=sd&currency=EUR&buyer-country=DE&commit=false';
 
     main.appendChild(script);
 
@@ -74,12 +81,11 @@ function initPayPalButton() {
   }).render('#paypal-button-container');
 }
 initPayPalButton();})
-
   .catch((err) => {
       console.error("failed to load the PayPal JS SDK script", err);
   });
 }
-
+}
 
 
 

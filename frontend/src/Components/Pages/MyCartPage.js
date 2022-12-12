@@ -85,8 +85,8 @@ const btn = document.getElementsByClassName('deleteArticleButton');
       console.log("Je suis dans le event listener");
       
       // eslint-disable-next-line no-console
-      removeItemFromCart(cart.objects[y].name);
-      Navigate("/cart");
+      await removeItemFromCart(cart.objects[y].name);
+      MyCartPage();
     });
   }
   const btnCheckout = document.getElementById('checkoutButton');

@@ -6,15 +6,15 @@ import Navigate from '../Router/Navigate';
 const UserPage = () => {
   // Get logged in user
   const user = getAuthenticatedUser();
-  console.log("User: " + user);
-  console.log("Username: " + user.first_name);
+  console.log(`User: ${  user}`);
+  console.log(`Username: ${  user.first_name}`);
 
   const html = `
   <div class="text-center">
       <button type="button" id="btnUpdate" class="btn btn-success" style="margin-top: 30px;" role="button" aria-pressed="true">Edit my profile</button>
   </div>
   <div>
-    <h1 style="margin-left: 50px;">Hello ${name}</h1>
+    <h1 style="margin-left: 50px;">Hello ${user.first_name}</h1>
   </div>
   `;
 
