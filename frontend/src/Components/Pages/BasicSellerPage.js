@@ -18,7 +18,7 @@ const html = `
 `;
 
 // Calling the page to render
-const BasicSalerPage = async () => {
+const BasicSellerPage = async () => {
   clearPage();
   const main = document.querySelector('main');
   main.innerHTML = html;
@@ -189,5 +189,5 @@ console.log("number: ",number)
 }
 
 
-export default BasicSalerPage;
+export default BasicSellerPage;
  
