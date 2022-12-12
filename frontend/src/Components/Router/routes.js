@@ -24,7 +24,7 @@ const routes = {
   '/addProduct' : NewProductPage,
   '/user' : UserPage,
   '/update' : UpdateUser,
-  '/checkout' : CheckoutPage
+  '/checkout' : CheckoutPage,
 };
 
 

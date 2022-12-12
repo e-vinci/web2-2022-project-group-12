@@ -10,7 +10,6 @@ const productModel = new Product();
 router.get('/getAll', async(req,res)=>{
     const result = await productModel.getAllProduct();
     if(!result) res.sendStatus(404).end();
-    console.log(result);
     res.send(result);
 })
 
