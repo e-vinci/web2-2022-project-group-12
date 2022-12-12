@@ -80,74 +80,80 @@ const html = `
 
 const CheckoutPage = () => {
   clearPage();
-  const userEmail = getAuthenticatedUser().email;
-  const cart = loadCart(userEmail);
-  const total = getCartTotal();
-  console.log('Le total est ', total);
+  // verifie si l'user s'est login pour acceder à cette page
+  const user = getAuthenticatedUser();
+  if (user === undefined) {
+    Navigate('/login');
+  } else {
+    clearPage();
+    const userEmail = getAuthenticatedUser().email;
+    const cart = loadCart(userEmail);
+    const total = getCartTotal();
+    console.log('Le total est ', total);
 
-  let html2 = `
-    
-    <div col-md-8 order-md-2 mb-4" style="margin-left : 50px; margin-top : 30px">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="mb-3">Your cart</span>
-        <span class="badge badge-secondary badge-pill">3</span>
-      </h4>
-    <ul class="list-group mb-3" id="listItem">
-    
+    let html2 = `
+      
+      <div col-md-8 order-md-2 mb-4" style="margin-left : 50px; margin-top : 30px">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="mb-3">Your cart</span>
+          <span class="badge badge-secondary badge-pill">3</span>
+        </h4>
+      <ul class="list-group mb-3" id="listItem">
+      
+      `;
+    console.log('le panier est', cart.objects);
+
+    // eslint-disable-next-line prefer-destructuring
+    const length = cart.objects.length;
+
+    for (let i = 0; i < length; i += 1) {
+      let totalPriceForThisArticle = 0;
+      totalPriceForThisArticle = cart.objects[i].price * cart.objects[i].count;
+      html2 += `
+      <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">${cart.objects[i].name}</h6>
+      </div>
+        <span class="text-muted">${cart.objects[i].price}</span>
+        <small class="text-muted">Nombre : ${cart.objects[i].count}</small>
+        <small class="text-muted">Total price : ${totalPriceForThisArticle}</small>
+      </li>
     `;
-  console.log('le panier est', cart.objects);
+    }
 
-  // eslint-disable-next-line prefer-destructuring
-  const length = cart.objects.length;
-
-  for (let i = 0; i < length; i += 1) {
-    let totalPriceForThisArticle = 0;
-    totalPriceForThisArticle = cart.objects[i].price * cart.objects[i].count;
+    const totalPrice = getCartTotal();
     html2 += `
-    <li class="list-group-item d-flex justify-content-between lh-condensed">
-    <div>
-      <h6 class="my-0">${cart.objects[i].name}</h6>
-    </div>
-      <span class="text-muted">${cart.objects[i].price}</span>
-      <small class="text-muted">Nombre : ${cart.objects[i].count}</small>
-      <small class="text-muted">Total price : ${totalPriceForThisArticle}</small>
-    </li>
-  `;
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Total Price</span>
+        <strong>${totalPrice} €</strong>
+      </li>
+    </ul>`;
+
+    const main = document.querySelector('main');
+    main.innerHTML = html;
+
+    const id = document.getElementById('firstDiv');
+    id.innerHTML = html2;
+
+    const paypalBtn = document.getElementById('form');
+    paypalBtn.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const list = document.getElementsByClassName('test');
+      let bool = false;
+      for (let i = 0; i < list.length; i += 1) {
+        if (list[i].value === '') {
+          bool = true;
+          console.log('Je suis passé', i);
+          break;
+        }
+      }
+      if (bool === false) {
+        console.log('paypal listener');
+        PaypalPage();
+      }
+      Navigate('/checkout');
+    });
   }
-
-  const totalPrice = getCartTotal();
-  html2 += `
-    <li class="list-group-item d-flex justify-content-between">
-      <span>Total Price</span>
-      <strong>${totalPrice} €</strong>
-    </li>
-  </ul>`;
-
-
-  const main = document.querySelector('main');
-  main.innerHTML = html;
-
-  const id = document.getElementById('firstDiv');
-  id.innerHTML = html2;
-
-  const paypalBtn = document.getElementById('form');
-  paypalBtn.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const list = document.getElementsByClassName('test');
-    let bool = false;
-    for(let i =0;i<list.length;i+=1){
-      if (list[i].value === "") {
-        bool = true;
-        console.log("Je suis passé",i)
-        break;        
-      } 
-    }
-    if(bool === false){
-    console.log('paypal listener');
-    PaypalPage();
-    }
-    Navigate('/checkout');
-  });
 };
 
 export default CheckoutPage;

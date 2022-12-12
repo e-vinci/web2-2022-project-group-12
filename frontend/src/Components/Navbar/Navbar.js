@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import logoAsset from "../../assets/logo.png";
+import logoAsset from '../../assets/logo.png';
 import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
 
@@ -12,10 +12,9 @@ import { getAuthenticatedUser } from '../../utils/auths';
  */
 
 const Navbar = () => {
-  
   const navbarWrapper = document.querySelector('#navbarWrapper');
   const authenticatedUser = getAuthenticatedUser();
-  if( authenticatedUser === undefined ){
+  if (authenticatedUser === undefined) {
     const navbar = `
       <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <div class="container-fluid">
@@ -50,7 +49,7 @@ const Navbar = () => {
         
     `;
     navbarWrapper.innerHTML = navbar;
-  }else{
+  } else {
     const navbar = `
     
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
@@ -88,9 +87,8 @@ const Navbar = () => {
         </nav>
        
   `;
-  navbarWrapper.innerHTML = navbar;
+    navbarWrapper.innerHTML = navbar;
   }
 };
-
 
 export default Navbar;

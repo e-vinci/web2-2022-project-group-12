@@ -6,11 +6,11 @@
  * has to import all the pages to render them.
  */
 
-const Navigate = (toUri,id) => {
-  if(id !== undefined){
-    console.log("le id est : ",id);
+const Navigate = (toUri, id) => {
+  if (id !== undefined) {
+    console.log('le id est : ', id);
     // eslint-disable-next-line no-param-reassign
-    toUri +=id
+    toUri += id;
   }
   const fromUri = window.location.pathname;
   if (fromUri === toUri) return;
