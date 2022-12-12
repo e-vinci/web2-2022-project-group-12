@@ -1,9 +1,7 @@
-import { loadScript } from '@paypal/paypal-js';
+import { loadScript } from "@paypal/paypal-js";
 
-import { clearPage } from '../../utils/render';
-import { getCartTotal } from '../../utils/utilsCart';
-import { getAuthenticatedUser } from '../../utils/auths';
-import Navigate from '../Router/Navigate';
+import { clearPage } from "../../utils/render";
+import { getCartTotal } from "../../utils/utilsCart";
 
 const html = `
 
@@ -14,25 +12,20 @@ const html = `
   
   
  
-   `;
+   `
 
-const PaypalPage = () => {
-  clearPage();
-  // verifie si l'user s'est login pour acceder à cette page
-  const user = getAuthenticatedUser();
-  if (user === undefined) {
-    Navigate('/login');
-  } else {
+   
+  
+const PaypalPage = () =>{
     clearPage();
-
+    
     const main = document.querySelector('main');
     main.innerHTML = html;
 
     const idToPay = document.getElementById('priceToPay');
     const script = document.createElement('script');
 
-    script.src =
-      'https://www.paypal.com/sdk/js?client-id=Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL&currency=EUR&buyer-country=DE&commit=false';
+    script.src = 'https://www.paypal.com/sdk/js?client-id=Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL&currency=EUR&buyer-country=DE&commit=false';
 
     main.appendChild(script);
 
@@ -75,19 +68,19 @@ const PaypalPage = () => {
                 });
               },
 
-              onError(err) {
-                console.log(err);
-              },
-            })
-            .render('#paypal-button-container');
-        }
-        initPayPalButton();
-      })
+    onError(err) {
+      console.log(err);
+    }
+  }).render('#paypal-button-container');
+}
+initPayPalButton();})
 
-      .catch((err) => {
-        console.error('failed to load the PayPal JS SDK script', err);
-      });
-  }
-};
+  .catch((err) => {
+      console.error("failed to load the PayPal JS SDK script", err);
+  });
+}
+
+
+
 
 export default PaypalPage;

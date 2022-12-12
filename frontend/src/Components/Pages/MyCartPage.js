@@ -86,6 +86,11 @@ const MyCartPage = () => {
     const btnCheckout = document.getElementById('checkoutButton');
     btnCheckout.addEventListener('click', (e) => {
       e.preventDefault();
+      console.log("Je suis dans le event listener");
+      
+      // eslint-disable-next-line no-console
+
+      MyCartPage();
       Navigate('/checkout');
     });
   }
