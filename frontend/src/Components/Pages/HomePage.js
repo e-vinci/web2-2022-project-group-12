@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
-import img from '../../img/produit1.png';
 import 'animate.css';
-import image from '../../assets/image1.png';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 
@@ -12,13 +10,12 @@ const html = `
   <h1 class="display-1"> Vinci Store </h1>
 </div>
 
-
 <div class = "carousselContainer ">
   <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
   <div class="carousel-indicators" id="carousel-buttons">
 
         </div>
-        <div class="carousel-inner" id = "carousel-items">
+        <div class="carousel-inner" id ="carousel-items">
 
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -39,16 +36,6 @@ const html = `
 <div class="text-center">
   <h1 class="display-1"> Products </h1>
 </div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
 <div class="container py-5">
     <div class="row justify-content" id="imgProduct">
       
@@ -57,21 +44,26 @@ const html = `
   `;
 
 const HomePage = async () => {
+
   const main = document.querySelector('main');
   countAllProduct();
   main.innerHTML = html;
-
+  // eslint-disable-next-line no-useless-escape
+  const imageCaroussel = importAll(require.context('../../assets/caroussel', true, /\.png$/));
+  
+  
   const carrouselListItem = document.getElementById('carousel-items');
   let i = 0;
   let items = ``;
-  while (i < 10) {
+  while (i < 2) {
+    
     if (i === 0) {
       items += `<div class="carousel-item active" data-bs-interval="10000">
-    <img src="${img}" id="item-${i}" class="d-block w-100" alt="img">
+    <img src="${imageCaroussel[i]}" id="item-${i}" class="d-block w-100" alt="img">
    </div>`;
     } else {
       items += `<div class="carousel-item" data-bs-interval="10000">
-    <img src="${img}" class="d-block w-100" alt="img">
+    <img src="${imageCaroussel[i]}" class="d-block w-100" alt="img">
    </div>`;
     }
 
@@ -82,7 +74,7 @@ const HomePage = async () => {
   i = 0;
   items = ``;
   const carouselButtons = document.getElementById('carousel-buttons');
-  while (i < 10) {
+  while (i < 2) {
     if (i === 0) {
       items += `<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i +
         1}"></button>
@@ -140,16 +132,16 @@ async function showProduct(product) {
   let i = 0;
 
   while (i < nbImage) {
-    console.log("JE SUIS PASSE")
+    const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
-    const nameProduct = product[i].productname;
-    const priceProduct = product[i].prix;
+    const nameProduct = product[i].name;
+    const priceProduct = product[i].price;
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4" >
     <div class="card" style="border-radius: 15px;" >
     <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light" >
-    <img src="${image}"
+    <img src="${imageProduit[i]}"
     style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
     alt="Laptop"/>
   <a href="#!">
@@ -180,7 +172,6 @@ async function showProduct(product) {
               <p><a href="#!" class="text-dark">${priceProduct}</a></p>
               
             </div>
-            <p class="small text-muted">VISA Platinum</p>
           </div>
           <hr class="my-0" />
           <div class="card-body">
@@ -206,7 +197,7 @@ async function showProduct(product) {
       e.preventDefault();
       const id = a[j].name;
       // eslint-disable-next-line prefer-template
-      Navigate("/test?id_product=",id);
+      Navigate("/product?id_product=",id);
   })}; 
 }
 
@@ -232,6 +223,10 @@ async function countAllProduct() {
     console.error('error: ', err);
   }
   return number;
+}
+
+function importAll(r) {
+  return r.keys().map(r);
 }
 
 export default HomePage;

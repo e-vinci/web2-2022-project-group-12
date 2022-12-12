@@ -6,7 +6,8 @@ import Navigate from '../Router/Navigate';
 const UserPage = () => {
   // Get logged in user
   const user = getAuthenticatedUser();
-  const name = user.email;
+  console.log("User: " + user);
+  console.log("Username: " + user.first_name);
 
   const html = `
   <div class="text-center">
@@ -27,4 +28,4 @@ const UserPage = () => {
   });
 };
 
-export default UserPage;
+export default UserPage; 

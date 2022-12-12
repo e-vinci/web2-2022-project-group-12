@@ -75,7 +75,6 @@ const NewProductPage = () => {
     const NewProduct = {
         productname,
         description,
-        type,
         price,
         color,
       };

@@ -1,6 +1,5 @@
-import { Chart } from 'chart.js/auto'
+import { Chart } from 'chart.js/auto';
 import { clearPage } from '../../utils/render';
-
 
 const text = `
 <div class="text-center">
@@ -18,13 +17,33 @@ const text = `
 </div>
 `;
 
+/* const getData = {
+  nbrOfProdcuts,
+};
+
+const options = {
+  method: 'GET',
+  body: JSON.stringify(getData),
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
+const response = await fetch('/api/products/countAll', options);
+
+if (!response.ok) {
+  throw new Error(
+    // eslint-disable-next-line no-irregular-whitespace
+    `fetch error : ${response.status}:${response.statusText}`,
+  );
+} */
+
 const StatisticPage = () => {
   clearPage();
   const main = document.querySelector('main');
   main.innerHTML = text;
 
-
-  ( async () => {
+  (async () => {
     const data = [
       { year: 2010, count: 10 },
       { year: 2011, count: 20 },
@@ -33,48 +52,48 @@ const StatisticPage = () => {
       { year: 2014, count: 22 },
       { year: 2015, count: 30 },
       { year: 2016, count: 28 },
-      { year: 2017, count: 45 }
+      { year: 2017, count: 45 },
     ];
 
     // eslint-disable-next-line no-new
-    new Chart(
-      document.getElementById('myChart'),
-      {
-        type: 'polarArea',
-        data: {
-          labels: data.map(row => row.year),
-          datasets: [
-            {
-              label: 'Acquisitions by year',
-              data: data.map(row => row.count)
-            }
-          ]
-        },
-        options: {
-          responsive: true
-        }
-      }
-    );
+    new Chart(document.getElementById('myChart'), {
+      type: 'polarArea',
+      data: {
+        labels: data.map((row) => row.year),
+        datasets: [
+          {
+            label: 'Acquisitions by year',
+            data: data.map((row) => row.count),
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    });
 
     // eslint-disable-next-line no-new
-    new Chart(
-      document.getElementById('myChart2'),
-      {
-        type: 'bar',
-        data: {
-          labels: data.map(row => row.year),
-          datasets: [
-            {
-              label: 'Acquisitions by year',
-              data: data.map(row => row.count)
-            }
-          ]
+    new Chart(document.getElementById('myChart2'), {
+      type: 'bar',
+      data: {
+        labels: data.map((row) => row.year),
+        datasets: [
+          {
+            label: 'Acquisitions by year',
+            data: data.map((row) => row.count),
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Monthly overview of sales :',
+          },
         },
-        options: {
-          responsive: true
-        }
-      }
-    );
+        responsive: true,
+      },
+    });
   })();
   /* https://www.chartjs.org/docs/latest/getting-started/ */
 };

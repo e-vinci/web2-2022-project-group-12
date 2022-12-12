@@ -2,16 +2,19 @@ import { clearPage } from "../../utils/render";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addItemToCart } from '../../utils/utilsCart';
 
-const TestPage = async () =>{
+// Cette page permet l'affichage des données d'un seul produit en cliquant sur un bouton de la homepage
+
+const ProductPage = async () =>{
     clearPage();
     const main = document.querySelector('main');
-    const id = window.location.search;
 
+    // permet d'aller chercher un paramètre dans l'url
+    const id = window.location.search;
     const url = id.split ('=');
     const product = await getProductById(url[1]);
-    console.log("LURL EST",url[1]);
-    const test = `
-    <h></h2>
+    
+    // html de la page 
+    const html = `
     <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">
@@ -28,8 +31,8 @@ const TestPage = async () =>{
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <div>
-                <p><a href="#!" class="text-dark">${product.productname}</a></p>
-                <p class="small text-muted">Laptops</p>
+                <p><a href="#!" class="text-dark">${product.name}</a></p>
+                <p class="small text-muted">by ${product.id_user}</p>
               </div>
               <div>
                 <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
@@ -45,7 +48,7 @@ const TestPage = async () =>{
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">${product.prix}</a></p>
+              <p><a href="#!" class="text-dark">${product.price}</a></p>
             </div>
             <p class="small text-muted">VISA Platinum</p>
           </div>
@@ -61,10 +64,10 @@ const TestPage = async () =>{
     </div>
   </div>
           `
-    main.innerHTML = test;
+    main.innerHTML = html;
 
+    // Permet d'ajouter le produit dans le panier 
     const btn = document.getElementsByName('btnAddtoCart');
-
     for(let y=0;y<btn.length; y+=1){
      btn[y].addEventListener('click', async (e) => {
       e.preventDefault();
@@ -76,6 +79,7 @@ const TestPage = async () =>{
 
 async function getProductById(id){
 
+  // Permet d'aller chercher les informations du produit 
   let product;
 
   try {
@@ -102,6 +106,4 @@ async function getProductById(id){
   
 }
 
-
-
-export default TestPage;
+export default ProductPage;

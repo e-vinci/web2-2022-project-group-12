@@ -55,7 +55,7 @@ function onFrontendLoad() {
 function logout(){
    clearAuthenticatedUser();
    Navbar();
-   Navigate("");
+   Navigate("/");
 }
 
 export default Router;
