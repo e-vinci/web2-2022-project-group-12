@@ -1,4 +1,4 @@
-import { getAuthenticatedUser } from '../../utils/auths';
+import { getAuthenticatedUser, setAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 
@@ -45,7 +45,8 @@ const html = `
 const UpdateUser = () => {
   clearPage();
   const user = getAuthenticatedUser();
-  const { email } = user.email;
+  const { email } = user;
+  console.log(email);
   if (user === undefined) {
     Navigate('login');
   }
@@ -90,11 +91,29 @@ const UpdateUser = () => {
       };
       console.log('logloglog');
       const reponse = await fetch('/api/users/updateUser', options);
-      console.log('logfgfdgfdgdgloglog');
+      console.log('logfgfdgfdgdgloglog: ', reponse);
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
-      alert("GG");
+      const newUser = {
+        id: user.userId,
+        email,
+        firstName,
+        lastName,
+        sex,
+      }
+      if (firstName !== undefined) {
+        newUser.firstName = firstName
+      }
+      if (lastName !== undefined) {
+        newUser.lastName = lastName
+      }
+      if (sex !== undefined) {
+        newUser.sex = sex;
+      }
+      setAuthenticatedUser(newUser);
+      console.log("Userdsdsd: ", user);
+      alert('Update reussi');
       Navigate('/user');
       /* const user = await reponse.json(); */
     } catch (err) {

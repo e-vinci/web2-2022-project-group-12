@@ -36,6 +36,7 @@ class User {
       console.log('Mots de passe ne matchents pas');
       return null;
     }
+
     const authentificatedUser = {
       userId: user[0].id_user,
       email: user[0].email.toLowerCase(),
@@ -73,7 +74,6 @@ class User {
     // Creeation de l'adresse par les données fournies dans le body,
     // renvoie l'id de la derniere adresse crée pour l'insere comme FOREIGN KEY dans la db //
     const idAdress = this.addAdress(body);
-    console.log('IDAdress: ', idAdress);
 
     await db.query(
       `INSERT INTO projetWeb.seller (store_name,id_adress,id_user) VALUES ($1,$2,$3)`,
@@ -94,8 +94,8 @@ class User {
 
   async updateUser(body) {
     await db.query('UPDATE projetWeb.users SET first_name = $1, last_name = $2, sex = $3 WHERE email = $4', [
-      body.firstname,
-      body.lastname,
+      body.firstName,
+      body.lastName,
       body.sex,
       body.email
     ]);
