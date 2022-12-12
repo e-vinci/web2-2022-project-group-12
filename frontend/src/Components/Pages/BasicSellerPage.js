@@ -36,7 +36,7 @@ const BasicSalerPage = async () => {
   });
 
 
-    const product = getAllProductBySeller(idUser)
+    const product = await getAllProductBySeller(idUser)
     await showProduct(product);
 
     
@@ -45,7 +45,7 @@ const BasicSalerPage = async () => {
  
 
 async function getAllProductBySeller(id) {
-  let products;
+  
 
   const Data = {
     id,
@@ -62,15 +62,18 @@ async function getAllProductBySeller(id) {
 
     // eslint-disable-next-line prefer-template
     const reponse = await fetch('/api/products/getAllBySeller', options);
+    console.log("response:",reponse)
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
-    products = await reponse.json();
+    const products = await reponse.json();
+    console.log("liste de produit", products)
+    return products;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
-  return products;
+  return null;
 }
 
 
@@ -84,19 +87,15 @@ async function showProduct(product) {
   console.log("ceci est l'id (show product)", idUser)
 
   const nbImage = await countAllProductBySeller(idUser);
+  console.log("nombre article :", nbImage)
   let items = ``;
   let i = 0;
 
   while (i < nbImage) {
     const id = product[i].id_product;
-    const nameProduct = product[i].productname;
-    const priceProduct = product[i].prix;
+    const nameProduct = product[i].name;
+    const priceProduct = product[i].price;
     items += `
-
-    <div>
-      <h2>test</h2>
-    </div>
-
     <div class="col-md-8 col-lg-6 col-xl-4" >
     <div class="card" style="border-radius: 15px;" >
     <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
@@ -184,6 +183,8 @@ async function countAllProductBySeller(id) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
+console.log("number: ",number)
+
   return number;
 }
 

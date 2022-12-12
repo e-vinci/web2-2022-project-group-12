@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
+
 // formulaire NewProduct
 const formNewProduct = `  
 <h2>Add a product</h2>
@@ -20,13 +21,17 @@ const formNewProduct = `
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="name">Type :</label>
-        <input type="text" class="form-control" id="type" placeholder="Enter the type of product" name="type">
+        <label for="email">Price :</label>
+        <input type="text" class="form-control" id="price" placeholder="Enter the price" name="price">    
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="email">Price :</label>
-        <input type="int" class="form-control" id="price" placeholder="Enter the price" name="price">    
+        <select class="form-select" aria-label="Default select example" id="select1">
+        <option selected>Open this select menu</option>
+        <option value="1">test</option>
+        <option value="2">vetement</option>
+        <option value="3">object</option>
+        </select>
     </div>
 
     <div class="mb-3 mt-3">
@@ -64,18 +69,24 @@ const NewProductPage = () => {
       e.preventDefault();
 
       // Récupération de toute les données avec les id
-      const productname = document.getElementById('name').value;
+      const productname = document.getElementById('productName').value;
       const description = document.getElementById('description').value;
-      const type = document.getElementById('type').value;
       const price = document.getElementById('price').value;
       const color = document.getElementById('color').value;
 
+      const idUser= user.userId
+
+      const selectElement = document.getElementById('select1')
+      const idCategory = selectElement.value;
+
+      console.log("les donnees", productname,description,price,color,idUser,idCategory)
+      console.log("les donnees .value", productname.value,description.value,price.value,color.value,idUser.value,idCategory.value)
       if (
-        productname.value === undefined ||
-        description.value === undefined ||
-        type.value === undefined ||
-        price.value === undefined ||
-        color.value === undefined
+        productname === undefined ||
+        description === undefined ||
+        price === undefined ||
+        color === undefined ||
+        idCategory === undefined
       ) {
         console.error('Veuillez compléter tous les champs');
       }
@@ -86,6 +97,8 @@ const NewProductPage = () => {
         description,
         price,
         color,
+        idUser,
+        idCategory
       };
 
       try {
@@ -102,7 +115,9 @@ const NewProductPage = () => {
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
-        Navigate("product");
+        const idProduct = await reponse.json();
+        console.log("id:", idProduct)
+        Navigate('/product?id_product=', idProduct);
         /* const user = await reponse.json(); */
       } catch (err) {
         // eslint-disable-next-line no-console

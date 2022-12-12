@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAuthenticatedUser } = require('../../frontend/src/utils/auths');
+
 const { login } = require('../auths/auths');
 
 const router = express.Router();
