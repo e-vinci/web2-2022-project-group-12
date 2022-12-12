@@ -25,7 +25,7 @@ const PaypalPage = () =>{
     const idToPay = document.getElementById('priceToPay');
     const script = document.createElement('script');
 
-    script.src = 'https://www.paypal.com/sdk/js?client-id=Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL&currency=EUR&buyer-country=DE&commit=false';
+    script.src = 'https://www.paypal.com/sdk/js?client-id=sd&currency=EUR&buyer-country=DE&commit=false';
 
     main.appendChild(script);
 
