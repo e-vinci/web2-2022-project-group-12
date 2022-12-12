@@ -72,59 +72,6 @@ class User {
         return seller[0];
     }
 
-    if (!bcrypt.compareSync(password, user[0].password)) {
-      console.log('mots de passe ne matchents pas');
-      return null;
-    }
-    const authentificatedUser = {
-      userId: user[0].id_user,
-      email: user[0].email,
-      password: user[0].password,
-    };
-    return authentificatedUser;
-  }
-
-  // Permet de recupere un utilisateur grace à son id //
-  async getOneUser(id) {
-    const user = await (
-      await db.query(`SELECT * FROM projetWeb.users u WHERE U.id_user = $1`, [id])
-    ).rows;
-    return user[0];
-  }
-
-  // Permet l'ajout d'une adresse dans la base des données //
-  async addAdress(data) {
-    const adress = await db.query(
-      `INSERT INTO projetWeb.adresses (country,city,zip_code,street,number) VALUES($1,$2,$3,$4,$5) RETURNING id_adress`,
-      [data.country, data.city, data.zipCode, data.street, data.building],
-    );
-    const idAdress = adress.rows[0].id_adress;
-    return idAdress;
-  }
-
-  // Permet d'ajouter un vendeur dans la base des données en recuperant l'id du utilisateur connecté //
-  async beSeller(body) {
-    // Creeation de l'adresse par les données fournies dans le body,
-    // renvoie l'id de la derniere adresse crée pour l'insere comme FOREIGN KEY dans la db //
-    const idAdress = this.addAdress(body);
-
-    await db.query(`INSERT INTO projetWeb.seller (store_name,id_adress,id_user)`, [
-      body.storeName,
-      idAdress,
-      body.userID,
-    ]);
-  }
-
-  // Permet de recuperer un vendeur de la base des données par le moyen de son id //
-  async getSeller(id) {
-    const seller = await (
-      await db.query(
-        `SELECT u.*, s.* FROM projetWeb.users u, projetWeb.seller s WHERE u.id_user = s.id_user AND s.id_user = $1`,
-        [id],
-      )
-    ).rows;
-    return seller[0];
-  }
 }
 
 module.exports = { User };
