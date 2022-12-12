@@ -4,20 +4,21 @@ import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
   // Get logged in user
-  const user = getAuthenticatedUser();
+  
 
   const html = `
   <div class="text-center">
       <button type="button" id="btnUpdate" class="btn btn-success" style="margin-top: 30px;" role="button" aria-pressed="true">Edit my profile</button>
   </div>
   <div>
-    <h1 style="margin-left: 50px;">Hello ${user.first_name}</h1>
+    <h1 style="margin-left: 50px;">Hello ${5}</h1>
   </div>
   `;
 
 const UserPage = () => {
   clearPage();
   // verifie si l'user s'est login pour acceder à cette page
+  const user = getAuthenticatedUser();
   if (user === undefined) {
     Navigate('/login');
   } else {
