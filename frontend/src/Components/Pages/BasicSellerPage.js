@@ -18,7 +18,7 @@ const BasicSellerPage = () => {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    Navigate('addProduct')
+    Navigate('/addProduct')
     
   });
 
