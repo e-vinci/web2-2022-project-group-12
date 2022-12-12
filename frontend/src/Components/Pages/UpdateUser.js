@@ -95,6 +95,7 @@ const UpdateUser = () => {
             'Content-Type': 'application/json',
           },
         };
+        
 
         const reponse = await fetch('/api/users/becomeSeller', options);
 
