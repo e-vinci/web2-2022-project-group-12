@@ -1,4 +1,5 @@
 const express = require('express');
+const { getAuthenticatedUser } = require('../../frontend/src/utils/auths');
 const { login } = require('../auths/auths');
 
 const router = express.Router();
@@ -44,6 +45,14 @@ router.post('/becomeSeller', async (req, res) => {
   console.log(req.body);
   const store = await userModel.beSeller(req.body);
   return res.json(store);
+});
+
+// Permet de recuperer tt les donnée d'un utilisateur //
+router.post('/getUserDetails', async (req, res) => {
+  console.log(getAuthenticatedUser().userId);
+  const iduser = getAuthenticatedUser().userId;
+  const userWithDetails = await userModel.getOneUser(iduser);
+  return res.json(userWithDetails);
 });
 
 module.exports = router;
