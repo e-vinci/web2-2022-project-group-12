@@ -150,8 +150,9 @@ const CheckoutPage = () => {
       if (bool === false) {
         console.log('paypal listener');
         PaypalPage();
-      }
+      }else{
       Navigate('/checkout');
+      }
     });
   }
 };
