@@ -20,6 +20,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Routeur permettant de se connecter comme utilisateur //
+
 router.post('/login', async (req, res) => {
   const { email } = req.body;
   const { password } = req.body;
@@ -34,6 +35,14 @@ router.post('/login', async (req, res) => {
 // Permet de récupérer un vendeur en particulier avec id
 router.get('/getIdStore/:id', async (req, res) => {
   const result = await userModel.getSeller(req.params.id);
+  res.send(result);
+});
+
+
+// Permet de récupérer un produit en particulier avec id
+router.get('/getIdByEmail' , async(req,res)=>{
+  console.log(req.body)
+  const result = await userModel.getOneUserByEmail(req.body);
   res.send(result);
 });
 
@@ -61,3 +70,4 @@ router.post('/updateUser', async (req, res) => {
 })
 
 module.exports = router;
+

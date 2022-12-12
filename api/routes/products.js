@@ -27,9 +27,10 @@ router.get('/countAll', async (req, res) => {
 
 // Ajoute le produit à la db
 router.post('/add', async (req, res) => {
+  console.log("la sa passe")
   console.log(req.body);
-  const product = await productModel.addProduct(req.body);
-  return res.json(product);
+  const idProduct = await productModel.addProduct(req.body);
+  return res.json(idProduct);
 });
 
 // Compte tous les produits dans la db
@@ -38,6 +39,25 @@ router.get('/search/:key', async (req, res) => {
   const results = await productModel.Search(req.params.key);
   res.send(results);
 });
+
+// Permet de lister tous les produits de la db par vendeur
+router.post('/getAllBySeller', async(req,res)=>{
+    console.log("je suis passee")
+    const result = await productModel.getAllProductBySeller(req.body);
+    if(!result) res.sendStatus(404).end();
+    console.log(result);
+    return res.json(result[0])
+})
+
+
+// Compte tous les produits d'un vendeur dans la db
+router.post('/countAllBySeller' , async(req,res)=>{
+    console.log("enter in products.js")
+    const count = await productModel.countProductBySeller(req.body);
+    console.log("je passe",count)
+    return res.json(count)
+})
+
 
 
 module.exports = router;

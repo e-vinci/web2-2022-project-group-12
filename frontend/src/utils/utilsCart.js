@@ -100,6 +100,20 @@ function getCartTotal(){
 return sum;
 }
 
+function countProductCart(){
+  const user = getAuthenticatedUser();
+  const cart = loadCart(user.email);
+  const {length} = cart.objects;
+  let count = 0;
+  for (let i = 0; i < length; i += 1) {
+    // eslint-disable-next-line prefer-destructuring
+     count += cart.objects[i].count;
+  }
+  console.log("Le nomre de produits navbar " , count)
+  return count;
+
+}
+
 
 
 function Item(name, price, count) {
@@ -109,4 +123,4 @@ function Item(name, price, count) {
 }
 
 
-export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart,removeItemFromCart,getCartTotal, Item };
+export { shoppingCart, loadCart, deleteCart,saveCart ,addItemToCart,removeItemFromCart,getCartTotal,countProductCart, Item };

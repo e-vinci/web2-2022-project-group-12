@@ -30,19 +30,32 @@ class Product {
   // Permet d'ajouter un nouveau produit dans la base des données //
   async addProduct(body) {
     // insert into projetWeb.products (name,price,description,color,id_user,id_category) values ('Sac',65,'Sac à main en cuir','noir',1,2);
-    await db.query(
-      `INSERT INTO projetWeb.products (name,description,price,color) VALUES( $1, $2, $3, $4)`,
-      [body.productName, body.description, body.price, body.color],
+
+    const idProduct = await db.query(`INSERT INTO projetWeb.products (name,description,price,color,id_user,id_category) VALUES( $1, $2, $3, $4, $5, $6) RETURNING id_product`,
+      [body.productname, body.description, body.price, body.color, body.idUser, body.idCategory]
     );
-    console.log(body.productName, body.description, body.price, body.color);
-    const product = {
-      productName: body.productName,
-      description: body.description,
-      price: body.price,
-      color: body.color,
-    };
-    return product;
+
+    console.log("test add :",body.productname, body.description, body.price, body.color, body.idUser, body.idCategory);
+
+    const productId =  idProduct.rows[0].id_product
+    console.log("ceci cest le product id:",productId)
+    return productId;
   }
+
+
+    async countProductBySeller(body){
+        console.log("enter in product.js")
+        const numberOfProduct = await (await db.query(`SELECT COUNT(*) FROM projetWeb.products  WHERE id_user = $1`,[body.id])).rows;
+        return numberOfProduct[0].count;
+    }
+
+    async getAllProductBySeller(body){
+        console.log("je suis passee aussi")
+        const product = await (await db.query(`SELECT * FROM projetWeb.products  WHERE id_user = $1`,[body.id])).rows;
+        console.log("je suis passee aussi 2")
+        return product;
+    }
+
 
   async listByCategory(categoryID) {
     const product = await (

@@ -49,6 +49,19 @@ class User {
     return authentificatedUser;
   }
 
+   
+
+
+    async getOneUserByEmail(body){
+        const user = await (await db.query(`SELECT * FROM projetWeb.users u WHERE U.email = $1`, [body.email])).rows;
+        return user[0]; 
+    };
+
+
+ 
+
+
+
   // Permet de recupere un utilisateur grace à son id //
   async getOneUser(id) {
     const user = await (

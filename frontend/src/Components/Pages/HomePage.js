@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
+import Navbar from '../Navbar/Navbar';
 
 // HTML CODE
 const html = `
@@ -109,6 +110,7 @@ const HomePage = async () => {
         e.preventDefault();
         console.log(btn[y].value);
         addItemToCart(btn[y].value, 5, 1);
+        Navbar();
       });
     }
   } catch (err) {
