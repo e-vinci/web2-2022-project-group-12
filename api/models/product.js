@@ -11,7 +11,7 @@ class Product {
   // Permet de recuperer un produit à l'aide d'un id //
   async getOneProduct(id) {
     const product = await (
-      await db.query(`SELECT p.* FROM projetWeb.products p WHERE p.id_product = $1`, [id])
+      await db.query(`SELECT p.*, s.store_name, c.name as "category" FROM projetWeb.products p, projetWeb.seller s, projetWeb.categories c WHERE p.id_product = $1 AND s.id_user = p.id_user AND c.id_category = p.id_category`, [id])
     ).rows;
     return product[0];
   }
@@ -19,8 +19,7 @@ class Product {
   // Permet de comptes combien de produits il y a //
   async countProduct() {
     const numberOfProduct = await (
-      await db.query(`SELECT COUNT(p.*) FROM projetWeb.products p`)
-    ).rows;
+      await db.query(`SELECT COUNT(p.*) FROM projetWeb.products p`)).rows;
     return numberOfProduct[0].count;
   }
 
@@ -41,9 +40,10 @@ class Product {
     return product;
   }
 
-  async listByType(type) {
-    const product = await (await db.query(`SELECT * FROM products WHERE type = $1`, [type])).rows;
+  async listByCategory(categoryID) {
+    const product = await (await db.query(`SELECT p.* FROM projetWeb.products p WHERE p.id_category = $1`, [categoryID])).rows;
     return product;
   }
+
 }
 module.exports = { Product };

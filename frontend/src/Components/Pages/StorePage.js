@@ -25,7 +25,7 @@ const StorePage = async () => {
 
             <div id="firstDiv" class ="col-md-8 order-md-2 mb-4 ">
                 <div class="mx-auto">
-                    <h2>${store.name} test</h2>
+                    <h2>${store.store_name} test</h2>
                     <h4>by ${store.frist_name} ${store.last_name} test</h4>
                     <p><i class="bi bi-envelope-fill"></i> ${store.email}</p>
                 </div>

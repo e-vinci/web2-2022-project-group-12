@@ -4,8 +4,10 @@ import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 // formulaire NewProduct
-const formNewProduct = `  
+const formNewProduct = `
+<div class="">
 <h2>Add a product</h2>
+<div>
 <form>   
 <div class="container mt-3">
 
@@ -15,23 +17,39 @@ const formNewProduct = `
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="name">Product Description :</label>
-        <input type="text" class="form-control" id="description" placeholder="Enter the product description" name="description">
+        <label for="description">Product Description :</label>
+        <textarea class="form-control" id="description" placeholder="Enter the product description" name="description" rows="5"></textarea>
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="name">Type :</label>
-        <input type="text" class="form-control" id="type" placeholder="Enter the type of product" name="type">
+        <label for="category">Category :</label>
+        
+        <div style="margin-top:10px">
+          <select name="category" id="category">
+            <optgroup label="Swedish Cars">
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+            </optgroup>
+            <optgroup label="German Cars">
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </optgroup>
+          </select>
+          <p style="margin-top:10px">
+            Or create a new category : 
+          </p>
+          <input type="text" class="form-control" id="newcategory" placeholder="Enter category name..." name="newcategory">
+        </div>
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="email">Price :</label>
+        <label for="price">Price :</label>
         <input type="int" class="form-control" id="price" placeholder="Enter the price" name="price">
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="email">Color :</label>
-        <input type="int" class="form-control" id="color" placeholder="Enter the color of the product" name="color">
+        <label for="color">Color :</label>
+        <input type="color" class="form-control" id="color" placeholder="Enter the color of the product" name="color">
     </div>
     
     <div class="mb-3 mt-3">
@@ -66,7 +84,7 @@ const NewProductPage = () => {
       // Récupération de toute les données avec les id
       const productname = document.getElementById('name').value;
       const description = document.getElementById('description').value;
-      const type = document.getElementById('type').value;
+      const type = document.getElementById('category').value;
       const price = document.getElementById('price').value;
       const color = document.getElementById('color').value;
 
