@@ -1,13 +1,10 @@
-import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import 'bootstrap';
 import Navigate from '../Router/Navigate';
+import { getAuthenticatedUser } from '../../utils/auths';
 
-const UserPage = () => {
   // Get logged in user
   const user = getAuthenticatedUser();
-  console.log(`User: ${  user}`);
-  console.log(`Username: ${  user.first_name}`);
 
   const html = `
   <div class="text-center">
@@ -18,14 +15,21 @@ const UserPage = () => {
   </div>
   `;
 
+const UserPage = () => {
   clearPage();
-  const main = document.querySelector('main');
-  main.innerHTML = html;
-  const btn = document.getElementById('btnUpdate');
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    Navigate('update');
-  });
+  // verifie si l'user s'est login pour acceder à cette page
+  if (user === undefined) {
+    Navigate('/login');
+  } else {
+    clearPage();
+    const main = document.querySelector('main');
+    main.innerHTML = html;
+    const btn = document.getElementById('btnUpdate');
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      Navigate('update');
+    });
+  }
 };
 
-export default UserPage; 
+export default UserPage;

@@ -25,7 +25,7 @@ function onNavBarClick() {
     if (!componentToRender) {
       throw Error(`The ${uri} ressource does not exist.`);
     }
-    if(componentToRender === "/logout"){
+    if (componentToRender === '/logout') {
       logout();
     }
 
@@ -52,10 +52,10 @@ function onFrontendLoad() {
   });
 }
 
-function logout(){
-   clearAuthenticatedUser();
-   Navbar();
-   Navigate("/");
+function logout() {
+  clearAuthenticatedUser();
+  Navbar();
+  Navigate('/');
 }
 
 export default Router;

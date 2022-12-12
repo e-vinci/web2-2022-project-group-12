@@ -12,6 +12,7 @@ import StorePage from '../Pages/StorePage';
 import PaypalPage from '../Pages/Paypal';
 
 
+import BasicSellerPage from '../Pages/BasicSellerPage';
 
 const routes = {
   '/': HomePage,
@@ -27,9 +28,8 @@ const routes = {
   '/update' : UpdateUser,
   '/checkout' : CheckoutPage,
   '/store' : StorePage,
-  '/paypal' : PaypalPage
+  '/paypal' : PaypalPage,
+  '/basicseller' : BasicSellerPage
 };
 
-
-
-export default routes ;
+export default routes;
