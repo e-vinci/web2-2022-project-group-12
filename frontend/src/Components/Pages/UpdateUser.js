@@ -74,7 +74,7 @@ const UpdateUser = () => {
 
       // Création d'un nouvel objet json
       const newData = {
-        userID: getAuthenticatedUser.userId,
+        userID: user.userId,
         storeName,
         country,
         city,

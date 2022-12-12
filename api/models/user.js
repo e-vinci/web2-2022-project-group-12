@@ -60,7 +60,9 @@ class User {
       `INSERT INTO projetWeb.adresses (country,city,zip_code,street,number) VALUES($1,$2,$3,$4,$5) RETURNING id_adress`,
       [data.country, data.city, data.zipCode, data.street, data.building],
     );
-    const idAdress = adress.rows[0].id_adress;
+    const idAdress = {
+      adress: adress.rows[0].id_adress,
+    };
     return idAdress;
   }
 
@@ -69,12 +71,12 @@ class User {
     // Creeation de l'adresse par les données fournies dans le body,
     // renvoie l'id de la derniere adresse crée pour l'insere comme FOREIGN KEY dans la db //
     const idAdress = this.addAdress(body);
+    console.log('IDAdress: ' + idAdress);
 
-    await db.query(`INSERT INTO projetWeb.seller (store_name,id_adress,id_user)`, [
-      body.storeName,
-      idAdress,
-      body.userID,
-    ]);
+    await db.query(
+      `INSERT INTO projetWeb.seller (store_name,id_adress,id_user) VALUES ($1,$2,$3)`,
+      [body.storeName, (await idAdress).adress, body.userID],
+    );
   }
 
   // Permet de recuperer un vendeur de la base des données par le moyen de son id //
