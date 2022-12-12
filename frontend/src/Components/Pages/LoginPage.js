@@ -74,7 +74,7 @@ const LoginPage = () => {
 
   btnRegister.addEventListener('click', async (e) => {
     e.preventDefault();
-    Navigate('register');
+    Navigate('/register');
   });
 
   btn.addEventListener('click', async (e) => {
