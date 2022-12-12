@@ -81,26 +81,30 @@ const RegisterPage = () => {
     let sex;
 
     // vérification des checkbox
-   
-    if(homme === true){
+
+    if (homme === true) {
       sex = 'M';
     }
-    if(femme === true){
+    if (femme === true) {
       sex = 'F';
     }
-    if(autre === true){
+    if (autre === true) {
       sex = 'A';
     }
 
-    if(lastname.value === undefined || firstname.value === undefined || email.value === undefined || password.value === undefined || passwordConfirmed.value === undefined){
-      console.error("Please, complete all the forms");
+    if (
+      lastname.value === undefined ||
+      firstname.value === undefined ||
+      email.value === undefined ||
+      password.value === undefined ||
+      passwordConfirmed.value === undefined
+    ) {
+      console.error('Please, complete all the forms');
     }
 
-    if(password !== passwordConfirmed){
+    if (password !== passwordConfirmed) {
       console.error("Passwords don't match");
     }
-
-
 
     // Création d'un nouvel objet json
     const newData = {
@@ -127,13 +131,13 @@ const RegisterPage = () => {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
       shoppingCart(email);
-      Navigate("login");
+      Navigate('login');
       /* const user = await reponse.json(); */
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('error: ', err);
     }
   });
-}
+};
 
 export default RegisterPage;

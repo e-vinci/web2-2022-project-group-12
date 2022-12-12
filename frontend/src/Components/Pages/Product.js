@@ -1,20 +1,20 @@
-import { clearPage } from "../../utils/render";
+import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addItemToCart } from '../../utils/utilsCart';
 
 // Cette page permet l'affichage des données d'un seul produit en cliquant sur un bouton de la homepage
 
-const ProductPage = async () =>{
-    clearPage();
-    const main = document.querySelector('main');
+const ProductPage = async () => {
+  clearPage();
+  const main = document.querySelector('main');
 
-    // permet d'aller chercher un paramètre dans l'url
-    const id = window.location.search;
-    const url = id.split ('=');
-    const product = await getProductById(url[1]);
-    
-    // html de la page 
-    const html = `
+  // permet d'aller chercher un paramètre dans l'url
+  const id = window.location.search;
+  const url = id.split('=');
+  const product = await getProductById(url[1]);
+
+  // html de la page
+  const html = `
     <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">
@@ -63,23 +63,22 @@ const ProductPage = async () =>{
       </div>
     </div>
   </div>
-          `
-    main.innerHTML = html;
+          `;
+  main.innerHTML = html;
 
-    // Permet d'ajouter le produit dans le panier 
-    const btn = document.getElementsByName('btnAddtoCart');
-    for(let y=0;y<btn.length; y+=1){
-     btn[y].addEventListener('click', async (e) => {
+  // Permet d'ajouter le produit dans le panier
+  const btn = document.getElementsByName('btnAddtoCart');
+  for (let y = 0; y < btn.length; y += 1) {
+    btn[y].addEventListener('click', async (e) => {
       e.preventDefault();
       console.log(btn[y].value);
-      addItemToCart(btn[y].value,5,1);
-    })};
-}
+      addItemToCart(btn[y].value, 5, 1);
+    });
+  }
+};
 
-
-async function getProductById(id){
-
-  // Permet d'aller chercher les informations du produit 
+async function getProductById(id) {
+  // Permet d'aller chercher les informations du produit
   let product;
 
   try {
@@ -97,13 +96,11 @@ async function getProductById(id){
     }
 
     product = await reponse.json();
-
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
   return product;
-  
 }
 
 export default ProductPage;

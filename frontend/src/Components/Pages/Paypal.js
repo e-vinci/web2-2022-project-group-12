@@ -30,43 +30,43 @@ const PaypalPage = () =>{
     main.appendChild(script);
 
     let total = getCartTotal();
-    total += " $" 
+    total += ' $';
     idToPay.innerHTML = total;
 
-    loadScript({ "client-id": "Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL" })
-    .then((paypal) => {
-  
-function initPayPalButton() {
-  paypal.Buttons({
-    style: {
-      shape: 'pill',
-      color: 'white',
-      layout: 'horizontal',
-      label: 'paypal',
-      
-    },
+    loadScript({
+      'client-id':
+        'Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL',
+    })
+      .then((paypal) => {
+        function initPayPalButton() {
+          paypal
+            .Buttons({
+              style: {
+                shape: 'pill',
+                color: 'white',
+                layout: 'horizontal',
+                label: 'paypal',
+              },
 
-    createOrder(data, actions) {
-      return actions.order.create({
-        purchase_units: [{"amount":{"currency_code":"USD","value":getCartTotal()}}]
-      });
-    },
+              createOrder(data, actions) {
+                return actions.order.create({
+                  purchase_units: [{ amount: { currency_code: 'USD', value: getCartTotal() } }],
+                });
+              },
 
-    onApprove(data, actions) {
-      return actions.order.capture().then((orderData) => {
-        
-        // Full available details
-        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+              onApprove(data, actions) {
+                return actions.order.capture().then((orderData) => {
+                  // Full available details
+                  console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
 
-        // Show a success message within this page, e.g.
-        const element = document.getElementById('paypal-button-container');
-        element.innerHTML = '';
-        element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                  // Show a success message within this page, e.g.
+                  const element = document.getElementById('paypal-button-container');
+                  element.innerHTML = '';
+                  element.innerHTML = '<h3>Thank you for your payment!</h3>';
 
-        // Or go to another URL:  actions.redirect('thank_you.html');
-        
-      });
-    },
+                  // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+              },
 
     onError(err) {
       console.log(err);

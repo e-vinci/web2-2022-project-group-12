@@ -44,19 +44,16 @@ const html = `
   `;
 
 const HomePage = async () => {
-
   const main = document.querySelector('main');
   countAllProduct();
   main.innerHTML = html;
   // eslint-disable-next-line no-useless-escape
   const imageCaroussel = importAll(require.context('../../assets/caroussel', true, /\.png$/));
-  
-  
+
   const carrouselListItem = document.getElementById('carousel-items');
   let i = 0;
   let items = ``;
   while (i < 2) {
-    
     if (i === 0) {
       items += `<div class="carousel-item active" data-bs-interval="10000">
     <img src="${imageCaroussel[i]}" id="item-${i}" class="d-block w-100" alt="img">
@@ -104,26 +101,20 @@ const HomePage = async () => {
 
     const product = await reponse.json();
     await showProduct(product);
-    
+
     const btn = document.getElementsByName('btnAddtoCart');
 
-    for(let y=0;y<btn.length; y+=1){
-     btn[y].addEventListener('click', async (e) => {
-      e.preventDefault();
-      console.log(btn[y].value);
-      addItemToCart(btn[y].value,5,1);
-    })};
-
-    
-    
-  } 
-  
-  catch (err) {
+    for (let y = 0; y < btn.length; y += 1) {
+      btn[y].addEventListener('click', async (e) => {
+        e.preventDefault();
+        console.log(btn[y].value);
+        addItemToCart(btn[y].value, 5, 1);
+      });
+    }
+  } catch (err) {
     console.error('error: ', err);
   }
 };
-
-
 
 async function showProduct(product) {
   const cardProduct = document.getElementById('imgProduct');
@@ -188,20 +179,18 @@ async function showProduct(product) {
   cardProduct.innerHTML = items;
 
   const a = document.getElementsByClassName('aProductName');
-      
+
   const lenght = a.length;
 
-  for(let j = 0; j<lenght;j+=1){
-
-    a[j].addEventListener('click' , async (e) => {
+  for (let j = 0; j < lenght; j += 1) {
+    a[j].addEventListener('click', async (e) => {
       e.preventDefault();
       const id = a[j].name;
       // eslint-disable-next-line prefer-template
-      Navigate("/product?id_product=",id);
-  })}; 
+      Navigate('/product?id_product=', id);
+    });
+  }
 }
-
-
 
 async function countAllProduct() {
   let number;

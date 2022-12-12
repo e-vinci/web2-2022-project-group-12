@@ -1,9 +1,10 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuthenticatedUser } from '../../utils/auths';
+import Navigate from '../Router/Navigate';
 
 const html = `
-div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -51,70 +52,69 @@ div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-la
 `;
 
 const UpdateUser = () => {
-  const user = getAuthenticatedUser();
-  const name = user.lastname;
-  const fname = user.firstname;
-  const email = user.email;
-  const sex = email.sex
-
-  
   clearPage();
-  const main = document.querySelector('main');
-  main.innerHTML = html;
+  // verifie si l'user s'est login pour acceder à cette page
+  const user = getAuthenticatedUser();
+  if (user === undefined) {
+    Navigate('/login');
+  } else {
+    clearPage();
+    const main = document.querySelector('main');
+    main.innerHTML = html;
 
-  const btn = document.getElementById('sell');
+    const btn = document.getElementById('sell');
 
-  // Ajout de l'utilisateur aprés avoir appuyé sur le bouton submit
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
+    // Ajout de l'utilisateur aprés avoir appuyé sur le bouton submit
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
 
-    // Récupération de toute les données avec les id
-    const storeName = document.getElementById('storename').value;
-    const country = document.getElementById('country').value;
-    const city = document.getElementById('city').value;
-    const zipCode = document.getElementById('zipcode').checked;
-    const street = document.getElementById('street').checked;
-    const building = document.getElementById('buildingcode').checked;
-  
+      // Récupération de toute les données avec les id
+      const storeName = document.getElementById('storename').value;
+      const country = document.getElementById('country').value;
+      const city = document.getElementById('city').value;
+      const zipCode = document.getElementById('zipcode').checked;
+      const street = document.getElementById('street').checked;
+      const building = document.getElementById('buildingcode').checked;
 
-    // Création d'un nouvel objet json
-    const newData = {
-      userID : getAuthenticatedUser.userId,
-      storeName,
-      country,
-      city,
-      zipCode,
-      street,
-      building
-    };
-
-    try {
-      const options = {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify(newData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      // Création d'un nouvel objet json
+      const newData = {
+        userID: getAuthenticatedUser.userId,
+        storeName,
+        country,
+        city,
+        zipCode,
+        street,
+        building,
       };
 
-      const reponse = await fetch('/api/users/becomeSeller', options);
+      try {
+        const options = {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          body: JSON.stringify(newData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
 
-      if (!reponse.ok) {
-        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-      }
-      clearPage();
-      const message = `
-        <h1 class="cover-heading  " style="margin-top : 200px; text-align : center">
-          Enregistré avec succès!
-        </h1>
-      `;
-      main.innerHTML=message;
-      /* const user = await reponse.json(); */
-    } catch (err) {
+        const reponse = await fetch('/api/users/becomeSeller', options);
+
+        if (!reponse.ok) {
+          throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+        }
+        clearPage();
+        const message = `
+          <h1 class="cover-heading  " style="margin-top : 200px; text-align : center">
+            Enregistré avec succès!
+          </h1>
+        `;
+        main.innerHTML = message;
+        /* const user = await reponse.json(); */
+      } catch (err) {
         // eslint-disable-next-line no-console
         console.error('error: ', err);
-    }
-  });
-}
+      }
+    });
+  }
+};
 
 export default UpdateUser;

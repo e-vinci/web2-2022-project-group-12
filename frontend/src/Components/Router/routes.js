@@ -10,6 +10,7 @@ import UpdateUser from '../Pages/UpdateUser';
 import CheckoutPage from '../Pages/CheckoutPage';
 import StorePage from '../Pages/StorePage';
 import BasicSalerPage from '../Pages/BasicSellerPage';
+import PaypalPage from '../Pages/Paypal';
 
 
 
@@ -27,9 +28,8 @@ const routes = {
   '/update' : UpdateUser,
   '/checkout' : CheckoutPage,
   '/store' : StorePage,
-  '/basicseller' :BasicSalerPage,
+  '/paypal' : PaypalPage,
+  '/basicseller' : BasicSalerPage
 };
 
-
-
-export default routes ;
+export default routes;
