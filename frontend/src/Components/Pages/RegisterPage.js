@@ -134,5 +134,6 @@ const RegisterPage = () => {
       console.error('error: ', err);
     }
   });
-};
+}
+
 export default RegisterPage;

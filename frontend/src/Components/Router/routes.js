@@ -3,9 +3,8 @@ import RegisterPage from '../Pages/RegisterPage';
 import LoginPage from '../Pages/LoginPage';
 import Product from '../Pages/Product';
 import StatisticPage from '../Pages/StatisticPage';
-import BasicSalerPage from '../Pages/BasicSellerPage';
-import MyCartPage from '../Pages/MyCartPage';
 import NewProductPage from '../Pages/NewProductPage';
+import MyCartPage from '../Pages/MyCartPage';
 import UserPage from '../Pages/UserPage';
 import UpdateUser from '../Pages/UpdateUser';
 import CheckoutPage from '../Pages/CheckoutPage';
@@ -19,7 +18,7 @@ const routes = {
   '/login': LoginPage,
   '/product': Product,
   '/stats': StatisticPage,
-  '/basicseller': BasicSalerPage,
+  '/add': NewProductPage,
   '/logout' : "/logout",
   '/cart' : MyCartPage,
   '/addProduct' : NewProductPage,

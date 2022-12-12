@@ -24,7 +24,9 @@ const MyCartPage = () => {
   const cart = loadCart(userEmail);
   const main = document.querySelector('main');
   if(cart.objects.length === 0){
-    main.innerHTML = `<h1 class="cover-heading  " style="margin-top : 200px; text-align : center">Votre panier est vide &#128524</h1>`;
+    main.innerHTML = `<h1 class="cover-heading  " style="margin-top : 200px; text-align : center">
+                        Votre panier est vide &#128524
+                      </h1>`;
   }else{
   
   
