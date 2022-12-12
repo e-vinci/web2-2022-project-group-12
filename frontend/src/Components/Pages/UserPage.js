@@ -6,8 +6,10 @@ import Navigate from '../Router/Navigate';
 const UserPage = () => {
   // Get logged in user
   const user = getAuthenticatedUser();
+  const ID = user.userId;
+  const name = user.first_name;
   console.log("User: " + user);
-  console.log("Username: " + user.first_name);
+  console.log("ID: " + ID);
 
   const html = `
   <div class="text-center">
