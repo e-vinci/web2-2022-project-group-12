@@ -15,7 +15,7 @@ class User {
     const user = {
       firstname: body.firstname,
       lastname: body.lastname,
-      email: body.email,
+      email: body.email.toLowerCase(),
       password: hashedPassword,
     };
     return user;
@@ -25,24 +25,27 @@ class User {
   async doIExist(email, password) {
     const user = await (
       await db.query(
-        `SELECT u.email, u.password, u.id_user FROM projetWeb.users u WHERE u.email = $1`,
-        [email],
+        `SELECT u.email, u.password, u.id_user, u.first_name, u.last_name, u.sex FROM projetWeb.users u WHERE u.email = $1`,
+        [email.toLowerCase()],
       )
     ).rows;
-
     if (user.length === 0) {
       return null;
     }
     if (!bcrypt.compareSync(password, user[0].password)) {
-      console.log('mots de passe ne matchents pas');
+      console.log('Mots de passe ne matchents pas');
       return null;
     }
+
     const authentificatedUser = {
       userId: user[0].id_user,
-      email: user[0].email,
+      email: user[0].email.toLowerCase(),
       password: user[0].password,
+      firstName: user[0].first_name,
+      lastName: user[0].last_name,
+      sex: user[0].sex,
     };
-    console.log("l'email back est ", authentificatedUser.email);
+    console.log("l'user back est ", authentificatedUser);
     return authentificatedUser;
   }
 
@@ -73,7 +76,9 @@ class User {
       `INSERT INTO projetWeb.adresses (country,city,zip_code,street,number) VALUES($1,$2,$3,$4,$5) RETURNING id_adress`,
       [data.country, data.city, data.zipCode, data.street, data.building],
     );
-    const idAdress = adress.rows[0].id_adress;
+    const idAdress = {
+      adress: adress.rows[0].id_adress,
+    };
     return idAdress;
   }
 
@@ -83,11 +88,10 @@ class User {
     // renvoie l'id de la derniere adresse crée pour l'insere comme FOREIGN KEY dans la db //
     const idAdress = this.addAdress(body);
 
-    await db.query(`INSERT INTO projetWeb.seller (store_name,id_adress,id_user)`, [
-      body.storeName,
-      idAdress,
-      body.userID,
-    ]);
+    await db.query(
+      `INSERT INTO projetWeb.seller (store_name,id_adress,id_user) VALUES ($1,$2,$3)`,
+      [body.storeName, (await idAdress).adress, body.userID],
+    );
   }
 
   // Permet de recuperer un vendeur de la base des données par le moyen de son id //
@@ -99,6 +103,15 @@ class User {
       )
     ).rows;
     return seller[0];
+  }
+
+  async updateUser(body) {
+    await db.query('UPDATE projetWeb.users SET first_name = $1, last_name = $2, sex = $3 WHERE email = $4', [
+      body.firstName,
+      body.lastName,
+      body.sex,
+      body.email
+    ]);
   }
 }
 

@@ -1,10 +1,9 @@
 const express = require('express');
-
 const { login } = require('../auths/auths');
 
 const router = express.Router();
 
-const {User} = require("../models/user");
+const { User } = require('../models/user');
 
 const userModel = new User();
 
@@ -22,14 +21,12 @@ router.post('/register', async (req, res) => {
 
 // Routeur permettant de se connecter comme utilisateur //
 router.post('/login', async (req, res) => {
-  console.log(req.body);
   const { email } = req.body;
   const { password } = req.body;
   const user = await userModel.doIExist(email, password);
 
   if (user === null) return console.error("Le user n'existe pas");
 
- 
   const logedInUser = await login(user);
   return res.json(logedInUser);
 });
@@ -50,18 +47,26 @@ router.get('/getIdByEmail' , async(req,res)=>{
 
 // Permet au utilisateur de devenir vendeur//
 router.post('/becomeSeller', async (req, res) => {
+  console.log(1);
   console.log(req.body);
   const store = await userModel.beSeller(req.body);
   return res.json(store);
 });
 
 // Permet de recuperer tt les donnée d'un utilisateur //
-router.post('/getUserDetails', async (req, res) => {
+/* router.post('/getUserDetails', async (req, res) => {
   console.log(getAuthenticatedUser().userId);
   const iduser = getAuthenticatedUser().userId;
   const userWithDetails = await userModel.getOneUser(iduser);
   return res.json(userWithDetails);
-});
+}); */
+
+// Permet d'update les info d'un user
+router.post('/updateUser', async (req, res) => {
+  await userModel.updateUser(req.body);
+  console.log(req.body);
+  return res.json(req.body);
+})
 
 module.exports = router;
 

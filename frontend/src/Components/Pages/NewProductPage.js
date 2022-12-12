@@ -5,8 +5,10 @@ import { getAuthenticatedUser } from '../../utils/auths';
 
 
 // formulaire NewProduct
-const formNewProduct = `  
+const formNewProduct = `
+<div class="">
 <h2>Add a product</h2>
+<div>
 <form>   
 <div class="container mt-3">
 
@@ -16,8 +18,8 @@ const formNewProduct = `
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="name">Product Description :</label>
-        <input type="text" class="form-control" id="description" placeholder="Enter the product description" name="description">
+        <label for="description">Product Description :</label>
+        <textarea class="form-control" id="description" placeholder="Enter the product description" name="description" rows="5"></textarea>
     </div>
 
     <div class="mb-3 mt-3">
@@ -35,8 +37,8 @@ const formNewProduct = `
     </div>
 
     <div class="mb-3 mt-3">
-        <label for="email">Color :</label>
-        <input type="int" class="form-control" id="color" placeholder="Enter the color of the product" name="color">
+        <label for="color">Color :</label>
+        <input type="color" class="form-control" id="color" placeholder="Enter the color of the product" name="color">
     </div>
     
     <div class="mb-3 mt-3">

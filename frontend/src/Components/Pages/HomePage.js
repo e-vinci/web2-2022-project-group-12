@@ -125,8 +125,10 @@ async function showProduct(product) {
   while (i < nbImage) {
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
+    const storeName = product[i].store_name;
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
+    const {category} = product[i];
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4" >
     <div class="card" style="border-radius: 15px;" >
@@ -144,24 +146,17 @@ async function showProduct(product) {
             <div class="d-flex justify-content-between">
               <div>
                 <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                <p class="small text-muted">Laptops</p>
+                <p class="small text-muted">by ${storeName}</p>
               </div>
               <div>
-                <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                </div>
-                <p class="small text-muted">Rated 4.0/5</p>
+                <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
               </div>
             </div>
           </div>
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">${priceProduct}</a></p>
-              
+              <p class="text-dark">${priceProduct}€</p>
             </div>
           </div>
           <hr class="my-0" />

@@ -1,21 +1,14 @@
 import { loadScript } from "@paypal/paypal-js";
-
 import { clearPage } from "../../utils/render";
 import { getCartTotal } from "../../utils/utilsCart";
 
 const html = `
-
 <div class ="container" style="text-align: center; margin-top : 100px"><strong> Amount to Pay : <div id="priceToPay"></div> </strong></div>
 <div id="smart-button-container">
     <div style="text-align: center; margin-top: 5%;" id="paypal-button-container"></div>
 </div>
-  
-  
- 
    `
 
-   
-  
 const PaypalPage = () =>{
     clearPage();
     
@@ -25,14 +18,18 @@ const PaypalPage = () =>{
     const idToPay = document.getElementById('priceToPay');
     const script = document.createElement('script');
 
-    script.src = 'https://www.paypal.com/sdk/js?client-id=Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL&currency=EUR&buyer-country=DE&commit=false';
+    // paypal button script
+    script.src = 'https://www.paypal.com/sdk/js?client-id=sd&currency=EUR&buyer-country=DE&commit=false';
 
+    // append to main because innerHTML does not read scripts
     main.appendChild(script);
 
+    // Display price on top of button
     let total = getCartTotal();
     total += ' $';
     idToPay.innerHTML = total;
 
+    // paypal api script for the button
     loadScript({
       'client-id':
         'Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL',
@@ -73,6 +70,7 @@ const PaypalPage = () =>{
     }
   }).render('#paypal-button-container');
 }
+// initiate paypal button
 initPayPalButton();})
 
   .catch((err) => {

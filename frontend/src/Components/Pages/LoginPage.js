@@ -103,7 +103,6 @@ const LoginPage = () => {
           `fetch error : ${reponse.status} : ${reponse.statusText}`,
         );
       }
-
       const user = await reponse.json();
       await setAuthenticatedUser(user);
       await Navbar();
