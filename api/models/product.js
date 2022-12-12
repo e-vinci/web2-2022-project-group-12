@@ -31,6 +31,18 @@ class Product{
         return product;
     };
 
+
+    async countProductBySeller(idUser){
+        const numberOfProduct = await (await db.query(`SELECT COUNT(*) FROM products  WHERE id_user = $1`,[idUser])).rows;
+        return numberOfProduct[0].count;
+    }
+
+    async getAllProductBySeller(idUser){
+        const product = await (await db.query(`SELECT * FROM products  WHERE id_user = $1`,[idUser])).rows;
+        return product;
+    }
+
+
    
 
 }

@@ -38,6 +38,11 @@ class User{
         return user[0];
     };
 
+
+    async getOneUserByEmail(email){
+        const user = await (await db.query(`SELECT * FROM projetWeb.users u WHERE U.email = $1`, [email])).rows;
+        return user[0];
+    };
 }
 
 

@@ -39,4 +39,11 @@ router.get('/getIdStore/:id' , async(req,res)=>{
   res.send(result);
 });
 
+
+// Permet de récupérer un produit en particulier avec id
+router.get('/getIdByEmail/:email' , async(req,res)=>{
+  const result = await userModel.getOneUserByEmail(req.params.email);
+  res.send(result);
+});
+
 module.exports = router;

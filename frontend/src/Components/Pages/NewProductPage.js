@@ -26,7 +26,7 @@ const formNewProduct = `
 
     <div class="mb-3 mt-3">
         <label for="email">Price :</label>
-        <input type="int" class="form-control" id="price" placeholder="Enter the price" name="price">
+        <input type="int" class="form-control" id="price" placeholder="Enter the price" name="price">    
     </div>
 
     <div class="mb-3 mt-3">
@@ -93,7 +93,7 @@ const NewProductPage = () => {
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
-        Navigate("ProductPage");
+        Navigate("product");
         /* const user = await reponse.json(); */
       } catch (err) {
         // eslint-disable-next-line no-console
