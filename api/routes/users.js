@@ -47,12 +47,12 @@ router.post('/becomeSeller', async (req, res) => {
 });
 
 // Permet de recuperer tt les donnée d'un utilisateur //
-router.post('/getUserDetails', async (req, res) => {
+/* router.post('/getUserDetails', async (req, res) => {
   console.log(getAuthenticatedUser().userId);
   const iduser = getAuthenticatedUser().userId;
   const userWithDetails = await userModel.getOneUser(iduser);
   return res.json(userWithDetails);
-});
+}); */
 
 // Permet d'update les info d'un user
 router.post('/updateUser', async (req, res) => {

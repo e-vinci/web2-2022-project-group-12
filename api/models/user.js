@@ -15,7 +15,7 @@ class User {
     const user = {
       firstname: body.firstname,
       lastname: body.lastname,
-      email: body.email,
+      email: body.email.toLowerCase(),
       password: hashedPassword,
     };
     return user;
@@ -25,24 +25,26 @@ class User {
   async doIExist(email, password) {
     const user = await (
       await db.query(
-        `SELECT u.email, u.password, u.id_user FROM projetWeb.users u WHERE u.email = $1`,
-        [email],
+        `SELECT u.email, u.password, u.id_user, u.first_name, u.last_name, u.sex FROM projetWeb.users u WHERE u.email = $1`,
+        [email.toLowerCase()],
       )
     ).rows;
-
     if (user.length === 0) {
       return null;
     }
     if (!bcrypt.compareSync(password, user[0].password)) {
-      console.log('mots de passe ne matchents pas');
+      console.log('Mots de passe ne matchents pas');
       return null;
     }
     const authentificatedUser = {
       userId: user[0].id_user,
-      email: user[0].email,
+      email: user[0].email.toLowerCase(),
       password: user[0].password,
+      firstName: user[0].first_name,
+      lastName: user[0].last_name,
+      sex: user[0].sex,
     };
-    console.log("l'email back est ", authentificatedUser.email);
+    console.log("l'user back est ", authentificatedUser);
     return authentificatedUser;
   }
 
@@ -71,7 +73,7 @@ class User {
     // Creeation de l'adresse par les données fournies dans le body,
     // renvoie l'id de la derniere adresse crée pour l'insere comme FOREIGN KEY dans la db //
     const idAdress = this.addAdress(body);
-    console.log(`IDAdress: ${  idAdress}`);
+    console.log('IDAdress: ', idAdress);
 
     await db.query(
       `INSERT INTO projetWeb.seller (store_name,id_adress,id_user) VALUES ($1,$2,$3)`,
