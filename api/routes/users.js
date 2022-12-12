@@ -54,4 +54,11 @@ router.post('/getUserDetails', async (req, res) => {
   return res.json(userWithDetails);
 });
 
+// Permet d'update les info d'un user
+router.post('/updateUser', async (req, res) => {
+  await userModel.updateUser(req.body);
+  console.log(req.body);
+  return res.json(req.body);
+})
+
 module.exports = router;

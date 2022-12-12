@@ -3,32 +3,39 @@ import 'bootstrap';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
-  // Get logged in user
-  
 
-  const html = `
-  <div class="text-center">
-      <button type="button" id="btnUpdate" class="btn btn-success" style="margin-top: 30px;" role="button" aria-pressed="true">Edit my profile</button>
+const html = `
+  <div>
+    <button type="button" id="btnSeller" class="btn btn-success" style="margin-top: 30px; margin-left: 1600px" role="button" aria-pressed="true">Become a seller</button>
+  </div>
+  <div>
+    <button type="button" id="btnUpdate" class="btn btn-success" style="margin-top: 30px; margin-right: 1600px" role="button" aria-pressed="true">Update your profile</buttton>
   </div>
   <div>
     <h1 style="margin-left: 50px;">Hello ${5}</h1>
   </div>
   `;
+const user = getAuthenticatedUser;
 
 const UserPage = () => {
   clearPage();
+
   // verifie si l'user s'est login pour acceder à cette page
-  const user = getAuthenticatedUser();
   if (user === undefined) {
     Navigate('/login');
   } else {
     clearPage();
     const main = document.querySelector('main');
     main.innerHTML = html;
-    const btn = document.getElementById('btnUpdate');
+    const btn = document.getElementById('btnSeller');
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      Navigate('update');
+      Navigate('/becomeSeller');
+    });
+    const btnUpdate = document.getElementById('btnUpdate');
+    btnUpdate.addEventListener('click', (e) => {
+      e.preventDefault();
+      Navigate('/update');
     });
   }
 };
