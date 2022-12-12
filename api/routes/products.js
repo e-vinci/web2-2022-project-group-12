@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const {Product} = require("../models/Product");
+const {Product} = require("../models/product");
 
 const productModel = new Product();
 
@@ -36,8 +36,8 @@ router.post('/add' , async(req,res)=>{
 
 
 // Permet de lister tous les produits de la db par vendeur
-router.get('/getAllBySeller/:id', async(req,res)=>{
-    const result = await productModel.getAllProductBySeller(req.params.id);
+router.get('/getAllBySeller', async(req,res)=>{
+    const result = await productModel.getAllProductBySeller(req.body);
     if(!result) res.sendStatus(404).end();
     console.log(result);
     res.send(result);
@@ -45,8 +45,8 @@ router.get('/getAllBySeller/:id', async(req,res)=>{
 
 
 // Compte tous les produits d'un vendeur dans la db
-router.get('/countAllBySeller/:id' , async(req,res)=>{
-    const count = await productModel.countProductBySeller(req.params.id);
+router.get('/countAllBySeller' , async(req,res)=>{
+    const count = await productModel.countProductBySeller(req.body);
     console.log(count)
     res.send(count);
 })

@@ -9,6 +9,7 @@ import UserPage from '../Pages/UserPage';
 import UpdateUser from '../Pages/UpdateUser';
 import CheckoutPage from '../Pages/CheckoutPage';
 import StorePage from '../Pages/StorePage';
+import BasicSalerPage from '../Pages/BasicSellerPage';
 
 
 
@@ -25,7 +26,8 @@ const routes = {
   '/user' : UserPage,
   '/update' : UpdateUser,
   '/checkout' : CheckoutPage,
-  '/store' : StorePage
+  '/store' : StorePage,
+  '/basicseller' :BasicSalerPage,
 };
 
 

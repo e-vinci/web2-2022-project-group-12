@@ -37,13 +37,13 @@ class Product{
   
 
 
-    async countProductBySeller(idUser){
-        const numberOfProduct = await (await db.query(`SELECT COUNT(*) FROM products  WHERE id_user = $1`,[idUser])).rows;
+    async countProductBySeller(body){
+        const numberOfProduct = await (await db.query(`SELECT COUNT(*) FROM products  WHERE id_user = $1`,[body.id])).rows;
         return numberOfProduct[0].count;
     }
 
-    async getAllProductBySeller(idUser){
-        const product = await (await db.query(`SELECT * FROM products  WHERE id_user = $1`,[idUser])).rows;
+    async getAllProductBySeller(body){
+        const product = await (await db.query(`SELECT * FROM products  WHERE id_user = $1`,[body.id])).rows;
         return product;
     }
 

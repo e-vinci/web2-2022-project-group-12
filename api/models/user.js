@@ -44,12 +44,12 @@ class User{
     };
 
 
-    async getOneUserByEmail(email){
-        const user = await (await db.query(`SELECT * FROM projetWeb.users u WHERE U.email = $1`, [email])).rows;
-        return user[0];
+    async getOneUserByEmail(body){
+        const user = await (await db.query(`SELECT * FROM projetWeb.users u WHERE U.email = $1`, [body.email])).rows;
+        return user[0]; 
     };
 
-    
+
     // Permet l'ajout d'une adresse dans la base des données //
     async addAdress(data){
         const adress = await db.query(`INSERT INTO projetWeb.adresses (country,city,zip_code,street,number) VALUES($1,$2,$3,$4,$5) RETURNING id_adress`,[data.country,data.city,data.zipCode,data.street,data.building]);

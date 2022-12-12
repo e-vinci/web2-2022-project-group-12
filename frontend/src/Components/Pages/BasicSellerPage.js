@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
-import image from '../../assets/image1.png';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 
@@ -25,8 +24,8 @@ const BasicSalerPage = async () => {
   main.innerHTML = html;
 
   const user = getAuthenticatedUser()
-  const User= getStoreByEmail(user.email)
-  const id=User.id_user
+  const idUser= user.userId
+  console.log("ceci est l'id", idUser)
 
   const btn = document.getElementById('addProduct');
   btn.addEventListener('click', async (e) => {
@@ -37,7 +36,7 @@ const BasicSalerPage = async () => {
   });
 
 
-    const product = getAllProductBySeller(id)
+    const product = getAllProductBySeller(idUser)
     await showProduct(product);
 
     
@@ -47,16 +46,22 @@ const BasicSalerPage = async () => {
 
 async function getAllProductBySeller(id) {
   let products;
+
+  const Data = {
+    id,
+  };
+
   try {
     const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify(Data),
       headers: {
         'Content-Type': 'application/json',
       },
     };
 
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getAllBySeller' + id, options);
+    const reponse = await fetch('/api/products/getAllBySeller', options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
@@ -75,9 +80,10 @@ async function showProduct(product) {
 
 
   const user = getAuthenticatedUser()
-  const idUser= getStoreByEmail(user.email)
+  const idUser= user.userId
+  console.log("ceci est l'id (show product)", idUser)
 
-  const nbImage = await countAllProductBySeller(idUser.id_user);
+  const nbImage = await countAllProductBySeller(idUser);
   let items = ``;
   let i = 0;
 
@@ -95,7 +101,7 @@ async function showProduct(product) {
     <div class="card" style="border-radius: 15px;" >
     <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light" >
-    <img src="${image}"
+    <img src="${1}"
     style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
     alt="Laptop"/>
   <a href="#!">
@@ -151,47 +157,25 @@ async function showProduct(product) {
   })}; 
 }
 
-async function getStoreByEmail(email){
-
-  // Permet d'aller chercher les informations du produit 
-  let store;
-
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/users/getIdByEmail/' + email, options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-
-    store = await reponse.json();
-
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return store;
-  
-}
 
 async function countAllProductBySeller(id) {
   let number;
+
+  const Data = {
+    id,
+  };
+
   try {
     const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify(Data),
       headers: {
         'Content-Type': 'application/json',
       },
     };
 
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/countAllBySeller' + id, options);
+    const reponse = await fetch('/api/products/countAllBySeller', options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }

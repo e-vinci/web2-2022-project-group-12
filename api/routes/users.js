@@ -3,7 +3,7 @@ const { login } = require('../auths/auths');
 
 const router = express.Router();
 
-const {User} = require("../models/User");
+const {User} = require("../models/user");
 
 const userModel = new User();
 
@@ -42,11 +42,12 @@ router.get('/getIdStore/:id' , async(req,res)=>{
 
 
 // Permet de récupérer un produit en particulier avec id
-router.get('/getIdByEmail/:email' , async(req,res)=>{
-  const result = await userModel.getOneUserByEmail(req.params.email);
+router.get('/getIdByEmail' , async(req,res)=>{
+  console.log(req.body)
+  const result = await userModel.getOneUserByEmail(req.body);
   res.send(result);
+});
 
-  
 // Permet au utilisateur de devenir vendeur//
 router.post('/becomeSeller', async(req, res)=>{
   console.log(req.body);
@@ -55,3 +56,4 @@ router.post('/becomeSeller', async(req, res)=>{
 });
 
 module.exports = router;
+
