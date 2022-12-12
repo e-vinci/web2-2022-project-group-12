@@ -20,6 +20,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Routeur permettant de se connecter comme utilisateur //
+
 router.post('/login', async (req, res) => {
   console.log(req.body);
   const { email } = req.body;
