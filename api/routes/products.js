@@ -5,12 +5,12 @@ const { Product } = require('../models/product');
 
 const productModel = new Product();
 
-// Permet de lister tous les produits de la db
-router.get('/getAll', async (req, res) => {
-  const result = await productModel.getAllProduct();
-  if (!result) res.sendStatus(404).end();
-  console.log(result);
-  res.send(result);
+
+// Permet de lister tous les produits de la db 
+router.get('/getAll', async(req,res)=>{
+    const result = await productModel.getAllProduct();
+    if(!result) res.sendStatus(404).end();
+    res.send(result);
 });
 
 // Permet de récupérer un produit en particulier avec id

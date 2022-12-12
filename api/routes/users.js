@@ -4,7 +4,7 @@ const { login } = require('../auths/auths');
 
 const router = express.Router();
 
-const { User } = require('../models/user');
+const {User} = require("../models/user");
 
 const userModel = new User();
 
@@ -29,8 +29,8 @@ router.post('/login', async (req, res) => {
 
   if (user === null) return console.error("Le user n'existe pas");
 
-  const emailUser = user.email;
-  const logedInUser = await login(emailUser);
+ 
+  const logedInUser = await login(user);
   return res.json(logedInUser);
 });
 

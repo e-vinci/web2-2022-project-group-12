@@ -9,6 +9,9 @@ import UserPage from '../Pages/UserPage';
 import UpdateUser from '../Pages/UpdateUser';
 import CheckoutPage from '../Pages/CheckoutPage';
 import StorePage from '../Pages/StorePage';
+import PaypalPage from '../Pages/Paypal';
+
+
 import BasicSellerPage from '../Pages/BasicSellerPage';
 
 const routes = {
@@ -18,14 +21,15 @@ const routes = {
   '/product': Product,
   '/stats': StatisticPage,
   '/add': NewProductPage,
-  '/basicSeller' : BasicSellerPage,
-  '/logout': '/logout',
-  '/cart': MyCartPage,
-  '/addProduct': NewProductPage,
-  '/user': UserPage,
-  '/update': UpdateUser,
-  '/checkout': CheckoutPage,
-  '/store': StorePage,
+  '/logout' : "/logout",
+  '/cart' : MyCartPage,
+  '/addProduct' : NewProductPage,
+  '/user' : UserPage,
+  '/update' : UpdateUser,
+  '/checkout' : CheckoutPage,
+  '/store' : StorePage,
+  '/paypal' : PaypalPage,
+  '/basicseller' : BasicSellerPage
 };
 
 export default routes;
