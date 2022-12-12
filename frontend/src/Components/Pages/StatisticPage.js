@@ -1,5 +1,7 @@
 import { Chart } from 'chart.js/auto';
 import { clearPage } from '../../utils/render';
+import { getAuthenticatedUser } from '../../utils/auths';
+import Navigate from '../Router/Navigate';
 
 const text = `
 <div class="text-center">
@@ -40,63 +42,69 @@ if (!response.ok) {
 
 const StatisticPage = () => {
   clearPage();
-  const main = document.querySelector('main');
-  main.innerHTML = text;
+  // verifie si l'user s'est login pour acceder à cette page
+  const user = getAuthenticatedUser();
+  if (user === undefined) {
+    Navigate('/login');
+  } else {
+    clearPage();
+    const main = document.querySelector('main');
+    main.innerHTML = text;
 
-  (async () => {
-    const data = [
-      { year: 2010, count: 10 },
-      { year: 2011, count: 20 },
-      { year: 2012, count: 15 },
-      { year: 2013, count: 25 },
-      { year: 2014, count: 22 },
-      { year: 2015, count: 30 },
-      { year: 2016, count: 28 },
-      { year: 2017, count: 45 },
-    ];
+    (async () => {
+      const data = [
+        { year: 2010, count: 10 },
+        { year: 2011, count: 20 },
+        { year: 2012, count: 15 },
+        { year: 2013, count: 25 },
+        { year: 2014, count: 22 },
+        { year: 2015, count: 30 },
+        { year: 2016, count: 28 },
+        { year: 2017, count: 45 },
+      ];
 
-    // eslint-disable-next-line no-new
-    new Chart(document.getElementById('myChart'), {
-      type: 'polarArea',
-      data: {
-        labels: data.map((row) => row.year),
-        datasets: [
-          {
-            label: 'Acquisitions by year',
-            data: data.map((row) => row.count),
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-      },
-    });
-
-    // eslint-disable-next-line no-new
-    new Chart(document.getElementById('myChart2'), {
-      type: 'bar',
-      data: {
-        labels: data.map((row) => row.year),
-        datasets: [
-          {
-            label: 'Acquisitions by year',
-            data: data.map((row) => row.count),
-          },
-        ],
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Monthly overview of sales :',
-          },
+      // eslint-disable-next-line no-new
+      new Chart(document.getElementById('myChart'), {
+        type: 'polarArea',
+        data: {
+          labels: data.map((row) => row.year),
+          datasets: [
+            {
+              label: 'Acquisitions by year',
+              data: data.map((row) => row.count),
+            },
+          ],
         },
-        responsive: true,
-      },
-    });
-  })();
+        options: {
+          responsive: true,
+        },
+      });
+
+      // eslint-disable-next-line no-new
+      new Chart(document.getElementById('myChart2'), {
+        type: 'bar',
+        data: {
+          labels: data.map((row) => row.year),
+          datasets: [
+            {
+              label: 'Acquisitions by year',
+              data: data.map((row) => row.count),
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Monthly overview of sales :',
+            },
+          },
+          responsive: true,
+        },
+      });
+    })();
+  }
   /* https://www.chartjs.org/docs/latest/getting-started/ */
 };
-
 
 export default StatisticPage;

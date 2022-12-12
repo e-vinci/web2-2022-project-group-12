@@ -1,7 +1,7 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigate from '../Router/Navigate';
-
+import { getAuthenticatedUser } from '../../utils/auths';
 
 // formulaire NewProduct
 const formNewProduct = `  
@@ -46,8 +46,13 @@ const formNewProduct = `
 </form>
 `;
 
-
 const NewProductPage = () => {
+  clearPage();
+  // verifie si l'user s'est login pour acceder à cette page
+  const user = getAuthenticatedUser();
+  if (user === undefined) {
+    Navigate('/login');
+  } else {
     clearPage();
     const main = document.querySelector('main');
     main.innerHTML = formNewProduct;
@@ -56,23 +61,27 @@ const NewProductPage = () => {
 
     // Ajout du Produit aprés avoir appuyé sur le bouton submit
     btn.addEventListener('click', async (e) => {
-    e.preventDefault();
+      e.preventDefault();
 
-    // Récupération de toute les données avec les id
-    const productname = document.getElementById('name').value;
-    const description= document.getElementById('description').value;
-    const type = document.getElementById('type').value
-    const price = document.getElementById('price').value;
-    const color = document.getElementById('color').value;
+      // Récupération de toute les données avec les id
+      const productname = document.getElementById('name').value;
+      const description = document.getElementById('description').value;
+      const type = document.getElementById('type').value;
+      const price = document.getElementById('price').value;
+      const color = document.getElementById('color').value;
 
-
-    if(productname.value === undefined || description.value === undefined || type.value === undefined || price.value === undefined || color.value === undefined){
-        console.error("Veuillez compléter tous les champs");
+      if (
+        productname.value === undefined ||
+        description.value === undefined ||
+        type.value === undefined ||
+        price.value === undefined ||
+        color.value === undefined
+      ) {
+        console.error('Veuillez compléter tous les champs');
       }
 
-
-    // Création d'un nouvel objet json
-    const NewProduct = {
+      // Création d'un nouvel objet json
+      const NewProduct = {
         productname,
         description,
         price,
@@ -93,13 +102,14 @@ const NewProductPage = () => {
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
-        Navigate("ProductPage");
+        Navigate('ProductPage');
         /* const user = await reponse.json(); */
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error('error: ', err);
       }
-  });
+    });
+  }
 };
 
 export default NewProductPage;
