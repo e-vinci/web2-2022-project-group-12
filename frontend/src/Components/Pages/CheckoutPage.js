@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import { getCartTotal, loadCart } from '../../utils/utilsCart';

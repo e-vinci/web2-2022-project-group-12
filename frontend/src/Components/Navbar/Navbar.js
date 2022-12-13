@@ -59,7 +59,7 @@ const Navbar = () => {
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i>Home</a>
-                            <a href="shop.html" class="nav-item nav-link"><i class="bi bi-shop"></i>Shop</a>
+                            <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i>Shop</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             <a href="#" class="nav-item nav-link" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
@@ -119,7 +119,7 @@ const Navbar = () => {
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i>Home</a>
-                            <a href="shop.html" class="nav-item nav-link"><i class="bi bi-shop"></i>Shop</a>
+                            <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i>Shop</a>
                             <a href="#" class="nav-item nav-link" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                             <a href="#" class="nav-item nav-link" data-uri="/basicseller"><i class="bi bi-shop"></i> Basic Seller</a>
               
@@ -137,6 +137,7 @@ const Navbar = () => {
   `;
     navbarWrapper.innerHTML = navbar;
   }
+  
     const btn = document.getElementById('searchbtn');
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -168,13 +169,18 @@ const Navbar = () => {
           }
           Navigate('/search');
           /* const user = await reponse.json(); */
+          
         } catch (err) {
           // eslint-disable-next-line no-console
           console.error('error: ', err);
         }
 
       }
+      
     });
+    
+    
+    
   };
 
 

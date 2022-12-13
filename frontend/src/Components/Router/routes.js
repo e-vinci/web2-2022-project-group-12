@@ -13,6 +13,7 @@ import BasicSellerPage from '../Pages/BasicSellerPage';
 import PaypalPage from '../Pages/Paypal';
 import UpdateUser from '../Pages/UpdateUser';
 import SearchResultsPage from '../Pages/SearchResultsPage';
+import AllProductPage from '../Pages/AllProductPage';
 
 const routes = {
   '/': HomePage,
@@ -31,7 +32,8 @@ const routes = {
   '/paypal': PaypalPage,
   '/basicseller': BasicSellerPage,
   '/update': UpdateUser,
-  '/search':SearchResultsPage
+  '/search':SearchResultsPage,
+  '/allProducts':AllProductPage
 };
 
 export default routes;
