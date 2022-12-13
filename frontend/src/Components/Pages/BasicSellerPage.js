@@ -5,15 +5,24 @@ import { getAuthenticatedUser } from '../../utils/auths';
 
 
 const html = `
-  <h2>Add a product</h2>
-      <button type="submit" class="btn btn-primary" id="addProduct" >Add New Product</button>
+    <div class="text-center">
+      <h1 class="display-1"> My products </h1>
+    </div>
 
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" id="addProduct" >Add New Product</button>
+    </div>
+      
+
+    <div class="text-center">
+      <h1 class="display-1"> My products </h1>
+    </div>
 
     <div class="container py-5">
       <div class="row justify-content" id="MyProducts">
       
-      </div>
     </div>
+    
   
 `;
 
@@ -36,7 +45,8 @@ const BasicSellerPage = async () => {
   });
 
 
-    const product = await getAllProductBySeller(idUser)
+    const product = await getAllBySeller(idUser)
+    console.log("test product undef 2:", product )
     await showProduct(product);
 
     
@@ -44,38 +54,27 @@ const BasicSellerPage = async () => {
   
  
 
-async function getAllProductBySeller(id) {
-  
-
-  const Data = {
-    id,
-  };
-
+async function getAllBySeller(idSeller) {
+  let products;
   try {
     const options = {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify(Data),
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json',
       },
     };
-
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getAllBySeller', options);
-    console.log("response:",reponse)
+    const reponse = await fetch('/api/products/getAllBySeller/' + idSeller, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
-    const products = await reponse.json();
-    console.log("liste de produit", products)
-    return products;
+    products = await reponse.json();
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
-  return null;
+  return products;
 }
-
 
 
 async function showProduct(product) {
@@ -91,16 +90,21 @@ async function showProduct(product) {
   let items = ``;
   let i = 0;
 
+  console.log("test product undef:", product )
+
   while (i < nbImage) {
+    const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
+    const storeName = product[i].store_name;
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
+    const {category} = product[i];
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4" >
     <div class="card" style="border-radius: 15px;" >
     <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
             data-mdb-ripple-color="light" >
-    <img src="${1}"
+    <img src="${imageProduit[i]}"
     style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
     alt="Laptop"/>
   <a href="#!">
@@ -112,29 +116,20 @@ async function showProduct(product) {
             <div class="d-flex justify-content-between">
               <div>
                 <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                <p class="small text-muted">Laptops</p>
+                <p class="small text-muted">by ${storeName}</p>
               </div>
               <div>
-                <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                </div>
-                <p class="small text-muted">Rated 4.0/5</p>
+                <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
               </div>
             </div>
           </div>
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">${priceProduct}</a></p>
-              
+              <p class="text-dark">${priceProduct}€</p>
             </div>
-            <p class="small text-muted">VISA Platinum</p>
           </div>
           <hr class="my-0" />
-         
           </div>
           </div>
   `;
@@ -188,6 +183,9 @@ console.log("number: ",number)
   return number;
 }
 
+function importAll(r) {
+  return r.keys().map(r);
+}
 
 export default BasicSellerPage;
  
