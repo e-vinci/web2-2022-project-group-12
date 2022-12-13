@@ -59,15 +59,21 @@ const Navbar = () => {
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
-                            <a href="shop.html" class="nav-item nav-link"><i class="bi bi-shop"></i> Shop</a>
+                            <a href="#" class="nav-item nav-link" data-uri"/allProducts"><i class="bi bi-shop"></i> Shop</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             <a href="#" class="nav-item nav-link" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
                             <a href="#" class="nav-item nav-link" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
                         </div>
                     </div>
+                    <div>
+                    <form class="d-flex">
+                          <input class="form-control me-2" type="text" placeholder="Search" id="search">
+                          <button class="btn btn-light" id ="searchbtn" type="button">Search</button>
+                      </form>
+                  </div>
                 </nav>
-    </div> 
+    </div>
     `;
     navbarWrapper.innerHTML = navbar;
   } else {
@@ -98,6 +104,13 @@ const Navbar = () => {
                     <span >${totalProduct}</span>
                 </a>
             </div>
+            <div>
+              <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search" id="search">
+                  <button class="btn btn-light" id ="searchbtn" type="button">Search</button>
+              </form>
+            </div>
+           
         </div>
     </div>
     <div class="container-fluid mb-5">
@@ -116,7 +129,7 @@ const Navbar = () => {
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
-                            <a href="shop.html" class="nav-item nav-link"><i class="bi bi-shop"></i> Shop</a>
+                            <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
                             <a href="#" class="nav-item nav-link" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                             <a href="#" class="nav-item nav-link" data-uri="/basicseller"><i class="bi bi-shop"></i> Basic Seller</a>
                         </div>
@@ -137,7 +150,7 @@ const Navbar = () => {
        
   `;
     navbarWrapper.innerHTML = navbar;
-    
+
     const userBtn = document.getElementById('user');
     userBtn.addEventListener('click', async (e) => {
       e.preventDefault();
