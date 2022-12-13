@@ -32,11 +32,11 @@ const Navbar = () => {
             <div class="col-lg-6 col-6 text-left">
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" id="search">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary" id="searchbtn">
                                 <i class="bi bi-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -67,38 +67,7 @@ const Navbar = () => {
                         </div>
                     </div>
                 </nav>
-    </div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-            <div class="container-fluid">
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav navbar me-auto mb-2 mb-lg-0">
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#" data-uri="/">
-                      <img alt="Logo" src=${logoAsset} height=70 width=70></a>
-                  </li>  
-                  <li class="nav-item">
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
-                  </li>    
-                  <li class="nav-item">
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
-                  </li>  
-                  <li>
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
-                  </li>
-                  <li>
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/basicseller">Basic Seller</a>
-                  </li>
-                </ul>
-                <div>
-                  <form class="d-flex">
-                    <input class="form-control me-2" type="text" placeholder="Search" id="search">
-                    <button class="btn btn-light" id ="searchbtn" type="button">Search</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </nav>
-        
+    </div> 
     `;
     navbarWrapper.innerHTML = navbar;
     
@@ -116,11 +85,11 @@ const Navbar = () => {
             <div class="col-lg-6 col-6 text-left">
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" id="search">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary" id="searchbtn">
                                 <i class="bi bi-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
