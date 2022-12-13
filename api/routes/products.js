@@ -5,6 +5,13 @@ const { Product } = require('../models/product');
 
 const productModel = new Product();
 
+// Permet de lister tous les produits de la db par vendeur
+router.get('/getAllBySeller/:id', async(req,res)=>{
+  console.log("je suis passee")
+  const result = await productModel.getAllProductBySeller(req.params.id);
+  if(!result) res.sendStatus(404).end();
+  res.send(result);
+})
 
 // Permet de lister tous les produits de la db 
 router.get('/getAll', async(req,res)=>{
@@ -39,15 +46,6 @@ router.get('/search/:key', async (req, res) => {
   const results = await productModel.Search(req.params.key);
   res.send(results);
 });
-
-// Permet de lister tous les produits de la db par vendeur
-router.post('/getAllBySeller', async(req,res)=>{
-    console.log("je suis passee")
-    const result = await productModel.getAllProductBySeller(req.body);
-    if(!result) res.sendStatus(404).end();
-    console.log(result);
-    return res.json(result[0])
-})
 
 
 // Compte tous les produits d'un vendeur dans la db
