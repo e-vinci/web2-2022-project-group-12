@@ -3,7 +3,10 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
 import logoAsset from '../../assets/image0.png';
 import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
+import { setSearch } from '../../utils/utilsSearch';
+import Navigate from '../Router/Navigate';
 import { countProductCart} from '../../utils/utilsCart';
+import { clearPage } from '../../utils/render';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -13,10 +16,11 @@ import { countProductCart} from '../../utils/utilsCart';
  */
 
 const Navbar = () => {
+  clearPage();
   const navbarWrapper = document.querySelector('#navbarWrapper');
-  const authenticatedUser = getAuthenticatedUser();
+  const user = getAuthenticatedUser();
   
-  if (authenticatedUser === undefined) {
+  if (user === undefined) {
     const navbar = `
     <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
@@ -67,6 +71,7 @@ const Navbar = () => {
       
     `;
     navbarWrapper.innerHTML = navbar;
+    
   } else {
     
     const totalProduct = countProductCart();
@@ -132,8 +137,45 @@ const Navbar = () => {
   `;
     navbarWrapper.innerHTML = navbar;
   }
-  
-};
+    const btn = document.getElementById('searchbtn');
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      console.log('CLICKEDD');
+      // Récupération de toute les données avec les id
+      const data = document.getElementById('search').value;
+
+      if (data === undefined) {
+        console.error('Search vide, ignorer l action');
+      } else {
+        try {
+          const options = {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          };
+          console.log(JSON.stringify(data));
+          // eslint-disable-next-line prefer-template
+          const results = await fetch('/api/products/search/'+data, options);
+          const products = await results.json();
+          console.log(products);
+
+          setSearch(products);
+
+          if (!results.ok) {
+            throw new Error(`fetch error : ${results.status}${results.statusText}`);
+          }
+          Navigate('/search');
+          /* const user = await reponse.json(); */
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error('error: ', err);
+        }
+
+      }
+    });
+  };
 
 
 export default Navbar;

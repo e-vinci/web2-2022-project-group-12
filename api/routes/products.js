@@ -33,6 +33,12 @@ router.post('/add', async (req, res) => {
   return res.json(idProduct);
 });
 
+// Compte tous les produits dans la db
+router.get('/search/:key', async (req, res) => {
+  console.log('Search est ', req.params.key);
+  const results = await productModel.Search(req.params.key);
+  res.send(results);
+});
 
 // Permet de lister tous les produits de la db par vendeur
 router.post('/getAllBySeller', async(req,res)=>{
