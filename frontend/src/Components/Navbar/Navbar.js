@@ -34,7 +34,7 @@ const Navbar = () => {
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for products" id="search">
                         <div class="input-group-append">
-                            <button class="input-group-text bg-transparent text-primary" id ="searchbtn">
+                            <button class="input-group-text bg-transparent text-primary" id="searchbtn">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
@@ -58,8 +58,8 @@ const Navbar = () => {
             </div>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i>Home</a>
-                            <a href="#" class="nav-item nav-link" data-uri"/allProducts"><i class="bi bi-shop"></i>Shop</a>
+                            <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
+                            <a href="#" class="nav-item nav-link" data-uri"/allProducts"><i class="bi bi-shop"></i> Shop</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             <a href="#" class="nav-item nav-link" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
@@ -91,7 +91,7 @@ const Navbar = () => {
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for products" id="search">
                         <div class="input-group-append">
-                            <button class="input-group-text bg-transparent text-primary" id ="searchbtn">
+                            <button class="input-group-text bg-transparent text-primary" id="searchbtn">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
@@ -128,8 +128,8 @@ const Navbar = () => {
             </div>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i>Home</a>
-                            <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i>Shop</a>
+                            <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
+                            <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
                             <a href="#" class="nav-item nav-link" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                             <a href="#" class="nav-item nav-link" data-uri="/basicseller"><i class="bi bi-shop"></i> Basic Seller</a>
                         </div>
