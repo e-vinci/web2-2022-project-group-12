@@ -9,9 +9,10 @@ import UserPage from '../Pages/UserPage';
 import BecomeSeller from '../Pages/BecomeSeller';
 import CheckoutPage from '../Pages/CheckoutPage';
 import StorePage from '../Pages/StorePage';
-import PaypalPage from '../Pages/Paypal';
 import BasicSellerPage from '../Pages/BasicSellerPage';
+import PaypalPage from '../Pages/Paypal';
 import UpdateUser from '../Pages/UpdateUser';
+import SearchResultsPage from '../Pages/SearchResultsPage';
 
 const routes = {
   '/': HomePage,
@@ -29,7 +30,8 @@ const routes = {
   '/store': StorePage,
   '/paypal': PaypalPage,
   '/basicseller': BasicSellerPage,
-  '/update': UpdateUser
+  '/update': UpdateUser,
+  '/search':SearchResultsPage
 };
 
 export default routes;

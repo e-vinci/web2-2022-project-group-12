@@ -5,6 +5,13 @@ const { Product } = require('../models/product');
 
 const productModel = new Product();
 
+// Permet de lister tous les produits de la db par vendeur
+router.get('/getAllBySeller/:id', async(req,res)=>{
+  console.log("je suis passee")
+  const result = await productModel.getAllProductBySeller(req.params.id);
+  if(!result) res.sendStatus(404).end();
+  res.send(result);
+})
 
 // Permet de lister tous les produits de la db 
 router.get('/getAll', async(req,res)=>{
@@ -27,14 +34,28 @@ router.get('/countAll', async (req, res) => {
 
 // Ajoute le produit à la db
 router.post('/add', async (req, res) => {
+  console.log("la sa passe")
   console.log(req.body);
-  const product = await productModel.addProduct(req.body);
-  return res.json(product);
+  const idProduct = await productModel.addProduct(req.body);
+  return res.json(idProduct);
 });
 
-router.get('/productsBySeller', async (req, res) => {
-  const products = await productModel.getProductsBySeller(req.params.idSeller);
-  return res.json(products);
+// Compte tous les produits dans la db
+router.get('/search/:key', async (req, res) => {
+  console.log('Search est ', req.params.key);
+  const results = await productModel.Search(req.params.key);
+  res.send(results);
 });
+
+
+// Compte tous les produits d'un vendeur dans la db
+router.post('/countAllBySeller' , async(req,res)=>{
+    console.log("enter in products.js")
+    const count = await productModel.countProductBySeller(req.body);
+    console.log("je passe",count)
+    return res.json(count)
+})
+
+
 
 module.exports = router;
