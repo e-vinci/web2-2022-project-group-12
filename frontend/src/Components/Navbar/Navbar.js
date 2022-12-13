@@ -158,6 +158,12 @@ const Navbar = () => {
                             <a href="#" class="nav-item nav-link" data-uri="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                             
                         </div>
+                        <div>
+                          <form class="d-flex">
+                            <input class="form-control me-2" type="text" placeholder="Search" id="search">
+                            <button class="btn btn-light" id ="searchbtn" type="button">Search</button>
+                          </form>
+                      </div>
                     </div>
                 </nav>
     </div>
@@ -170,10 +176,11 @@ const Navbar = () => {
       Navigate('/user?idSeller=', user.userId);
     });
   }
-  const btn = document.getElementById('searchbtn');
-  btn.addEventListener('click', async (e) => {
+  console.log('Je avant le listener');
+  const btnSearch = document.getElementById('searchbtn');
+  btnSearch.addEventListener('click', async (e) => {
     e.preventDefault();
-    console.log('CLICKEDD');
+    console.log('Je avant le listener');
     // Récupération de toute les données avec les id
     const data = document.getElementById('search').value;
 

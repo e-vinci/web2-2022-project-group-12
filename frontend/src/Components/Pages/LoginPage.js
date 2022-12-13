@@ -69,9 +69,9 @@ const LoginPage = () => {
   main.innerHTML = formLogin;
 
   const btn = document.getElementById('login');
-
+console.log("le listener est ", btn)
   const btnRegister = document.getElementById('register');
-
+  
   btnRegister.addEventListener('click', async (e) => {
     e.preventDefault();
     Navigate('/register');
@@ -115,7 +115,7 @@ const LoginPage = () => {
       const cart = await loadCart(user.email);
       // eslint-disable-next-line no-console
       console.log('Le cart apres connexion est : ', cart);
-      await Navigate('/login');
+      await Navigate('/');
     } catch (err) {
       // eslint-disable-next-line
       console.error('error: ', err);
