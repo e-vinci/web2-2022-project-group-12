@@ -41,7 +41,7 @@ function deleteCart() {
 }
 
 
-function addItemToCart(name, price, count) {
+function addItemToCart(id, name, price, count) {
     const user = getAuthenticatedUser();
     if(user!==undefined){
         console.log("email",user.email);
@@ -55,7 +55,7 @@ function addItemToCart(name, price, count) {
         return;
       }
     }
-    const itemToadd = new Item(name, price, count);
+    const itemToadd = new Item(id, name, price, count);
     cart.objects.push(itemToadd);
     console.log(cart);
     saveCart(cart);
@@ -116,7 +116,10 @@ function countProductCart(){
 
 
 
-function Item(name, price, count) {
+
+
+function Item(id, name, price, count) {
+  this.id =id;
   this.name = name;
   this.price = price;
   this.count = count;

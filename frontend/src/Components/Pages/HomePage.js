@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-import { addItemToCart } from '../../utils/utilsCart';
+import { addItemToCart, countProductCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
-import Navbar from '../Navbar/Navbar';
+
 
 // HTML CODE
 const html = `
@@ -41,6 +41,7 @@ const html = `
     <div class="row justify-content" id="imgProduct">
       
     </div>
+  <div id="snackbar">Le produit a été ajouté a votre panier !</div>
 </div>
   `;
 
@@ -108,9 +109,13 @@ const HomePage = async () => {
     for (let y = 0; y < btn.length; y += 1) {
       btn[y].addEventListener('click', async (e) => {
         e.preventDefault();
-        console.log(btn[y].value);
-        addItemToCart(btn[y].value, 5, 1);
-        Navbar();
+        myFunction();
+        console.log("AAAAAA",btn[y].value);
+        addItemToCart(product[y].id_product ,product[y].name, product[y].price, 1);
+        const nombre = document.getElementById('numberOfArticles');
+        const newNombre = countProductCart();
+        nombre.innerHTML = newNombre;
+
       });
     }
   } catch (err) {
@@ -120,11 +125,11 @@ const HomePage = async () => {
 
 async function showProduct(product) {
   const cardProduct = document.getElementById('imgProduct');
-  const nbImage = await countAllProduct();
+  const numberOfProducts = product.length
   let items = ``;
   let i = 0;
 
-  while (i < nbImage) {
+  while (i < numberOfProducts) {
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
     const storeName = product[i].store_name;
@@ -165,7 +170,7 @@ async function showProduct(product) {
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
               <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-primary">Add to cart</button>
+              <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-dark">Add to cart</button>
             </div>
           </div>
           </div>
@@ -177,9 +182,9 @@ async function showProduct(product) {
 
   const a = document.getElementsByClassName('aProductName');
 
-  const lenght = a.length;
+  const lengthProducts = a.length;
 
-  for (let j = 0; j < lenght; j += 1) {
+  for (let j = 0; j < lengthProducts; j += 1) {
     a[j].addEventListener('click', async (e) => {
       e.preventDefault();
       const id = a[j].name;
@@ -213,6 +218,17 @@ async function countAllProduct() {
 
 function importAll(r) {
   return r.keys().map(r);
+}
+
+function myFunction() {
+  // Get the snackbar DIV
+  const x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(()=> { x.className = x.className.replace("show", ""); }, 3000);
 }
 
 export default HomePage;

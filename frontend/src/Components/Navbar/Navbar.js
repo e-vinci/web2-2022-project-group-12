@@ -101,7 +101,7 @@ const Navbar = () => {
             <div class="col-lg-3 col-6 text-right">
                 <a href="#" class="btn border" data-uri="/cart">
                     <i class="bi bi-cart"></i>
-                    <span >${totalProduct}</span>
+                    <span id="numberOfArticles">${totalProduct}</span>
                 </a>
             </div>
             <div>

@@ -16,6 +16,7 @@ class Product {
         [id],
       )
     ).rows;
+    console.log("bakcend", product[0]);
     return product[0];
   }
 
