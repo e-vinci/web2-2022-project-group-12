@@ -57,8 +57,8 @@ const UpdateUser = () => {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    const firstName = document.getElementById('last_name').value;
-    const lastName = document.getElementById('first_name').value;
+    const firstName = document.getElementById('first_name').value;
+    const lastName = document.getElementById('last_name').value;
     const homme = document.getElementById('homme').checked;
     const femme = document.getElementById('femme').checked;
     const autre = document.getElementById('autre').checked;

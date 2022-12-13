@@ -32,4 +32,9 @@ router.post('/add', async (req, res) => {
   return res.json(product);
 });
 
+router.get('/productsBySeller', async (req, res) => {
+  const products = await productModel.getProductsBySeller(req.params.idSeller);
+  return res.json(products);
+});
+
 module.exports = router;

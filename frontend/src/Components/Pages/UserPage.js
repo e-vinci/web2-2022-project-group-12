@@ -18,11 +18,10 @@ const html = `
 const UserPage = () => {
   clearPage();
   const user = getAuthenticatedUser();
-  console.log(user);
+
   // eslint-disable-next-line
   const firstName = user.firstName;
 
-  console.log(firstName);
   // verifie si l'user s'est login pour acceder à cette page
   if (user === undefined) {
     Navigate('/login');
@@ -42,7 +41,14 @@ const UserPage = () => {
       e.preventDefault();
       Navigate('/update');
     });
+    getProductsBySeller(user.userId);
+    console.log("IDDDDD", user.userId);
+    console.log('LALALALA', getProductsBySeller(user.userId));
   }
 };
+
+async function getProductsBySeller(idSeller) {
+  
+}
 
 export default UserPage;

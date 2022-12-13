@@ -45,5 +45,10 @@ class Product {
     return product;
   }
 
+  async getProductsBySeller(idSeller) {
+    const products = await (await db.query(`SELECT * FROM projetWeb.products WHERE id_user = $1`, [idSeller])).rows;
+    return products;
+  }
+
 }
 module.exports = { Product };
