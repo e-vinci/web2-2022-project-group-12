@@ -33,7 +33,9 @@ const routes = {
   '/basicseller': BasicSellerPage,
   '/update': UpdateUser,
   '/search':SearchResultsPage,
-  '/allProducts':AllProductPage
+  '/allProducts': AllProductPage
 };
+
+console.log('routes',routes);
 
 export default routes;

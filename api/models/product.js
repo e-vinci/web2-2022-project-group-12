@@ -70,7 +70,7 @@ class Product {
 
    const concatenation = `%${data}%`;
    console.log('model concatené search ', concatenation);
-    const result = await (await db.query(`SELECT DISTINCT p.name, p.price, c.name, u.first_name FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u WHERE ((p.name LIKE $1 OR p.description LIKE $1) OR c.name LIKE $1) AND u.id_user = p.id_user AND c.id_category = p.id_category`,[concatenation])).rows;
+    const result = await (await db.query(`SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", u.first_name FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u WHERE ((p.name LIKE $1 OR p.description LIKE $1) OR c.name LIKE $1) AND u.id_user = p.id_user AND c.id_category = p.id_category`,[concatenation])).rows;
     
     // const result = await (await db.query(`SELECT p.* FROM projetWeb.products p WHERE p.name LIKE '% $1 %'`,[data])).rows;
     console.log('model search resultats ', result);

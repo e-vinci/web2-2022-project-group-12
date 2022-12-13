@@ -6,14 +6,12 @@ import { getAuthenticatedUser } from '../../utils/auths';
 
 const html = `
   <h2>Add a product</h2>
-      <button type="submit" class="btn btn-primary" id="addProduct" >Add New Product</button>
-
-
-    <div class="container py-5">
-      <div class="row justify-content" id="MyProducts">
+  <button type="submit" class="btn btn-primary" id="addProduct" >Add New Product</button>
+  <div class="container py-5">
+    <div class="row justify-content" id="MyProducts">
       
-      </div>
     </div>
+  </div>
   
 `;
 
@@ -73,7 +71,7 @@ async function getAllProductBySeller(id) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
-  return null;
+  return [{}];
 }
 
 
@@ -96,47 +94,46 @@ async function showProduct(product) {
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
     items += `
-    <div class="col-md-8 col-lg-6 col-xl-4" >
-    <div class="card" style="border-radius: 15px;" >
-    <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-            data-mdb-ripple-color="light" >
-    <img src="${1}"
-    style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-    alt="Laptop"/>
-  <a href="#!">
-    <div class="mask"></div>
-  </a>
-  </div>
+    <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card" style="border-radius: 15px;">
+            <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+                data-mdb-ripple-color="light">
+                <img src="${1}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+                    alt="Laptop" />
+                <a href="#!">
+                    <div class="mask"></div>
+                </a>
+            </div>
 
-  <div class="card-body pb-0">
-            <div class="d-flex justify-content-between">
-              <div>
-                <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                <p class="small text-muted">Laptops</p>
-              </div>
-              <div>
-                <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
+            <div class="card-body pb-0">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
+                        <p class="small text-muted">Laptops</p>
+                    </div>
+                    <div>
+                        <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="small text-muted">Rated 4.0/5</p>
+                    </div>
                 </div>
-                <p class="small text-muted">Rated 4.0/5</p>
-              </div>
             </div>
-          </div>
-          <hr class="my-0" />
-          <div class="card-body pb-0">
-            <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">${priceProduct}</a></p>
-              
+            <hr class="my-0" />
+            <div class="card-body pb-0">
+                <div class="d-flex justify-content-between">
+                    <p><a href="#!" class="text-dark">${priceProduct}</a></p>
+
+                </div>
+                <p class="small text-muted">VISA Platinum</p>
             </div>
-            <p class="small text-muted">VISA Platinum</p>
-          </div>
-          <hr class="my-0" />
-         
-          </div>
-          </div>
+            <hr class="my-0" />
+
+        </div>
+    </div>
   `;
     i += 1;
   }

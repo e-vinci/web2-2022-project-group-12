@@ -4,43 +4,49 @@ import { getAuthenticatedUser } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 
 const html = `
-        <form style="margin-top:30px">   
-          <div class="container mt-3">
-              <h2>Store</h2>
-              <div class="mb-3 mt-3">
-                  <label for="name">Name your store!</label>
-                  <input type="text" class="form-control" id="storename" placeholder="Enter the name of your store..." name="storename">
-              </div>
-              <div>
-                  <h4>Adress</h4>
-                  <div class="mb-3 mt-3">
-                      <label for="name">Country</label>
-                      <input type="text" class="form-control" id="country" placeholder="Enter the country you live in..." name="country">
-                  </div>
+<form style="margin-top:30px">
+        <div class="container mt-3">
+            <h2>Store</h2>
+            <div class="mb-3 mt-3">
+                <label for="name">Name your store!</label>
+                <input type="text" class="form-control" id="storename" placeholder="Enter the name of your store..."
+                    name="storename">
+            </div>
+            <div>
+                <h4>Adress</h4>
+                <div class="mb-3 mt-3">
+                    <label for="name">Country</label>
+                    <input type="text" class="form-control" id="country" placeholder="Enter the country you live in..."
+                        name="country">
+                </div>
 
-                  <div class="mb-3 mt-3">
-                      <label for="email">City</label>
-                      <input type="email" class="form-control" id="city" placeholder="Enter the city you live in..." name="city">
-                  </div>
+                <div class="mb-3 mt-3">
+                    <label for="email">City</label>
+                    <input type="email" class="form-control" id="city" placeholder="Enter the city you live in..."
+                        name="city">
+                </div>
 
-                  <div class="mb-3 mt-3">
-                      <label for="email">Zip Code</label>
-                      <input type="email" class="form-control" id="zipcode" placeholder="Enter your postal code (Zip Code)..." name="zipcode">
-                  </div>
+                <div class="mb-3 mt-3">
+                    <label for="email">Zip Code</label>
+                    <input type="email" class="form-control" id="zipcode"
+                        placeholder="Enter your postal code (Zip Code)..." name="zipcode">
+                </div>
 
-                  <div class="mb-3 mt-3">
-                      <label for="email">Street</label>
-                      <input type="email" class="form-control" id="street" placeholder="Enter the street you live on..." name="street">
-                  </div>
+                <div class="mb-3 mt-3">
+                    <label for="email">Street</label>
+                    <input type="email" class="form-control" id="street" placeholder="Enter the street you live on..."
+                        name="street">
+                </div>
 
-                  <div class="mb-3 mt-3">
-                      <label for="email">Building code</label>
-                      <input type="email" class="form-control" id="buildingcode" placeholder="Enter your building's numeric code..." name="buildingcode">
-                  </div>
-              </div>
-              <button type="submit" class="btn btn-primary" id="sell" >Start selling!</button>
-          </div> 
-        </form>
+                <div class="mb-3 mt-3">
+                    <label for="email">Building code</label>
+                    <input type="email" class="form-control" id="buildingcode"
+                        placeholder="Enter your building's numeric code..." name="buildingcode">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="sell">Start selling!</button>
+        </div>
+    </form>
 `;
 
 const BecomeSeller = () => {
@@ -97,7 +103,7 @@ const BecomeSeller = () => {
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
-        clearPage();
+        Navigate('/user');
         /* const user = await reponse.json(); */
         ;
       } catch (err) {

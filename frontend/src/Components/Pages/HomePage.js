@@ -4,47 +4,46 @@ import 'animate.css';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
+import { clearPage } from '../../utils/render';
 
 // HTML CODE
 const html = `
-<div class="text-center">
-  <h1 class="display-1"> Vinci Store </h1>
-</div>
-
-<div class = "carousselContainer ">
-  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-  <div class="carousel-indicators" id="carousel-buttons">
-
-        </div>
-        <div class="carousel-inner" id ="carousel-items">
-
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-        </div>
-      </div>
+    <div class="text-center">
+        <h1 class="display-1"> Vinci Store </h1>
     </div>
-  </div>
-</div>
-</div>
 
-<div class="text-center">
-  <h1 class="display-1"> Products </h1>
-</div>
-<div class="container py-5">
-    <div class="row justify-content" id="imgProduct">
-      
+    <div class="carousselContainer ">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators" id="carousel-buttons">
+
+            </div>
+            <div class="carousel-inner" id="carousel-items">
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-</div>
+    <div class="text-center">
+        <h1 class="display-1"> Products </h1>
+    </div>
+    <div class="container py-5">
+        <div class="row justify-content" id="imgProduct">
+
+        </div>
+    </div>
   `;
 
 const HomePage = async () => {
+  clearPage();
   const main = document.querySelector('main');
   countAllProduct();
   main.innerHTML = html;
@@ -132,44 +131,44 @@ async function showProduct(product) {
     const priceProduct = product[i].price;
     const {category} = product[i];
     items += `
-    <div class="col-md-8 col-lg-6 col-xl-4" >
-    <div class="card" style="border-radius: 15px;" >
-    <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-            data-mdb-ripple-color="light" >
-    <img src="${imageProduit[i]}"
-    style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-    alt="Laptop"/>
-  <a href="#!">
-    <div class="mask"></div>
-  </a>
-  </div>
+    <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card" style="border-radius: 15px;">
+            <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+                data-mdb-ripple-color="light">
+                <img src="${imageProduit[i]}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                    class="img-fluid" alt="Laptop" />
+                <a href="#!">
+                    <div class="mask"></div>
+                </a>
+            </div>
 
-  <div class="card-body pb-0">
-            <div class="d-flex justify-content-between">
-              <div>
-                <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                <p class="small text-muted">by ${storeName}</p>
-              </div>
-              <div>
-                <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
-              </div>
+            <div class="card-body pb-0">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
+                        <p class="small text-muted">by ${storeName}</p>
+                    </div>
+                    <div>
+                        <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <hr class="my-0" />
-          <div class="card-body pb-0">
-            <div class="d-flex justify-content-between">
-              <p class="text-dark">${priceProduct}€</p>
+            <hr class="my-0" />
+            <div class="card-body pb-0">
+                <div class="d-flex justify-content-between">
+                    <p class="text-dark">${priceProduct}€</p>
+                </div>
             </div>
-          </div>
-          <hr class="my-0" />
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-              <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-primary">Add to cart</button>
+            <hr class="my-0" />
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                    <a href="#!" class="text-dark fw-bold">Cancel</a>
+                    <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-dark"><i
+                            class="bi bi-cart-plus"></i></button>
+                </div>
             </div>
-          </div>
-          </div>
-          </div>
+        </div>
+    </div>
   `;
     i += 1;
   }

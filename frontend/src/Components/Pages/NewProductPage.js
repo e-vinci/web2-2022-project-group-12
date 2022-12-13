@@ -6,51 +6,54 @@ import { getAuthenticatedUser } from '../../utils/auths';
 
 // formulaire NewProduct
 const formNewProduct = `
-<div class="">
-<h2>Add a product</h2>
-<div>
-<form>   
-<div class="container mt-3">
-
-    <div class="mb-3 mt-3">
-        <label for="name">Product Name :</label>
-        <input type="text" class="form-control" id="productName" placeholder="Enter the product name" name="productName">
+    <div class="">
+        <h2>Add a product</h2>
     </div>
+    <form>
+        <div class="container mt-3">
 
-    <div class="mb-3 mt-3">
-        <label for="description">Product Description :</label>
-        <textarea class="form-control" id="description" placeholder="Enter the product description" name="description" rows="5"></textarea>
-    </div>
+            <div class="mb-3 mt-3">
+                <label for="name">Product Name :</label>
+                <input type="text" class="form-control" id="productName" placeholder="Enter the product name"
+                    name="productName">
+            </div>
 
-    <div class="mb-3 mt-3">
-        <label for="email">Price :</label>
-        <input type="text" class="form-control" id="price" placeholder="Enter the price" name="price">    
-    </div>
+            <div class="mb-3 mt-3">
+                <label for="description">Product Description :</label>
+                <textarea class="form-control" id="description" placeholder="Enter the product description"
+                    name="description" rows="5"></textarea>
+            </div>
 
-    <div class="mb-3 mt-3">
-        <select class="form-select" aria-label="Default select example" id="select1">
-        <option selected>Open this select menu</option>
-        <option value="1">test</option>
-        <option value="2">vetement</option>
-        <option value="3">object</option>
-        </select>
-    </div>
+            <div class="mb-3 mt-3">
+                <label for="email">Price :</label>
+                <input type="text" class="form-control" id="price" placeholder="Enter the price" name="price">
+            </div>
 
-    <div class="mb-3 mt-3">
-        <label for="color">Color :</label>
-        <input type="color" class="form-control" id="color" placeholder="Enter the color of the product" name="color">
-    </div>
-    
-    <div class="mb-3 mt-3">
-        <label class="control-label small" for="file_img">Add image(jpg/png):</label> 
-        <input type="file" class="form-control" name="file_img" id="image">
-    </div>
+            <div class="mb-3 mt-3">
+                <select class="form-select" aria-label="Default select example" id="select1">
+                    <option selected>Open this select menu</option>
+                    <option value="1">test</option>
+                    <option value="2">vetement</option>
+                    <option value="3">object</option>
+                </select>
+            </div>
 
-    
+            <div class="mb-3 mt-3">
+                <label for="color">Color :</label>
+                <input type="color" class="form-control" id="color" placeholder="Enter the color of the product"
+                    name="color">
+            </div>
 
-    <button type="submit" class="btn btn-primary" id="addProduct" >Add Product</button>
-</div> 
-</form>
+            <div class="mb-3 mt-3">
+                <label class="control-label small" for="file_img">Add image(jpg/png):</label>
+                <input type="file" class="form-control" name="file_img" id="image">
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary" id="addProduct">Add Product</button>
+        </div>
+    </form>
 `;
 
 const NewProductPage = () => {
