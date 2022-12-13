@@ -150,8 +150,6 @@ const Navbar = () => {
                             <a href="shop.html" class="nav-item nav-link"><i class="bi bi-shop"></i>Shop</a>
                             <a href="#" class="nav-item nav-link" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                             <a href="#" class="nav-item nav-link" data-uri="/basicseller"><i class="bi bi-shop"></i> Basic Seller</a>
-              
-                            
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             <a id="user" class="nav-item nav-link"><i class="bi bi-person"></i></a>
@@ -170,17 +168,17 @@ const Navbar = () => {
        
   `;
     navbarWrapper.innerHTML = navbar;
+    
     const userBtn = document.getElementById('user');
     userBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       Navigate('/user?idSeller=', user.userId);
     });
   }
-  console.log('Je avant le listener');
+  
   const btnSearch = document.getElementById('searchbtn');
   btnSearch.addEventListener('click', async (e) => {
     e.preventDefault();
-    console.log('Je avant le listener');
     // Récupération de toute les données avec les id
     const data = document.getElementById('search').value;
 
