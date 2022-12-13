@@ -32,11 +32,11 @@ const Navbar = () => {
             <div class="col-lg-6 col-6 text-left">
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" id="search">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary" id ="searchbtn">
                                 <i class="bi bi-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -73,7 +73,7 @@ const Navbar = () => {
                       </form>
                   </div>
                 </nav>
-    </div>    
+    </div>
     `;
     navbarWrapper.innerHTML = navbar;
   } else {
@@ -89,11 +89,11 @@ const Navbar = () => {
             <div class="col-lg-6 col-6 text-left">
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" id="search">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary" id ="searchbtn">
                                 <i class="bi bi-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
