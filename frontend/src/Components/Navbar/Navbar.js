@@ -30,9 +30,9 @@ const Navbar = () => {
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for products">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary">
                                 <i class="bi bi-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -64,37 +64,7 @@ const Navbar = () => {
                     </div>
                 </nav>
     </div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-            <div class="container-fluid">
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav navbar me-auto mb-2 mb-lg-0">
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#" data-uri="/">
-                      <img alt="Logo" src=${logoAsset} height=70 width=70></a>
-                  </li>  
-                  <li class="nav-item">
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
-                  </li>    
-                  <li class="nav-item">
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
-                  </li>  
-                  <li>
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
-                  </li>
-                  <li>
-                    <a class="nav-link px-2 text-white" href="#" data-uri="/basicseller">Basic Seller</a>
-                  </li>
-                </ul>
-                <div>
-                  <form class="d-flex">
-                    <input class="form-control me-2" type="text" placeholder="Search">
-                    <button class="btn btn-light" id ="cart" type="submit">Search</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </nav>
-        
+      
     `;
     navbarWrapper.innerHTML = navbar;
   } else {
