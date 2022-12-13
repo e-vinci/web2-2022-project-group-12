@@ -1,6 +1,11 @@
 /* eslint-disable class-methods-use-this */
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../db/db');
+
+const jwtSecret = 'ilovemypizza!';
+const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
+
 
 const saltRounds = 10;
 
@@ -37,16 +42,23 @@ class User {
       return null;
     }
 
+    const emailUser  = user[0].email.toLowerCase().email;
+    const token = jwt.sign(
+      { emailUser }, // session data added to the payload (payload : part 2 of a JWT)
+      jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+      { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+      );
     const authentificatedUser = {
+      token,
       userId: user[0].id_user,
-      email: user[0].email.toLowerCase(),
+      email,
       password: user[0].password,
       firstName: user[0].first_name,
       lastName: user[0].last_name,
       sex: user[0].sex,
     };
-    console.log("l'user back est ", authentificatedUser);
-    return authentificatedUser;
+    console.log("le user back est ",authentificatedUser)
+  return authentificatedUser;
   }
 
    

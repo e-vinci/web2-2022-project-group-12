@@ -5,7 +5,7 @@ import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { setSearch } from '../../utils/utilsSearch';
 import Navigate from '../Router/Navigate';
-import { countProductCart} from '../../utils/utilsCart';
+import { countProductCart } from '../../utils/utilsCart';
 import { clearPage } from '../../utils/render';
 
 /**
@@ -19,7 +19,7 @@ const Navbar = () => {
   clearPage();
   const navbarWrapper = document.querySelector('#navbarWrapper');
   const user = getAuthenticatedUser();
-  
+
   if (user === undefined) {
     const navbar = `
     <div class="row align-items-center py-3 px-xl-5">
@@ -70,11 +70,9 @@ const Navbar = () => {
     </div> 
     `;
     navbarWrapper.innerHTML = navbar;
-    
   } else {
-    
     const totalProduct = countProductCart();
-  
+
     const navbar = `
     <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
@@ -121,60 +119,68 @@ const Navbar = () => {
                             <a href="shop.html" class="nav-item nav-link"><i class="bi bi-shop"></i>Shop</a>
                             <a href="#" class="nav-item nav-link" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
                             <a href="#" class="nav-item nav-link" data-uri="/basicseller"><i class="bi bi-shop"></i> Basic Seller</a>
-              
-                            
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="#" class="nav-item nav-link" data-uri="/user"><i class="bi bi-person"></i></a>
+                            <a id="user" class="nav-item nav-link"><i class="bi bi-person"></i></a>
                             <a href="#" class="nav-item nav-link" data-uri="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                             
                         </div>
+                        <div>
+                          <form class="d-flex">
+                            <input class="form-control me-2" type="text" placeholder="Search" id="search">
+                            <button class="btn btn-light" id ="searchbtn" type="button">Search</button>
+                          </form>
+                      </div>
                     </div>
                 </nav>
     </div>
        
   `;
     navbarWrapper.innerHTML = navbar;
-  }
-    const btn = document.getElementById('searchbtn');
-    btn.addEventListener('click', async (e) => {
+    
+    const userBtn = document.getElementById('user');
+    userBtn.addEventListener('click', async (e) => {
       e.preventDefault();
-      console.log('CLICKEDD');
-      // Récupération de toute les données avec les id
-      const data = document.getElementById('search').value;
-
-      if (data === undefined) {
-        console.error('Search vide, ignorer l action');
-      } else {
-        try {
-          const options = {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          };
-          console.log(JSON.stringify(data));
-          // eslint-disable-next-line prefer-template
-          const results = await fetch('/api/products/search/'+data, options);
-          const products = await results.json();
-          console.log(products);
-
-          setSearch(products);
-
-          if (!results.ok) {
-            throw new Error(`fetch error : ${results.status}${results.statusText}`);
-          }
-          Navigate('/search');
-          /* const user = await reponse.json(); */
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.error('error: ', err);
-        }
-
-      }
+      Navigate('/user?idSeller=', user.userId);
     });
-  };
+  }
+  
+  const btnSearch = document.getElementById('searchbtn');
+  btnSearch.addEventListener('click', async (e) => {
+    e.preventDefault();
+    // Récupération de toute les données avec les id
+    const data = document.getElementById('search').value;
 
+    if (data === undefined) {
+      console.error('Search vide, ignorer l action');
+    } else {
+      try {
+        const options = {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        console.log(JSON.stringify(data));
+        // eslint-disable-next-line prefer-template
+        const results = await fetch('/api/products/search/' + data, options);
+        const products = await results.json();
+        console.log(products);
+
+        setSearch(products);
+
+        if (!results.ok) {
+          throw new Error(`fetch error : ${results.status}${results.statusText}`);
+        }
+        Navigate('/search');
+        /* const user = await reponse.json(); */
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('error: ', err);
+      }
+    }
+  });
+};
 
 export default Navbar;

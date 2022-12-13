@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import { getCartTotal, loadCart } from '../../utils/utilsCart';
@@ -8,8 +9,11 @@ const CheckoutPage = () => {
   clearPage();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
+  // eslint-disable-next-line prefer-destructuring
   const firstName = user.firstName;
+  // eslint-disable-next-line prefer-destructuring
   const lastName = user.lastName;
+  // eslint-disable-next-line prefer-destructuring
   const email = user.email;
 
   const html = `

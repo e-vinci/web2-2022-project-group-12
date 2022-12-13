@@ -4,11 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
-import { loadCart, shoppingCart } from '../../utils/utilsCart';
 
 const formLogin = `
   
-<section class="h-100 gradient-form" style="background-color: #eee;">
+<section class="h-100 gradient-form" style="background-color: #eee; margin-bottom : 200px">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-xl-10">
@@ -37,8 +36,7 @@ const formLogin = `
                   </div>
 
                   <div class="text-center pt-1 mb-5 pb-1">
-                    <button class="btn btn-white btn-block fa-lg gradient-custom-2 mb-3" id="login" type="button">Log
-                      in</button>
+                    <button class="btn btn-white btn-block fa-lg gradient-custom-2 mb-3" id="login" type="button" style="color : white" >Login</button>
                   </div>
 
                   <div class="d-flex align-items-center justify-content-center pb-4">
@@ -69,9 +67,9 @@ const LoginPage = () => {
   main.innerHTML = formLogin;
 
   const btn = document.getElementById('login');
-
+  
   const btnRegister = document.getElementById('register');
-
+  
   btnRegister.addEventListener('click', async (e) => {
     e.preventDefault();
     Navigate('/register');
@@ -106,15 +104,9 @@ const LoginPage = () => {
       const user = await reponse.json();
       await setAuthenticatedUser(user);
       await Navbar();
-      let string = 'shoppingCart';
-      string += user.email;
-      if ((await localStorage.getItem(string)) == null) {
-        await shoppingCart(user.email);
-      }
 
-      const cart = await loadCart(user.email);
+  
       // eslint-disable-next-line no-console
-      console.log('Le cart apres connexion est : ', cart);
       await Navigate('/');
     } catch (err) {
       // eslint-disable-next-line

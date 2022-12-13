@@ -1,5 +1,4 @@
 const express = require('express');
-const { login } = require('../auths/auths');
 
 const router = express.Router();
 
@@ -28,8 +27,7 @@ router.post('/login', async (req, res) => {
 
   if (user === null) return console.error("Le user n'existe pas");
 
-  const logedInUser = await login(user);
-  return res.json(logedInUser);
+  return res.json(user);
 });
 
 // Permet de récupérer un vendeur en particulier avec id

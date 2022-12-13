@@ -49,10 +49,10 @@ class Product {
         return numberOfProduct[0].count;
     }
 
-    async getAllProductBySeller(body){
+    async getAllProductBySeller(idSeller){
         console.log("je suis passee aussi")
-        const product = await (await db.query(`SELECT * FROM projetWeb.products  WHERE id_user = $1`,[body.id])).rows;
-        console.log("je suis passee aussi 2")
+        const product = await (await db.query(`SELECT * FROM projetWeb.products  WHERE id_user = $1`,[idSeller])).rows;
+        console.log("je suis passee aussi 2");
         return product;
     }
 
