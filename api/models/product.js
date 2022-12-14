@@ -4,7 +4,7 @@ const db = require('../db/db');
 class Product {
   // Permet de recuperer tous les produits de la base des données //
   async getAllProduct() {
-    const product = await (await db.query(`SELECT p.* FROM projetWeb.products p`)).rows;
+    const product = await (await db.query(`SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", s.store_name, s.id_user, c.id_category FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u, projetWeb.seller s WHERE u.id_user = s.id_user AND u.id_user = p.id_user AND c.id_category = p.id_category`)).rows;
     return product;
   }
 
@@ -12,10 +12,11 @@ class Product {
   async getOneProduct(id) {
     const product = await (
       await db.query(
-        `SELECT p.*, s.store_name, c.name as "category" FROM projetWeb.products p, projetWeb.seller s, projetWeb.categories c WHERE p.id_product = $1 AND s.id_user = p.id_user AND c.id_category = p.id_category`,
+        `SELECT p.*, s.store_name, c.name as "category", c.id_category FROM projetWeb.products p, projetWeb.seller s, projetWeb.categories c WHERE p.id_product = $1 AND s.id_user = p.id_user AND c.id_category = p.id_category`,
         [id],
       )
     ).rows;
+    console.log("bakcend", product[0]);
     return product[0];
   }
 
@@ -50,30 +51,25 @@ class Product {
     }
 
     async getAllProductBySeller(idSeller){
-        console.log("je suis passee aussi")
-        const product = await (await db.query(`SELECT * FROM projetWeb.products  WHERE id_user = $1`,[idSeller])).rows;
-        console.log("je suis passee aussi 2");
+        const product = await (await db.query(`SELECT DISTINCT p.*, c.name as "category" FROM projetWeb.products p, projetWeb.categories c WHERE p.id_category = c.id_category AND id_user = $1`,[idSeller])).rows;
         return product;
     }
 
 
   async listByCategory(categoryID) {
     const product = await (
-      await db.query(`SELECT p.* FROM projetWeb.products p WHERE p.id_category = $1`, [categoryID])
+      await db.query(`SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", c.id_category, s.store_name, s.id_user FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u, projetWeb.seller s  WHERE u.id_user = s.id_user AND u.id_user = p.id_user AND c.id_category = p.id_category AND c.id_category = $1`, [categoryID])
     ).rows;
     return product;
   }
 
   // Permet de trouver un produit dans la db graçe au formulaire de recherche //
   async Search(data) {
-    console.log('model search ', data);
-
+    if(data === undefined || data === '' || data === null){
+      return undefined;
+    }
    const concatenation = `%${data}%`;
-   console.log('model concatené search ', concatenation);
-    const result = await (await db.query(`SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", u.first_name FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u WHERE ((p.name LIKE $1 OR p.description LIKE $1) OR c.name LIKE $1) AND u.id_user = p.id_user AND c.id_category = p.id_category`,[concatenation])).rows;
-    
-    // const result = await (await db.query(`SELECT p.* FROM projetWeb.products p WHERE p.name LIKE '% $1 %'`,[data])).rows;
-    console.log('model search resultats ', result);
+    const result = await (await db.query(`SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", c.id_category, s.store_name, s.id_user FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u, projetWeb.seller s WHERE (p.name LIKE $1 OR p.description LIKE $1 OR c.name LIKE $1 OR u.first_name LIKE $1 OR u.last_name LIKE $1 OR s.store_name LIKE $1) AND u.id_user = s.id_user AND u.id_user = p.id_user AND c.id_category = p.id_category`,[concatenation])).rows;
     return result;
   }
 }

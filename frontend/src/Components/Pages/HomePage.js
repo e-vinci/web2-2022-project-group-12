@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-import { addItemToCart } from '../../utils/utilsCart';
+import { addItemToCart, countProductCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
-import Navbar from '../Navbar/Navbar';
 import { clearPage } from '../../utils/render';
 
 // HTML CODE
@@ -40,6 +39,8 @@ const html = `
 
         </div>
     </div>
+  <div id="snackbar">Le produit a été ajouté a votre panier !</div>
+</div>
   `;
 
 const HomePage = async () => {
@@ -107,9 +108,13 @@ const HomePage = async () => {
     for (let y = 0; y < btn.length; y += 1) {
       btn[y].addEventListener('click', async (e) => {
         e.preventDefault();
-        console.log(btn[y].value);
-        addItemToCart(btn[y].value, 5, 1);
-        Navbar();
+        myFunction();
+        console.log("AAAAAA",btn[y].value);
+        addItemToCart(product[y].id_product ,product[y].name, product[y].price, 1);
+        const nombre = document.getElementById('numberOfArticles');
+        const newNombre = countProductCart();
+        nombre.innerHTML = newNombre;
+
       });
     }
   } catch (err) {
@@ -119,17 +124,18 @@ const HomePage = async () => {
 
 async function showProduct(product) {
   const cardProduct = document.getElementById('imgProduct');
-  const nbImage = await countAllProduct();
+  const numberOfProducts = product.length
   let items = ``;
   let i = 0;
 
-  while (i < nbImage) {
+  while (i < numberOfProducts) {
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
     const storeName = product[i].store_name;
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
     const {category} = product[i];
+    const categoryId = product[i].id_category;
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4">
         <div class="card" style="border-radius: 15px;">
@@ -149,7 +155,7 @@ async function showProduct(product) {
                         <p class="small text-muted">by ${storeName}</p>
                     </div>
                     <div>
-                        <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
+                        <p class="small text-muted"><a href="#" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
                     </div>
                 </div>
             </div>
@@ -163,8 +169,7 @@ async function showProduct(product) {
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
                     <a href="#!" class="text-dark fw-bold">Cancel</a>
-                    <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-dark"><i
-                            class="bi bi-cart-plus"></i></button>
+                    <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
                 </div>
             </div>
         </div>
@@ -176,17 +181,29 @@ async function showProduct(product) {
 
   const a = document.getElementsByClassName('aProductName');
 
-  const lenght = a.length;
+  const lengthProducts = a.length;
 
-  for (let j = 0; j < lenght; j += 1) {
+  for (let j = 0; j < lengthProducts; j += 1) {
     a[j].addEventListener('click', async (e) => {
       e.preventDefault();
       const id = a[j].name;
       // eslint-disable-next-line prefer-template
-      Navigate('/product?id_product=', id);
+      Navigate('/product?=', id);
     });
   }
-}
+
+  // permet le render vers la page de la categorie cliqué
+  const cat = document.getElementsByClassName('categoryName');
+  const lengthCategories = cat.length;
+  for (let j = 0; j < lengthCategories; j += 1) {
+    cat[j].addEventListener('click', async (e) => {
+      e.preventDefault();
+      const idcat = cat[j].name;
+      // eslint-disable-next-line prefer-template
+      Navigate('/category?=', idcat);
+    });
+  } // fin for
+}; // fin page
 
 async function countAllProduct() {
   let number;
@@ -212,6 +229,17 @@ async function countAllProduct() {
 
 function importAll(r) {
   return r.keys().map(r);
+}
+
+function myFunction() {
+  // Get the snackbar DIV
+  const x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(()=> { x.className = x.className.replace("show", ""); }, 3000);
 }
 
 export default HomePage;

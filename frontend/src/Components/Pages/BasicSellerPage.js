@@ -3,103 +3,101 @@ import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
-
 const html = `
-  <h2>Add a product</h2>
-  <button type="submit" class="btn btn-primary" id="addProduct" >Add New Product</button>
-  <div class="container py-5">
-    <div class="row justify-content" id="MyProducts">
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" id="addProduct" >Add New Product</button>
+    </div>
+      
+
+    <div class="text-center">
+      <h3 class="display-1"> My products </h3>
+    </div>
+
+    <div class="container py-5">
+      <div class="row justify-content" id="MyProducts">
       
     </div>
-  </div>
+    
   
 `;
 
 // Calling the page to render
 const BasicSellerPage = async () => {
   clearPage();
-  const main = document.querySelector('main');
-  main.innerHTML = html;
+  const user = await getAuthenticatedUser();
+  const { email } = user;
+  console.log(email);
+  if (user === undefined) {
+    Navigate('/login');
+  } else {
+    const main = document.querySelector('main');
+    main.innerHTML = html;
+    const idUser = user.userId;
+    console.log("ceci est l'id", idUser);
 
-  const user = getAuthenticatedUser()
-  const idUser= user.userId
-  console.log("ceci est l'id", idUser)
+    const btn = document.getElementById('addProduct');
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
 
-  const btn = document.getElementById('addProduct');
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
+      Navigate('/addProduct');
+    });
 
-    Navigate('/addProduct')
-    
-  });
-
-
-    const product = await getAllProductBySeller(idUser)
+    const product = await getAllBySeller(idUser);
+    console.log('test product undef 2:', product);
     await showProduct(product);
+  } // fin else
+}; // fin page
 
-    
-} 
-  
- 
-
-async function getAllProductBySeller(id) {
-  
-
-  const Data = {
-    id,
-  };
-
+async function getAllBySeller(idSeller) {
+  let products;
   try {
     const options = {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify(Data),
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json',
       },
     };
-
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getAllBySeller', options);
-    console.log("response:",reponse)
+    const reponse = await fetch('/api/products/getAllBySeller/' + idSeller, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
-    const products = await reponse.json();
-    console.log("liste de produit", products)
-    return products;
+    products = await reponse.json();
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
-  return [{}];
+  return products;
 }
-
-
 
 async function showProduct(product) {
   const cardProduct = document.getElementById('MyProducts');
 
-
-  const user = getAuthenticatedUser()
-  const idUser= user.userId
-  console.log("ceci est l'id (show product)", idUser)
+  const user = getAuthenticatedUser();
+  const idUser = user.userId;
+  console.log("ceci est l'id (show product)", idUser);
 
   const nbImage = await countAllProductBySeller(idUser);
-  console.log("nombre article :", nbImage)
+  console.log('nombre article :', nbImage);
   let items = ``;
   let i = 0;
 
+  console.log('test product undef:', product);
+
   while (i < nbImage) {
+    const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
+    const storeName = product[i].store_name;
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
+    const { category } = product[i];
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4">
         <div class="card" style="border-radius: 15px;">
             <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
                 data-mdb-ripple-color="light">
-                <img src="${1}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-                    alt="Laptop" />
+                <img src="${imageProduit[i]}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                    class="img-fluid" alt="Laptop" />
                 <a href="#!">
                     <div class="mask"></div>
                 </a>
@@ -109,29 +107,20 @@ async function showProduct(product) {
                 <div class="d-flex justify-content-between">
                     <div>
                         <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                        <p class="small text-muted">Laptops</p>
+                        <p class="small text-muted">by ${storeName}</p>
                     </div>
                     <div>
-                        <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="small text-muted">Rated 4.0/5</p>
+                        <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
                     </div>
                 </div>
             </div>
             <hr class="my-0" />
             <div class="card-body pb-0">
                 <div class="d-flex justify-content-between">
-                    <p><a href="#!" class="text-dark">${priceProduct}</a></p>
-
+                    <p class="text-dark">${priceProduct}€</p>
                 </div>
-                <p class="small text-muted">VISA Platinum</p>
             </div>
             <hr class="my-0" />
-
         </div>
     </div>
   `;
@@ -140,19 +129,18 @@ async function showProduct(product) {
   cardProduct.innerHTML = items;
 
   const a = document.getElementsByClassName('aProductName');
-      
+
   const lenght = a.length;
 
-  for(let j = 0; j<lenght;j+=1){
-
-    a[j].addEventListener('click' , async (e) => {
+  for (let j = 0; j < lenght; j += 1) {
+    a[j].addEventListener('click', async (e) => {
       e.preventDefault();
       const id = a[j].name;
       // eslint-disable-next-line prefer-template
-      Navigate("/test?id_product=",id);
-  })}; 
+      Navigate('/test?id_product=', id);
+    });
+  }
 }
-
 
 async function countAllProductBySeller(id) {
   let number;
@@ -180,11 +168,13 @@ async function countAllProductBySeller(id) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
-console.log("number: ",number)
+  console.log('number: ', number);
 
   return number;
 }
 
+function importAll(r) {
+  return r.keys().map(r);
+}
 
 export default BasicSellerPage;
- 

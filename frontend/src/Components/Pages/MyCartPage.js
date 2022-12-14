@@ -1,6 +1,6 @@
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
-import { getCartTotal, loadCart, removeItemFromCart } from '../../utils/utilsCart';
+import { countProductCart, getCartTotal, loadCart, removeItemFromCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 
 const html = `
@@ -45,9 +45,9 @@ const MyCartPage = () => {
   <div>
     <a href="" class="buttonToItem" class="my-0">${cart.objects[i].name}</a>
   </div>
-  <span class="text-muted">${cart.objects[i].price}</span>
-  <small class="text-muted">Nombre : ${cart.objects[i].count}</small>
-  <small class="text-muted">Total price : ${totalPriceForThisArticle}</small>
+  <span class="text-muted">${cart.objects[i].price}€</span>
+  <small class="text-muted">Quantity : ${cart.objects[i].count}</small>
+  <small class="text-muted">Total : ${totalPriceForThisArticle}€</small>
   <button type="button" class="deleteArticleButton btn btn-light">Supprimer Article</button>
   </li>
 `;
@@ -68,7 +68,7 @@ const MyCartPage = () => {
         e.preventDefault();
         console.log('Je suis dans le event listener');
         // eslint-disable-next-line no-console
-        Navigate('/test?id_product=', cart.objects[y].name);
+        Navigate('/product?id_product=', cart.objects[y].id);
       });
     }
 
@@ -81,7 +81,10 @@ const MyCartPage = () => {
 
         // eslint-disable-next-line no-console
         removeItemFromCart(cart.objects[y].name);
-        Navigate('/cart');
+        const nombre = document.getElementById('numberOfArticles');
+        const newNombre = countProductCart();
+        nombre.innerHTML = newNombre;
+        MyCartPage();
       });
     }
     const btnCheckout = document.getElementById('checkoutButton');

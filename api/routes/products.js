@@ -7,7 +7,6 @@ const productModel = new Product();
 
 // Permet de lister tous les produits de la db par vendeur
 router.get('/getAllBySeller/:id', async(req,res)=>{
-  console.log("je suis passee")
   const result = await productModel.getAllProductBySeller(req.params.id);
   if(!result) res.sendStatus(404).end();
   res.send(result);
@@ -55,6 +54,12 @@ router.post('/countAllBySeller' , async(req,res)=>{
     console.log("je passe",count)
     return res.json(count)
 })
+
+// Permet de récupérer un produit en particulier avec id
+router.get('/listByCategory/:id', async (req, res) => {
+  const result = await productModel.listByCategory(req.params.id);
+  res.send(result);
+});
 
 
 

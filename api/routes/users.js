@@ -46,8 +46,6 @@ router.get('/getIdByEmail' , async(req,res)=>{
 
 // Permet au utilisateur de devenir vendeur//
 router.post('/becomeSeller', async (req, res) => {
-  console.log(1);
-  console.log(req.body);
   const store = await userModel.beSeller(req.body);
   return res.json(store);
 });

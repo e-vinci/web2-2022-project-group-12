@@ -48,7 +48,7 @@ const UpdateUser = () => {
   const { email } = user;
   console.log(email);
   if (user === undefined) {
-    Navigate('login');
+    Navigate('/login');
   }
   const main = document.querySelector('main');
   main.innerHTML = html;
