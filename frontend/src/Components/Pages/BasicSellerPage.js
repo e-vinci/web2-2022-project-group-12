@@ -34,7 +34,7 @@ const BasicSellerPage = async () => {
 
   const user = getAuthenticatedUser()
   const idUser= user.userId
-  console.log("ceci est l'id", idUser)
+
 
   const btn = document.getElementById('addProduct');
   btn.addEventListener('click', async (e) => {
@@ -46,7 +46,6 @@ const BasicSellerPage = async () => {
 
 
     const product = await getAllBySeller(idUser)
-    console.log("test product undef 2:", product )
     await showProduct(product);
 
     
@@ -83,14 +82,14 @@ async function showProduct(product) {
 
   const user = getAuthenticatedUser()
   const idUser= user.userId
-  console.log("ceci est l'id (show product)", idUser)
+  
 
   const nbImage = await countAllProductBySeller(idUser);
-  console.log("nombre article :", nbImage)
+ 
   let items = ``;
   let i = 0;
 
-  console.log("test product undef:", product )
+  
 
   while (i < nbImage) {
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
@@ -178,7 +177,7 @@ async function countAllProductBySeller(id) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
-console.log("number: ",number)
+
 
   return number;
 }
