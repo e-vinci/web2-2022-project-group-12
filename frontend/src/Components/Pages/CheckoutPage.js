@@ -18,76 +18,83 @@ const CheckoutPage = () => {
 
   const html = `
   <div class="container">
-  <div class="row">
-      <div class="col-md-8 order-md-1">
-        <h4 class="mb-3" style="margin-top : 30px">Nearly there...</h4>
-        <form class="needs-validation" novalidate="" id="form">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="firstName">First name</label>
-              <input type="text" class="form-control test" placeholder="" value="${firstName}" name="test" required="required">
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="lastName">Last name</label>
-              <input type="text" class="form-control test" placeholder="" value="${lastName}" name="test" required="required">
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
-          </div>
+        <div class="row">
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3" style="margin-top : 30px">Nearly there...</h4>
+                <form class="needs-validation" novalidate="" id="form">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">First name</label>
+                            <input type="text" class="form-control test" placeholder="" value="${firstName}" name="test"
+                                required="required">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Last name</label>
+                            <input type="text" class="form-control test" placeholder="" value="${lastName}" name="test"
+                                required="required">
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
+                        </div>
+                    </div>
 
 
-          <div class="mb-3">
-            <label for="email">Email</label>
-            <input type="email" class="form-control test" placeholder="you@example.com" value="${email}" name="test" required="required">
-            <div class="invalid-feedback">
-              Please enter a valid email address for shipping updates.
-            </div>
-          </div>
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control test" placeholder="you@example.com" value="${email}"
+                            name="test" required="required">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
 
-          <div class="mb-3">
-            <label for="address">Address</label>
-            <input type="text" class="form-control test" placeholder="Adress" name="test" required="required">
-            <div class="invalid-feedback">
-              Please enter your shipping address.
-            </div>
-          </div>
+                    <div class="mb-3">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control test" placeholder="Adress" name="test"
+                            required="required">
+                        <div class="invalid-feedback">
+                            Please enter your shipping address.
+                        </div>
+                    </div>
 
-          <div class="row">
-            <div class="col-md-5 mb-3">
-              <label for="country">Country</label>
-              <select class="custom-select d-block w-100 test" id="country" value="" name="test" required="required">
-                <option value="">Choose...</option>
-                <option >Belgium</option>
-                <option >France</option> 
-                <option >Ukraine</option>
-                <option >Poland</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="country">Country</label>
+                            <select class="custom-select d-block w-100 test" id="country" value="" name="test"
+                                required="required">
+                                <option value="">Choose...</option>
+                                <option>Belgium</option>
+                                <option>France</option>
+                                <option>Ukraine</option>
+                                <option>Poland</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid country.
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="zip">Code Postal</label>
+                            <input type="text" class="form-control test" placeholder="" name="test" required="">
+                            <div class="invalid-feedback">
+                                Zip code required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="mb-3">Payment</h4>
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" id="paypalID"
+                        style="margin-bottom : 120px">Pay with Paypal</button>
+                </form>
+
             </div>
-            <div class="col-md-3 mb-3">
-              <label for="zip">Code Postal</label>
-              <input type="text" class="form-control test" placeholder="" name="test" required="">
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-          </div>
-          
-          <h4 class="mb-3">Payment</h4>
-          
-          <button class="btn btn-primary btn-lg btn-block" type="submit" id="paypalID" style="margin-bottom : 120px">Pay with Paypal</button>
-        </form>
-        
-      </div>
-      <div id="firstDiv" class ="col-md-4 order-md-2 mb-4"></div>
+            <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
+        </div>
     </div>
-    </div>`;
+    `;
 
   if (user === undefined) {
     Navigate('/login');

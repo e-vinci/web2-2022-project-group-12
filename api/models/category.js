@@ -17,5 +17,14 @@ class Category {
     return categories;
   }
 
+
+  // Permet de compter le nombre de produits par catégorie
+  async countProductByCategory(category){
+      const countCategory = await (await db.query(`SELECT COUNT(*) FROM projetWeb.categories c WHERE c.name = $1`, [category])).rows;
+      console.log("coucou c'est le nombre de categories" , countCategory);
+      return countCategory;
+
+  }
+
 }
 module.exports = { Category };

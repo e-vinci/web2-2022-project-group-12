@@ -48,7 +48,7 @@ const UpdateUser = () => {
   const { email } = user;
   console.log(email);
   if (user === undefined) {
-    Navigate('login');
+    Navigate('/login');
   }
   const main = document.querySelector('main');
   main.innerHTML = html;
@@ -102,6 +102,7 @@ const UpdateUser = () => {
         lastName,
         sex,
       }
+      console.log("ID", newUser.id);
       if (firstName !== undefined) {
         newUser.firstName = firstName
       }
@@ -114,7 +115,7 @@ const UpdateUser = () => {
       setAuthenticatedUser(newUser);
       console.log("Userdsdsd: ", user);
       alert('Update reussi');
-      Navigate('/user');
+      Navigate('/user?idSeller=', user.userId);
       /* const user = await reponse.json(); */
     } catch (err) {
       // eslint-disable-next-line no-console

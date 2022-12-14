@@ -5,15 +5,16 @@ import Navigate from '../Router/Navigate';
 
 const html = `
 <div class="col-md-4 order-md-2 mb-4 mx-auto" style="margin-top: 5%">
-<h4 class="d-flex justify-content-between align-items-center mb-3">
-  <span class="text-muted">Your cart</span>
-  <span class="badge badge-secondary badge-pill">3</span>
-</h4>
-<ul class="list-group mb-3" id="listItem">
+  <h4 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">Your cart</span>
+    <span class="badge badge-secondary badge-pill">3</span>
+  </h4>
+  <ul class="list-group mb-3" id="listItem">
+  
+  </ul>
 
-</ul>
-
-<button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
+  <button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
+</div>
 `;
 
 const MyCartPage = () => {
@@ -47,7 +48,7 @@ const MyCartPage = () => {
   <span class="text-muted">${cart.objects[i].price}€</span>
   <small class="text-muted">Quantity : ${cart.objects[i].count}</small>
   <small class="text-muted">Total : ${totalPriceForThisArticle}€</small>
-  <button type="button" class="deleteArticleButton btn btn-light">Supprimer Article</button>
+  <button type="button" class="deleteArticleButton btn btn-light"><i class="bi bi-cart-dash"></i> Cancel</button>
   </li>
 `;
     }
@@ -89,8 +90,8 @@ const MyCartPage = () => {
     const btnCheckout = document.getElementById('checkoutButton');
     btnCheckout.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log("Je suis dans le event listener");
-      
+      console.log('Je suis dans le event listener');
+
       // eslint-disable-next-line no-console
 
       MyCartPage();

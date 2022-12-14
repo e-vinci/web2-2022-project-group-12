@@ -14,6 +14,7 @@ import PaypalPage from '../Pages/Paypal';
 import UpdateUser from '../Pages/UpdateUser';
 import SearchResultsPage from '../Pages/SearchResultsPage';
 import AllProductPage from '../Pages/AllProductPage';
+import CategoryPage from '../Pages/CategoryPage';
 
 const routes = {
   '/': HomePage,
@@ -33,7 +34,10 @@ const routes = {
   '/basicseller': BasicSellerPage,
   '/update': UpdateUser,
   '/search':SearchResultsPage,
-  '/allProducts':AllProductPage
+  '/allProducts': AllProductPage,
+  '/category': CategoryPage
 };
+
+console.log('routes',routes);
 
 export default routes;
