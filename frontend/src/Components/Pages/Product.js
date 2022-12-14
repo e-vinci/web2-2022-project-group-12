@@ -15,7 +15,6 @@ const ProductPage = async () => {
   const url = id.split('=');
   const product = await getProductById(url[1]);
   const productName = product.name;
-  const storeName = product.store_name;
   const productPrice = product.price;
   const productDescription = product.description;
   const { category } = product;
@@ -40,7 +39,6 @@ const ProductPage = async () => {
                     <div class="d-flex justify-content-between">
                         <div>
                             <p><a href="#!" class="text-dark">${productName}</a></p>
-                            <p class="small text-muted">by ${storeName}</p>
                         </div>
                         <div>
                           <p class="small text-muted"><a href="#" class="text-dark categoryName" name="${categoryId}">${category}</a></p>

@@ -195,12 +195,12 @@ const HomePage = async () => {
 
 // Affiche les 5 derniers produits de la base de donnée 
 async function showLastProduct(product) {
+  
   const cardProduct = document.getElementById('imgProduct');
-  const numberOfProducts = product.length
   let items = ``;
   let i = 0;
 
-  while (i < numberOfProducts) {
+  while (i <  product.length) {
 
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
 
@@ -212,21 +212,16 @@ async function showLastProduct(product) {
     const categoryId = product[i].id_category;
 
     items += `
-    <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card" style="border-radius: 15px;">
-            <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                data-mdb-ripple-color="light">
-                <img src="${imageProduit[i]}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                    class="img-fluid" alt="Laptop" />
-                <a href="#!">
-                    <div class="mask"></div>
-                </a>
-            </div>
+      <div class="col-md-8 col-lg-6 col-xl-4">
+          <div class="card" style="border-radius: 15px;">
+              <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+                  <img src="${imageProduit[i]}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid" alt="Laptop" />
+              </div>
 
-            <div class="card-body pb-0">
-                <div class="d-flex justify-content-between">
+          <div class="card-body pb-0">
+              <div class="d-flex justify-content-between">
                     <div>
-                        <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
+                        <p><a href="#!" class="text-dark productName" name="${id}">${nameProduct}</a></p>
                         <p class="small text-muted">by ${storeName}</p>
                     </div>
                     <div>
@@ -259,7 +254,7 @@ async function showLastProduct(product) {
     productName[j].addEventListener('click', async (e) => {
       e.preventDefault();
       const id = productName[j].name;
-      // eslint-disable-next-line prefer-template
+      // eslint-disable-next-line< prefer-template
       Navigate('/product?=', id);
     });
   }

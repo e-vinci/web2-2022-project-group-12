@@ -12,8 +12,8 @@ const AllProductPage = async () => {
         </div>
     </div>
     `;
+  console.log("coucou1");
   const main = document.querySelector('main');
-  countAllProduct();
   main.innerHTML = html;
 
   try {
@@ -25,6 +25,7 @@ const AllProductPage = async () => {
     };
 
     const reponse = await fetch('/api/products/getAll', options);
+    console.log("coucou2");
 
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
@@ -32,6 +33,7 @@ const AllProductPage = async () => {
 
     const product = await reponse.json();
     await showProduct(product);
+    console.log("TEST 1",product);
 
     const btn = document.getElementsByName('btnAddtoCart');
 
@@ -49,12 +51,14 @@ const AllProductPage = async () => {
 };
 
 async function showProduct(product) {
-  const cardProduct = document.getElementById('imgProduct');
-  const nbImage = await countAllProduct();
+  
+  const cardProduct = document.getElementById('imgProduct'); 
+  
   let items = ``;
   let i = 0;
-
-  while (i < nbImage) {
+  
+  while (i < product.length) {
+   
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
     const storeName = product[i].store_name;
@@ -128,30 +132,9 @@ async function showProduct(product) {
       // eslint-disable-next-line prefer-template
       Navigate('/category?=', idcat);
     });
-  } // fin for
-}; // fin page
+  } 
+}; 
 
-async function countAllProduct() {
-  let number;
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const reponse = await fetch('/api/products/countAll', options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    number = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return number;
-}
 
 function importAll(r) {
   return r.keys().map(r);

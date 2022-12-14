@@ -21,7 +21,7 @@ const CategoryPage = async () => {
   const url = id.split('=');
   const results = await getCategorie(url[1]);
 
-  console.log('results category id', results);
+
   const placeResultats = document.getElementById('imgProduct');
   results.forEach((resultat) => {
     // const imageUrl = resultat?.url;
