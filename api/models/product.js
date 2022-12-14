@@ -57,12 +57,15 @@ class Product {
     }
 
 
+    // Affiche les produits par category 
   async listByCategory(categoryID) {
     const product = await (
       await db.query(`SELECT p.* FROM projetWeb.products p WHERE p.id_category = $1`, [categoryID])
     ).rows;
     return product;
   }
+
+
 
   // Permet de trouver un produit dans la db graçe au formulaire de recherche //
   async Search(data) {
