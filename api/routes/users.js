@@ -26,7 +26,6 @@ router.post('/login', async (req, res) => {
   const user = await userModel.doIExist(email, password);
 
   if (user === null) return console.error("Le user n'existe pas");
-
   return res.json(user);
 });
 

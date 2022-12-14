@@ -51,7 +51,7 @@ class Product {
     }
 
     async getAllProductBySeller(idSeller){
-        const product = await (await db.query(`SELECT DISTINCT p.*, c.name as "category" FROM projetWeb.products p, projetWeb.categories c WHERE p.id_category = c.id_category AND id_user = $1`,[idSeller])).rows;
+        const product = await (await db.query(`SELECT DISTINCT p.*, c.name as "category", c.id_category FROM projetWeb.products p, projetWeb.categories c WHERE p.id_category = c.id_category AND id_user = $1`,[idSeller])).rows;
         return product;
     }
 

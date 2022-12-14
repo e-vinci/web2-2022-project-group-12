@@ -22,7 +22,7 @@ const formLogin = `
                                     </div>
 
                                     <form>
-                                        <p>Please login to your account</p>
+                                        
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example11">Email</label>
