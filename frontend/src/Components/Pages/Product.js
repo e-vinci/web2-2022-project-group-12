@@ -2,13 +2,14 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
+import { getAuthenticatedUser } from '../../utils/auths';
 
 // Cette page permet l'affichage des données d'un seul produit en cliquant sur un bouton de la homepage
 
 const ProductPage = async () => {
   clearPage();
   const main = document.querySelector('main');
-
+  const user = getAuthenticatedUser();
   // permet d'aller chercher un paramètre dans l'url
   const id = window.location.search;
   const url = id.split('=');
@@ -76,6 +77,10 @@ const ProductPage = async () => {
               <button type="button" id="btnAddtoCart" class="btn btn-primary">Add to cart</button>
             </div>
           </div>
+          <div id="loginStatus">
+          
+        </div>
+
         </div>
     </div>
   </div>
@@ -101,6 +106,79 @@ const ProductPage = async () => {
       Navigate('/category?=', idcat);
     });
   } // fin for
+
+  const loginStatus = document.getElementById('loginStatus');
+  if (user === undefined) {
+    loginStatus.innerHTML += ``;
+  } else {
+    loginStatus.innerHTML +=`
+    <hr class="my-0" />
+    <div class="container-fluid">
+      <form action="">
+          <label for="description">Give an honest review</label>
+          <div id="errorMessage">
+
+          </div>
+          <div class="input-group">
+              <textarea type="text" class="form-control" placeholder="Enter your review here..." id="reviewMessage" rows="3"></textarea>
+              <div class="input-group-append">
+                  <button class="input-group-text btn btn-dark text-white" id="reviewBtn">
+                    <i class="bi bi-arrow-return-left"></i>
+                  </button>
+              </div>
+          </div>
+      </form>
+    </div>
+    `;
+    // Ajout d'une review au produit
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      // Récupération de toute les données avec les id
+      const reviewMessage = document.getElementById('reviewMessage').value;
+      const errorMessage = document.getElementById('errorMessage');
+      if (reviewMessage === undefined || reviewMessage.length < 1) {
+        errorMessage.innerHTML += `<p class="alert"><i class="bi bi-exclamation-circle-fill"></i> You can not send an empty message!</p>`;
+      }
+
+      // Création d'un nouvel objet json
+      const NewReview = {
+        idUser : user.id_user,
+        message : reviewMessage,
+        idProduct : product.id_product
+      };
+
+      try {
+        const options = {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          body: JSON.stringify(NewReview),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+
+        const reponse = await fetch('/api/products/addReview', options);
+
+        if (!reponse.ok) {
+          throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+        }
+        const idReview = await reponse.json();
+        console.log(idReview);
+        /*  
+    console.log("id ::::::", idProduct);
+    const path =`'../../assets/product/image${idProduct}.img'`;
+    console.log("le path pour nouveau file::",path);
+    fs.appendFile(path,image); 
+  */
+
+        Navigate('/product?id_product=', product.id_product);
+        /* const user = await reponse.json(); */
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('error: ', err);
+      }
+    }); // fin listener
+  }
 }; // fin page
 
 async function getProductById(id) {

@@ -10,7 +10,7 @@ const html = `
     <span class="badge badge-secondary badge-pill">3</span>
   </h4>
   <ul class="list-group mb-3" id="listItem">
-
+  
   </ul>
 
   <button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
@@ -48,7 +48,7 @@ const MyCartPage = () => {
   <span class="text-muted">${cart.objects[i].price}€</span>
   <small class="text-muted">Quantity : ${cart.objects[i].count}</small>
   <small class="text-muted">Total : ${totalPriceForThisArticle}€</small>
-  <button type="button" class="deleteArticleButton btn btn-light">Supprimer Article</button>
+  <button type="button" class="deleteArticleButton btn btn-light"><i class="bi bi-cart-dash"></i> Cancel</button>
   </li>
 `;
     }

@@ -37,7 +37,6 @@ class User {
       return null;
     }
     if (!bcrypt.compareSync(password, user[0].password)) {
-      console.log('Mots de passe ne matchents pas');
       return null;
     }
 
@@ -56,7 +55,6 @@ class User {
       lastName: user[0].last_name,
       sex: user[0].sex,
     };
-    console.log('le user back est ', authentificatedUser);
     return authentificatedUser;
   }
 
@@ -101,7 +99,6 @@ class User {
 
   // Permet de recuperer un vendeur de la base des données par le moyen de son id //
   async getSeller(id) {
-    console.log(id, "ID envoye avant select")
     // fixer les photos pour utiliser cette requete => await db.query(`SELECT u.first_name, u.last_name, u.email, s.store_name, s.id_user, ph.url as "photoURL", p.* FROM projetWeb.products p, projetWeb.users u, projetWeb.seller s, projetWeb.photos_users ph WHERE p.id_user = u.id_user AND ph.id_user = u.id_user AND u.id_user = s.id_user AND s.id_user = $1`,[id],)).rows;
     const seller = await (
     await db.query(`SELECT DISTINCT u.first_name, u.last_name, u.email, s.store_name, u.id_user FROM projetWeb.users u, projetWeb.seller s WHERE u.id_user = s.id_user AND s.id_user = $1`,[id],)).rows;
