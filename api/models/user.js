@@ -40,7 +40,8 @@ class User {
       return null;
     }
 
-    const emailUser = user[0].email.toLowerCase().email;
+    const emailUser = user[0].email.toLowerCase();
+    console.log(emailUser)
     const token = jwt.sign(
       { emailUser }, // session data added to the payload (payload : part 2 of a JWT)
       jwtSecret, // secret used for the signature (signature part 3 of a JWT)
@@ -49,7 +50,7 @@ class User {
     const authentificatedUser = {
       token,
       userId: user[0].id_user,
-      emailUser,
+      email: emailUser,
       password: user[0].password,
       firstName: user[0].first_name,
       lastName: user[0].last_name,
