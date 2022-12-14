@@ -12,7 +12,7 @@ const ProductPage = async () => {
   const id = window.location.search;
   const url = id.split('=');
   const product = await getProductById(url[1]);
-
+  console.log("produit", product)
   // html de la page
   const html = `
     <div class="container py-5">
@@ -48,15 +48,15 @@ const ProductPage = async () => {
           <hr class="my-0" />
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
-              <p><a href="#!" class="text-dark">${product.price} €</a></p>
+              <p class="text-dark">${product.price} €</p>
             </div>
-            <p class="small text-muted">VISA Platinum</p>
+            <p class="small text-muted">${product.description}</p>
           </div>
           <hr class="my-0" />
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
               <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" name="btnAddtoCart" class="btn btn-primary">Add to cart</button>
+              <button type="button" id="btnAddtoCart" class="btn btn-primary">Add to cart</button>
             </div>
           </div>
         </div>
@@ -67,14 +67,12 @@ const ProductPage = async () => {
   main.innerHTML = html;
 
   // Permet d'ajouter le produit dans le panier
-  const btn = document.getElementsByName('btnAddtoCart');
-  for (let y = 0; y < btn.length; y += 1) {
-    btn[y].addEventListener('click', async (e) => {
+  const btn = document.getElementById('btnAddtoCart');
+  
+    btn.addEventListener('click', async (e) => {
       e.preventDefault();
-      console.log(btn[y].value);
-      addItemToCart(btn[y].value, 5, 1);
+      addItemToCart(product.id, product.name, product.price, 1);
     });
-  }
 };
 
 async function getProductById(id) {
@@ -88,17 +86,19 @@ async function getProductById(id) {
         'Content-Type': 'application/json',
       },
     };
-
+    console.log("TEST ", id)
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getIdProduct/' + id, options);
+    const reponse = await fetch('/api/products/getIdProduct/'+id, options);
+    console.log("TEST ", reponse)
+    product = await reponse.json();
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
-
-    product = await reponse.json();
+    
+    
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error('error: ', err);
+    console.error('error: ', err.message);
   }
   return product;
 }
