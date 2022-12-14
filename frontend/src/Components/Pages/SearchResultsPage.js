@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-import { addItemToCart } from '../../utils/utilsCart';
-import Navigate from '../Router/Navigate';
 import { getSearch } from '../../utils/utilsSearch';
+import { clearPage } from '../../utils/render';
+import Navigate from '../Router/Navigate';
 
 // HTML CODE
 const html = `
@@ -19,128 +19,105 @@ const html = `
   `;
 
 const SearchResultsPage = async () => {
+  clearPage();
   const main = document.querySelector('main');
-  countAllProduct();
   main.innerHTML = html;
-
-  const results= getSearch();
-
+  const results = getSearch();
   const resultStatus = document.getElementById('resultStatus');
   const nombreResultats = results.length;
   if (nombreResultats === 0) {
-    resultStatus.innerHTML += `<p>${nombreResultats} resultats trouvés</p>`;
+    resultStatus.innerHTML += `<p>No results found</p>`;
   } else {
-    resultStatus.innerHTML += `<p>${nombreResultats} resultats trouvés</p>`;
-    await showProduct(results);
+    resultStatus.innerHTML += `<p>${nombreResultats} results found</p>`;
+    const placeResultats = document.getElementById('imgProduct');
+    results.forEach((resultat) => {
+      // const imageUrl = resultat?.url;
+      const productId = resultat.id_product;
+      const productName = resultat.name;
+      const productPrice = resultat.price;
+      const storeName = resultat.store_name;
+      const { category } = resultat;
+      const categoryId = resultat.id_category;
+      const storeId = resultat.id_user;
+      placeResultats.innerHTML += `
+        <div class="col-md-8 col-lg-6 col-xl-4">
+          <div class="card" style="border-radius: 15px;">
+              <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <img src="INSERER imageUrl ici apres" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                      class="img-fluid" alt="Laptop" />
+                  <a href="#!">
+                      <div class="mask"></div>
+                  </a>
+              </div>
 
-    const btn = document.getElementsByName('btnAddtoCart');
+              <div class="card-body pb-0">
+                  <div class="d-flex justify-content-between">
+                      <div>
+                          <p><a href="#!" class="text-dark aProductName" name="${productId}">${productName}</a></p>
+                          <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">by ${storeName}</a></p>
+                      </div>
+                      <div id="categoria">
+                          <p class="small text-muted"><a href="#!" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
+                      </div>
+                  </div>
+              </div>
+              <hr class="my-0" />
+              <div class="card-body pb-0">
+                  <div class="d-flex justify-content-between">
+                      <p class="text-dark">${productPrice}€</p>
+                  </div>
+              </div>
+              <hr class="my-0" />
+              <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                      <a href="#!" class="text-dark fw-bold">Cancel</a>
+                      <button type="button" name="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      `;
+    }); // fin foreach
 
-    for (let y = 0; y < btn.length; y += 1) {
-      btn[y].addEventListener('click', async (e) => {
+    // permet le render vers la page du product cliqué
+    const a = document.getElementsByClassName('aProductName');
+    const lengthProducts = a.length;
+    for (let j = 0; j < lengthProducts; j += 1) {
+      a[j].addEventListener('click', async (e) => {
         e.preventDefault();
-        console.log(btn[y].value);
-        addItemToCart(btn[y].value, 5, 1);
+        const id = a[j].name;
+        // eslint-disable-next-line prefer-template
+        Navigate('/product?=', id);
       });
-    }
-  }
-};
+    } // fin for
 
-async function showProduct(product) {
-  const cardProduct = document.getElementById('imgProduct');
-  const nombreResultats = product.lenght;
-  let items = ``;
-  let i = 0;
-    console.log('tesst avant')
-  while (i < nombreResultats) {
-    console.log('tesst apres', i);
-    const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
-    const id = product[i].id_product;
-    const storeName = product[i].store_name;
-    const nameProduct = product[i].name;
-    const priceProduct = product[i].price;
-    const { category } = product[i];
-    items += `
-    <div class="col-md-8 col-lg-6 col-xl-4" >
-    <div class="card" style="border-radius: 15px;" >
-    <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-            data-mdb-ripple-color="light" >
-    <img src="${imageProduit[i]}"
-    style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-    alt="Laptop"/>
-  <a href="#!">
-    <div class="mask"></div>
-  </a>
-  </div>
+    // permet le render vers la page du store cliqué
+    const shop = document.getElementsByClassName('storeID');
+    const lengthShop = shop.length;
+    for (let j = 0; j < lengthShop; j += 1) {
+      shop[j].addEventListener('click', async (e) => {
+        e.preventDefault();
+        const id = shop[j].name;
+        console.log('ID STORENAME', id);
+        // eslint-disable-next-line prefer-template
+        Navigate('/store?=', id);
+      });
+    } // fin for
 
-  <div class="card-body pb-0">
-            <div class="d-flex justify-content-between">
-              <div>
-                <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                <p class="small text-muted">by ${storeName}</p>
-              </div>
-              <div>
-                <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
-              </div>
-            </div>
-          </div>
-          <hr class="my-0" />
-          <div class="card-body pb-0">
-            <div class="d-flex justify-content-between">
-              <p class="text-dark">${priceProduct}€</p>
-            </div>
-          </div>
-          <hr class="my-0" />
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-              <a href="#!" class="text-dark fw-bold">Cancel</a>
-              <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-primary">Add to cart</button>
-            </div>
-          </div>
-          </div>
-          </div>
-  `;
-    i += 1;
-  }
-  cardProduct.innerHTML = items;
+    // permet le render vers la page de la categorie cliqué
+    const cat = document.getElementsByClassName('categoryName');
+    const lengthCategories = cat.length;
+    for (let j = 0; j < lengthCategories; j += 1) {
+      cat[j].addEventListener('click', async (e) => {
+        e.preventDefault();
+        const idcat = cat[j].name;
+        console.log('ID CAT', idcat);
+        // eslint-disable-next-line prefer-template
+        Navigate('/category?=', idcat);
+      });
+    } // fin for
 
-  const a = document.getElementsByClassName('aProductName');
-
-  const lenght = a.length;
-
-  for (let j = 0; j < lenght; j += 1) {
-    a[j].addEventListener('click', async (e) => {
-      e.preventDefault();
-      const id = a[j].name;
-      // eslint-disable-next-line prefer-template
-      Navigate('/product?id_product=', id);
-    });
-  }
-}
-
-async function countAllProduct() {
-  let number;
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const reponse = await fetch('/api/products/countAll', options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    number = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return number;
-}
-
-function importAll(r) {
-  return r.keys().map(r);
-}
-
+  } // fin else
+}; // fin page
 export default SearchResultsPage;

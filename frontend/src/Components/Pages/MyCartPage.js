@@ -1,19 +1,20 @@
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
-import { getCartTotal, loadCart, removeItemFromCart } from '../../utils/utilsCart';
+import { countProductCart, getCartTotal, loadCart, removeItemFromCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 
 const html = `
 <div class="col-md-4 order-md-2 mb-4 mx-auto" style="margin-top: 5%">
-<h4 class="d-flex justify-content-between align-items-center mb-3">
-  <span class="text-muted">Your cart</span>
-  <span class="badge badge-secondary badge-pill">3</span>
-</h4>
-<ul class="list-group mb-3" id="listItem">
+  <h4 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">Your cart</span>
+    <span class="badge badge-secondary badge-pill">3</span>
+  </h4>
+  <ul class="list-group mb-3" id="listItem">
+  
+  </ul>
 
-</ul>
-
-<button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
+  <button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
+</div>
 `;
 
 const MyCartPage = () => {
@@ -44,10 +45,10 @@ const MyCartPage = () => {
   <div>
     <a href="" class="buttonToItem" class="my-0">${cart.objects[i].name}</a>
   </div>
-  <span class="text-muted">${cart.objects[i].price}</span>
-  <small class="text-muted">Nombre : ${cart.objects[i].count}</small>
-  <small class="text-muted">Total price : ${totalPriceForThisArticle}</small>
-  <button type="button" class="deleteArticleButton btn btn-light">Supprimer Article</button>
+  <span class="text-muted">${cart.objects[i].price}€</span>
+  <small class="text-muted">Quantity : ${cart.objects[i].count}</small>
+  <small class="text-muted">Total : ${totalPriceForThisArticle}€</small>
+  <button type="button" class="deleteArticleButton btn btn-light"><i class="bi bi-cart-dash"></i> Cancel</button>
   </li>
 `;
     }
@@ -67,7 +68,7 @@ const MyCartPage = () => {
         e.preventDefault();
         console.log('Je suis dans le event listener');
         // eslint-disable-next-line no-console
-        Navigate('/test?id_product=', cart.objects[y].name);
+        Navigate('/product?id_product=', cart.objects[y].id);
       });
     }
 
@@ -80,14 +81,17 @@ const MyCartPage = () => {
 
         // eslint-disable-next-line no-console
         removeItemFromCart(cart.objects[y].name);
-        Navigate('/cart');
+        const nombre = document.getElementById('numberOfArticles');
+        const newNombre = countProductCart();
+        nombre.innerHTML = newNombre;
+        MyCartPage();
       });
     }
     const btnCheckout = document.getElementById('checkoutButton');
     btnCheckout.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log("Je suis dans le event listener");
-      
+      console.log('Je suis dans le event listener');
+
       // eslint-disable-next-line no-console
 
       MyCartPage();

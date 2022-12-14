@@ -26,7 +26,6 @@ router.post('/login', async (req, res) => {
   const user = await userModel.doIExist(email, password);
 
   if (user === null) return console.error("Le user n'existe pas");
-
   return res.json(user);
 });
 
@@ -46,8 +45,6 @@ router.get('/getIdByEmail' , async(req,res)=>{
 
 // Permet au utilisateur de devenir vendeur//
 router.post('/becomeSeller', async (req, res) => {
-  console.log(1);
-  console.log(req.body);
   const store = await userModel.beSeller(req.body);
   return res.json(store);
 });
