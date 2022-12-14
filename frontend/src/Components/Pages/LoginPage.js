@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
-import { loadCart } from '../../utils/utilsCart';
 
 const formLogin = `
   
