@@ -45,9 +45,15 @@ const formNewProduct = `
                     name="color">
             </div>
 
+
+
             <div class="mb-3 mt-3">
                 <label class="control-label small" for="file_img">Add image(jpg/png):</label>
-                <input type="file" class="form-control" name="file_img" id="image">
+                <input type="file" class="form-control" name="inpFile" id="inpFile">
+                <div class="image-preview" id="imagePreview">
+                  <img src="" alt="Image Preview" class="image-preview__image">
+                  <span class="image-preview__default-text">Image Preview</span>
+                </div>
             </div>
 
 
@@ -69,6 +75,37 @@ const NewProductPage = () => {
     main.innerHTML = formNewProduct;
 
     const btn = document.getElementById('addProduct');
+
+    const inpFile = document.getElementById("inpFile");
+    const previewContainer = document.getElementById("imagePreview");
+    const previewImage = previewContainer.querySelector(".image-preview__image");
+    const previewDefaultText= previewContainer.querySelector(".image-preview__default-text");
+
+
+
+    inpFile.addEventListener("change", function() {
+
+      const file =  this.files[0];
+
+      if(file){
+        const reader = new FileReader();
+
+        previewDefaultText.style.display = "none";
+        previewImage.style.display = "block";
+
+        reader.addEventListener("load", function(){
+          previewImage.setAttribute("src", this.result);
+        });
+
+        reader.readAsDataURL(file)
+      }else{
+        previewDefaultText.style.display = null;
+        previewImage.style.display = null;
+        previewImage.setAttribute("src", "")
+        console.log("test 3")
+      }
+
+    });
 
     // Ajout du Produit aprés avoir appuyé sur le bouton submit
     btn.addEventListener('click', async (e) => {
@@ -129,7 +166,7 @@ const NewProductPage = () => {
 
 
 
-       /*  
+      /*
         console.log("id ::::::", idProduct);
         const path =`'../../assets/product/image${idProduct}.img'`;
         console.log("le path pour nouveau file::",path);
