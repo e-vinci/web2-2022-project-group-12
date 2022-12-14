@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
+// const fs = require('fs');
 
 // formulaire NewProduct
 const formNewProduct = `
@@ -76,6 +77,8 @@ const NewProductPage = () => {
       const price = document.getElementById('price').value;
       const color = document.getElementById('color').value;
 
+      // const image = document.getElementById('image').files;
+
       const idUser= user.userId
 
       const selectElement = document.getElementById('select1')
@@ -103,6 +106,8 @@ const NewProductPage = () => {
         idCategory
       };
 
+      
+
       try {
         const options = {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -118,13 +123,27 @@ const NewProductPage = () => {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
         const idProduct = await reponse.json();
-        console.log("id:", idProduct)
+
+
+
+       /*  
+        console.log("id ::::::", idProduct);
+        const path =`'../../assets/product/image${idProduct}.img'`;
+        console.log("le path pour nouveau file::",path);
+        fs.appendFile(path,image); 
+      */
+        
+
         Navigate('/product?id_product=', idProduct);
         /* const user = await reponse.json(); */
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error('error: ', err);
       }
+
+
+     
+
     });
   }
 };

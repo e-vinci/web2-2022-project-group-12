@@ -50,9 +50,7 @@ class Product {
     }
 
     async getAllProductBySeller(idSeller){
-        console.log("je suis passee aussi")
         const product = await (await db.query(`SELECT * FROM projetWeb.products  WHERE id_user = $1`,[idSeller])).rows;
-        console.log("je suis passee aussi 2");
         return product;
     }
 
