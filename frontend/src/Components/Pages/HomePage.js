@@ -5,6 +5,7 @@ import { addItemToCart, countProductCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
 
+
 // HTML CODE
 const html = `
     <div class="text-center">

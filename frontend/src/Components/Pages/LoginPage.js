@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
+import { shoppingCart } from '../../utils/utilsCart';
 
 const formLogin = `
   
@@ -107,7 +108,13 @@ const LoginPage = () => {
         );
       }
       const user = await reponse.json();
+      let string = "shoppingCart";
+        string += user.email;
+        if ( await localStorage.getItem(string) == null){
+          await shoppingCart(user.email);
+        }
       await setAuthenticatedUser(user);
+      console.log("userset ",user);
       await Navbar();
 
   
