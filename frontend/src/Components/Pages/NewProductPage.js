@@ -76,6 +76,8 @@ const NewProductPage = () => {
 
     const btn = document.getElementById('addProduct');
 
+
+    // Afficher le preview du file choisie par le vendeur
     const inpFile = document.getElementById("inpFile");
     const previewContainer = document.getElementById("imagePreview");
     const previewImage = previewContainer.querySelector(".image-preview__image");
