@@ -1,6 +1,9 @@
 import { loadScript } from "@paypal/paypal-js";
+import { getAuthenticatedUser } from "../../utils/auths";
 import { clearPage } from "../../utils/render";
-import { getCartTotal } from "../../utils/utilsCart";
+import { getCartTotal, shoppingCart } from "../../utils/utilsCart";
+import { addOrder } from "../../utils/utilsOrders";
+import Navigate from "../Router/Navigate";
 
 const html = `
 <div class ="container" style="text-align: center; margin-top : 100px"><strong> Amount to Pay : <div id="priceToPay"></div> </strong></div>
@@ -32,7 +35,7 @@ const PaypalPage = () =>{
     // paypal api script for the button
     loadScript({
       'client-id':
-        'Acqu4pLqA9Y34KLeXYL8XWHiIqR6_Mrfb14WKkjgAMu6pbCYo-SFUSLCvKGKNaDCBB5XFmJYyN-NhGzL',
+        'AWEnDzMJ1xdqqno_kFxSrbvBXeUu1AQXkmiggw9jw5sGSlSCpQrk-hkEN0_sBsSUprAyLZY18UaV1BEU',
     })
       .then((paypal) => {
         function initPayPalButton() {
@@ -60,8 +63,12 @@ const PaypalPage = () =>{
                   const element = document.getElementById('paypal-button-container');
                   element.innerHTML = '';
                   element.innerHTML = '<h3>Thank you for your payment!</h3>';
-
-                  // Or go to another URL:  actions.redirect('thank_you.html');
+                  
+                  // Or go to another URL:  actions.redirect('thank_you.html'); 
+                  const user = getAuthenticatedUser();
+                  addOrder();
+                  shoppingCart(user.email);
+                  Navigate("/");
                 });
               },
 
@@ -76,6 +83,7 @@ initPayPalButton();})
   .catch((err) => {
       console.error("failed to load the PayPal JS SDK script", err);
   });
+  
 }
 
 
