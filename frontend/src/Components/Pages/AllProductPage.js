@@ -6,13 +6,16 @@ import Navbar from '../Navbar/Navbar';
 
 const AllProductPage = async () => {
   const html = `
-  <div class="container py-5">
-        <div class="row justify-content" id="imgProduct">
-
-        </div>
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+          <div class="container py-5">
+              <div class="row justify-content" id="imgProduct">
+  
+              </div>
+          </div>
+      </div>
     </div>
     `;
-  console.log("coucou1");
   const main = document.querySelector('main');
   main.innerHTML = html;
 
@@ -25,7 +28,6 @@ const AllProductPage = async () => {
     };
 
     const reponse = await fetch('/api/products/getAll', options);
-    console.log("coucou2");
 
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
@@ -33,7 +35,6 @@ const AllProductPage = async () => {
 
     const product = await reponse.json();
     await showProduct(product);
-    console.log("TEST 1",product);
 
     const btn = document.getElementsByName('btnAddtoCart');
 
