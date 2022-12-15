@@ -53,7 +53,7 @@ class Product {
   async getAllProductBySeller(idSeller) {
     const product = await (
       await db.query(
-        `SELECT DISTINCT p.*, c.name as "category", c.id_category FROM projetWeb.products p, projetWeb.categories c WHERE p.id_category = c.id_category AND id_user = $1`,
+        `SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", s.store_name, s.id_user, c.id_category FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u, projetWeb.seller s WHERE u.id_user = s.id_user AND u.id_user = p.id_user AND c.id_category = p.id_category AND s.id_user = $1`,
         [idSeller],
       )
     ).rows;
