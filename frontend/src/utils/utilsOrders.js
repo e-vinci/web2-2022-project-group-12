@@ -18,9 +18,9 @@ async function addOrder(){
     console.log("Test d'ajout");
     const user = await getAuthenticatedUser();
     const orders = await loadOrders(user.email)
-    const cart = await loadCart();
-    await orders.objects.push(cart)
-    console.log("order added")
+    const cart = await loadCart(user.email);
+    await orders.objects.push(cart.objects)
+    console.log("order added", cart)
     saveOrder(orders);
 }
 

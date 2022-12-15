@@ -1,7 +1,7 @@
 import { loadScript } from "@paypal/paypal-js";
 import { getAuthenticatedUser } from "../../utils/auths";
 import { clearPage } from "../../utils/render";
-import { getCartTotal, shoppingCart } from "../../utils/utilsCart";
+import { countProductCart, getCartTotal, shoppingCart } from "../../utils/utilsCart";
 import { addOrder } from "../../utils/utilsOrders";
 import Navigate from "../Router/Navigate";
 
@@ -62,13 +62,19 @@ const PaypalPage = () =>{
                   // Show a success message within this page, e.g.
                   const element = document.getElementById('paypal-button-container');
                   element.innerHTML = '';
-                  element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                  element.innerHTML = '<h3>Thank you for your payment! You will be redirected</h3>';
                   
                   // Or go to another URL:  actions.redirect('thank_you.html'); 
-                  const user = getAuthenticatedUser();
-                  addOrder();
-                  shoppingCart(user.email);
-                  Navigate("/");
+                
+                    const user = getAuthenticatedUser();
+                     addOrder();
+                     shoppingCart(user.email);
+                    const nombre = document.getElementById('numberOfArticles');
+                    const newNombre = countProductCart();
+                    nombre.innerHTML = newNombre;
+                    setTimeout(() => {
+                      Navigate("/")
+                    }, 3400)
                 });
               },
 

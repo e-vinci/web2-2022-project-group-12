@@ -2,6 +2,7 @@
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import { getCartTotal, loadCart } from '../../utils/utilsCart';
+import { renderPopUp } from '../../utils/utilsForm';
 import Navigate from '../Router/Navigate';
 import PaypalPage from './Paypal';
 
@@ -166,21 +167,12 @@ const CheckoutPage = () => {
         console.log('paypal listener');
         PaypalPage();
       } else {
-        myFunction();
+        renderPopUp();
       }
     });
   }
 
-  function myFunction() {
-    // Get the snackbar DIV
-    const x = document.getElementById("snackbar");
-  
-    // Add the "show" class to DIV
-    x.className = "show";
-  
-    // After 3 seconds, remove the show class from DIV
-    setTimeout(()=> { x.className = x.className.replace("show", ""); }, 3000);
-  }
+
 };
 
 export default CheckoutPage;
