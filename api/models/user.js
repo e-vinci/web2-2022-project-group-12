@@ -50,7 +50,7 @@ class User {
     const authentificatedUser = {
       token,
       userId: user[0].id_user,
-      email : emailUser,
+      email: emailUser,
       password: user[0].password,
       firstName: user[0].first_name,
       lastName: user[0].last_name,

@@ -86,13 +86,14 @@ const CheckoutPage = () => {
 
                     <h4 class="mb-3">Payment</h4>
 
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" id="paypalID"
+                    <button class="btn btn-primary btn-lg btn-dark" type="submit" id="paypalID"
                         style="margin-bottom : 120px">Pay with Paypal</button>
                 </form>
 
             </div>
-            <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
-        </div>
+          <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
+       </div>
+       <div id="snackbar">Hep Hep Hep, tous les champs sont requis !</div>
     </div>
     `;
 
@@ -165,9 +166,20 @@ const CheckoutPage = () => {
         console.log('paypal listener');
         PaypalPage();
       } else {
-        Navigate('/checkout');
+        myFunction();
       }
     });
+  }
+
+  function myFunction() {
+    // Get the snackbar DIV
+    const x = document.getElementById("snackbar");
+  
+    // Add the "show" class to DIV
+    x.className = "show";
+  
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(()=> { x.className = x.className.replace("show", ""); }, 3000);
   }
 };
 

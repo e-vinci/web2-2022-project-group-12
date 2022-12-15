@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { shoppingCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
+import { createOrder } from '../../utils/utilsOrders';
+
+
 
 
 // Fromulaire Bootstrap
@@ -167,7 +170,8 @@ const RegisterPage = () => {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
       shoppingCart(email);
-      Navigate('login');
+      createOrder(email);
+      Navigate('/login');
       /* const user = await reponse.json(); */
     } catch (err) {
       // eslint-disable-next-line no-console

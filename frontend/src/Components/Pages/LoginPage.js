@@ -5,6 +5,7 @@ import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
 import { shoppingCart } from '../../utils/utilsCart';
+import { loadOrders } from '../../utils/utilsOrders';
 
 const formLogin = `
   
@@ -114,10 +115,10 @@ const LoginPage = () => {
           await shoppingCart(user.email);
         }
       await setAuthenticatedUser(user);
-      console.log("userset ",user);
       await Navbar();
 
-  
+        const orders = loadOrders(email);
+        console.log("LES ORDRES SONT ",orders)
       // eslint-disable-next-line no-console
       await Navigate('/');
     } catch (err) {
