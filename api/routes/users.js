@@ -32,7 +32,8 @@ router.post('/login', async (req, res) => {
 // Permet de récupérer un vendeur en particulier avec id
 router.get('/getIdStore/:id', async (req, res) => {
   const result = await userModel.getSeller(req.params.id);
-  res.send(result);
+  if (result === null) return null;
+  return res.json(result);
 });
 
 
