@@ -25,8 +25,10 @@ class Product {
 
   // Permet de comptes combien de produits il y a //
   async selectLastProduct() {
-    const numberOfProduct = await (await db.query(`SELECT * FROM projetWeb.products p ORDER BY p.id_product DESC LIMIT 5`)).rows;
-      return numberOfProduct;
+    const numberOfProduct = await (
+      await db.query(`SELECT * FROM projetWeb.products p ORDER BY p.id_product DESC LIMIT 5`)
+    ).rows;
+    return numberOfProduct;
   }
 
   // Permet d'ajouter un nouveau produit dans la base des données //
@@ -49,7 +51,7 @@ class Product {
     return numberOfProduct[0].count;
   }
 
-  // Recupere tous les produit d'un vendeur en particulier 
+  // Recupere tous les produit d'un vendeur en particulier
   async getAllProductBySeller(idSeller) {
     const product = await (
       await db.query(
@@ -60,15 +62,16 @@ class Product {
     return product;
   }
 
-    // Affiche les produits par category 
+  // Affiche les produits par category
   async listByCategory(categoryID) {
     const product = await (
       await db.query(
-        `SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", c.id_category, s.store_name, s.id_user FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u, projetWeb.seller s  WHERE u.id_user = s.id_user AND u.id_user = p.id_user AND c.id_category = p.id_category AND c.id_category = $1`,[categoryID],)).rows;
+        `SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", c.id_category, s.store_name, s.id_user FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u, projetWeb.seller s  WHERE u.id_user = s.id_user AND u.id_user = p.id_user AND c.id_category = p.id_category AND c.id_category = $1`,
+        [categoryID],
+      )
+    ).rows;
     return product;
   }
-
-
 
   // Permet de trouver un produit dans la db graçe au formulaire de recherche //
   async Search(data) {
@@ -97,12 +100,34 @@ class Product {
 
   // Permet d'ajouter un une reponse à une review dans la db, en entrant aussi l'id du user //
   async addAnswer(data) {
-    const review = await db.query(
-      `INSERT INTO projetWeb.reviews_answers (message,id_user,id_review) VALUES($1,$2,$3) RETURNING id_answer`,
-      [data.message, data.id_user, data.id_review],
+    const answer = await db.query(
+      `INSERT INTO projetWeb.review_answers (message,id_user,id_review) VALUES($1,$2,$3) RETURNING id_answer`,
+      [data.message, data.idUser, data.idReview],
     );
-    const idAnswer = review.rows[0].id_answer;
+    const idAnswer = answer.rows[0].id_answer;
     return idAnswer;
+  }
+
+  // Permet de recuperer les review de la db pour un produit//
+  async getReviews(data) {
+    const reviews = await (
+      await db.query(
+        `SELECT pr.*, u.first_name, u.last_name FROM projetWeb.product_reviews pr, projetWeb.users u, projetWeb.products p WHERE pr.id_user = u.id_user AND p.id_product = pr.id_product AND pr.id_product = $1`,
+        [data],
+      )
+    ).rows;
+    return reviews;
+  }
+
+  // Permet de recuperer les reponses à une review dans la db//
+  async getAnswers(data) {
+    const answers = await (
+      await db.query(
+        `SELECT ra.*,  u.first_name, u.last_name FROM projetWeb.review_answers ra, projetWeb.users u, projetWeb.product_reviews pr WHERE ra.id_user = u.id_user AND pr.id_review = ra.id_review AND ra.id_review = $1`,
+        [data],
+      )
+    ).rows;
+    return answers;
   }
 }
 module.exports = { Product };

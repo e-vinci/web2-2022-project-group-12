@@ -22,8 +22,8 @@ const ProductPage = async () => {
   const url = id.split('=');
   const product = await getProductById(url[1]);
   const productId = product.id_product;
-  console.log("product id pour le review ",productId);
-  const storeName = product.store_name
+  console.log('product id pour le review ', productId);
+  const storeName = product.store_name;
   const productName = product.name;
   const productPrice = product.price;
   const productDescription = product.description;
@@ -68,8 +68,9 @@ const ProductPage = async () => {
               <div class="card-body pb-0">
                   <div class="d-flex justify-content-between">
                       <p class="text-dark">${productDescription}</p>
-                      <button type="button" name="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
-
+                      <div id="cartFeature">
+                        
+                      </div>
                   </div>
               </div>
               
@@ -83,21 +84,13 @@ const ProductPage = async () => {
           
           </div>
           <div id="Reviews">
-
+            
           </div>
           
-          </div>
+        </div>
 
           `;
   main.innerHTML = html;
-
-  // Permet d'ajouter le produit dans le panier
-  const btn = document.getElementById('btnAddtoCart');
-
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    addItemToCart(product.id, product.name, product.price, 1);
-  });
 
   // permet le render vers la page de la categorie cliqué
   const cat = document.getElementsByClassName('categoryName');
@@ -113,19 +106,27 @@ const ProductPage = async () => {
   } // fin for
 
   const loginStatus = document.getElementById('loginStatus');
-  const reviewshtml = document.getElementById('Reviews');
-
-  const reviewlist = getReviews(productId);
 
   if (user === undefined) {
     loginStatus.innerHTML += `<p>You must be logged in to review this product</p>`;
-  }
+  } else {
     /* reviewlist.forEach((lareview) => {
       const userReview = lareview.id_user;
       const messageReview = lareview.message;
       reviewshtml.innerHTML += `${userReview} ${messageReview}`;
     }); */
-   else{
+    // Permet d'ajouter le produit dans le panier
+    const cartDiv = document.getElementById('cartFeature');
+    cartDiv.innerHTML = `
+      <button type="button" id="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
+    `;
+    const btn = document.getElementById('btnAddtoCart');
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      addItemToCart(productId, product.name, product.price, 1);
+    });
+
     loginStatus.innerHTML += `
     <hr class="my-0" />
     <div class="container-fluid">
@@ -137,47 +138,145 @@ const ProductPage = async () => {
           <div class="input-group">
               <textarea type="text" class="form-control" placeholder="Enter your review here..." id="reviewMessage" rows="3"></textarea>
               <div class="input-group-append">
-                  <button class="input-group-text btn btn-dark text-white" id="reviewBtn">
-                    <i class="bi bi-arrow-return-left"></i>
+                  <button class="input-group-text btn btn-dark text-white" id="reviewBtn"><i class="bi bi-arrow-return-left"></i>
                   </button>
               </div>
           </div>
       </form>
     </div>
     `;
-    
-  }
-  if(reviewlist.length === 0){
-    reviewshtml.innerHTML += `<p>No reviews on this product yet</p>`;
-  }else{
-    reviewlist.forEach((lareview) => {
-      const userReview = lareview.id_user;
-      const messageReview = lareview.message;
-      reviewshtml.innerHTML += `${userReview} ${messageReview}`;
-    });
-  }
-
+    const reviewBtn = document.getElementById('reviewBtn');
     // Ajout d'une review au produit
-    btn.addEventListener('click', async (e) => {
+    reviewBtn.addEventListener('click', (e) => {
       e.preventDefault();
 
       // Récupération de toute les données avec les id
+
       const reviewMessage = document.getElementById('reviewMessage').value;
       const errorMessage = document.getElementById('errorMessage');
-
-      if (reviewMessage === undefined || reviewMessage.length < 1) {
-        errorMessage.innerHTML += `<p class="alert"><i class="bi bi-exclamation-circle-fill"></i> You can not send an empty message!</p>`;
+      if (reviewMessage.length < 1) {
+        errorMessage.innerHTML += `<p class="alert"><i class="bi bi-exclamation-circle-fill"></i> You can not post and empty review!</p>`;
       }
 
       // Création d'un nouvel objet json
       const NewReview = {
-        idUser: user.id_user,
+        idUser: user.userId,
         message: reviewMessage,
         idProduct: product.id_product,
       };
 
       postReview(NewReview);
+      ProductPage();
     }); // fin eventListener
+  } // fin else
+
+  // montre tt les reviews d'un produit
+  const reviewshtml = document.getElementById('Reviews');
+  const reviewlist = await getReviews(productId);
+  console.log(reviewlist, 'le review list');
+  if (reviewlist.length === 0) {
+    reviewshtml.innerHTML += `<p>No reviews on this product yet</p>`;
+  } else {
+    reviewlist.forEach(async (lareview) => {
+      const userFirstNameReview = lareview.first_name;
+      const userLastNameReview = lareview.last_name;
+      const messageReview = lareview.message;
+      reviewshtml.innerHTML += `
+        
+        <div>
+          <p>${userFirstNameReview} ${userLastNameReview}</p>
+          <p>${messageReview}</p>
+          <button class="input-group-text btn btn-dark text-white" id="repondreShow">Answer</button>
+          <div id="ajoutReponse">
+
+          </div>
+          <div id="Answers">
+            
+          </div>
+        </div>
+      `;
+      
+      const repondreReview = document.getElementById('repondreShow');
+
+      // Affichage de l'input pour une reponse
+      repondreReview.addEventListener('click', (e) => {
+        e.preventDefault();
+        reviewshtml.innerHTML =`
+        <div>
+          <p>${userFirstNameReview} ${userLastNameReview}</p>
+          <p>${messageReview}</p>
+          <div id="ajoutReponse">
+
+          </div>
+          <div id="Answers">
+            
+          </div>
+        </div>
+      `;
+        const ajoutReponse = document.getElementById('ajoutReponse');
+        ajoutReponse.innerHTML=``;
+        ajoutReponse.innerHTML += `
+        <form action="">
+          <label for="description">Asnwering...</label>
+          <div id="errorMessage">
+
+          </div>
+          <div class="input-group">
+              <textarea type="text" class="form-control" placeholder="Enter your answer here..." id="answerMessage" rows="2"></textarea>
+              <div class="input-group-append">
+                  <button class="input-group-text btn btn-dark text-white" id="answerBtn"><i class="bi bi-arrow-return-left"></i></button>
+              </div>
+          </div>
+        </from>
+        `;
+
+        const answerBtn = document.getElementById('answerBtn');
+
+        // Ajout d'une reponse a une review d'un produit
+        answerBtn.addEventListener('click', (d) => {
+          d.preventDefault();
+
+          // Récupération de toute les données avec les id
+          const answerMessage = document.getElementById('answerMessage').value;
+          const errorMessage = document.getElementById('errorMessage');
+          if (answerMessage.length < 1) {
+            errorMessage.innerHTML += `<p class="alert"><i class="bi bi-exclamation-circle-fill"></i> You can not post an empty reply!</p>`;
+          }
+
+          // Création d'un nouvel objet json
+          const NewAnswer = {
+            idUser: user.userId,
+            message: answerMessage,
+            idReview: lareview.id_review,
+          };
+
+          postAnswer(NewAnswer);
+          ProductPage();
+        }); // fin eventListener
+      }); // fin eventListener
+
+      // montre tt les reponses aux reviews du produit
+      const answerlist = await getAnswers(lareview.id_review);
+      const answerhtml = document.getElementById('Answers');
+
+      console.log(answerlist, 'answer listi ici')
+      if (answerlist.length === 0) {
+        // rien faire
+      } else {
+        answerlist.forEach(async (lareponse) => {
+          const userFirstNameAnswer = lareponse.first_name;
+          const userLastNameAnswer = lareponse.last_name;
+          const messageAnswer = lareponse.message;
+          answerhtml.innerHTML += `
+            <div>
+              <p>answer by ${userFirstNameAnswer} ${userLastNameAnswer}</p>
+              <p>${messageAnswer}</p>
+            </div>
+          `;
+        });
+      } // fin else
+    });
+  } // fin else
 }; // fin page
 
 async function getProductById(id) {
@@ -235,7 +334,7 @@ fs.appendFile(path,image);
     console.error('error: ', err);
   }
   return idReview;
-}
+} // fin function postReview
 
 async function getReviews(data) {
   let result;
@@ -248,7 +347,7 @@ async function getReviews(data) {
     };
 
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllReviews/` + data, options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getReviews/` + data, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
@@ -258,6 +357,61 @@ async function getReviews(data) {
     console.error('error: ', err);
   }
   return result;
-}
+} // fin function getReviews
+
+async function postAnswer(data) {
+  let idAnswer;
+  try {
+    const options = {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const reponse = await fetch('/api/products/addAnswer', options);
+
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+    }
+    idAnswer = await reponse.json();
+    console.log(idAnswer);
+    /*  
+console.log("id ::::::", idProduct);
+const path =`'../../assets/product/image${idProduct}.img'`;
+console.log("le path pour nouveau file::",path);
+fs.appendFile(path,image); 
+*/
+    /* const user = await reponse.json(); */
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('error: ', err);
+  }
+  return idAnswer;
+} // fin function postReview
+
+async function getAnswers(data) {
+  let result;
+  try {
+    const options = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    // eslint-disable-next-line prefer-template
+    const reponse = await fetch('/api/products/getAnswers/' + data, options);
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+    }
+    result = await reponse.json();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('error: ', err);
+  }
+  return result;
+} // fin function getReviews
 
 export default ProductPage;
