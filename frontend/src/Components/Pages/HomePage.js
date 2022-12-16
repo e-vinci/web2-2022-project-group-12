@@ -185,7 +185,7 @@ const HomePage = async () => {
     for (let y = 0; y < btn.length; y += 1) {
       btn[y].addEventListener('click', async (e) => {
         e.preventDefault();
-        myFunction();
+        showSnackBar();
         addItemToCart(product[y].id_product ,product[y].name, product[y].price, 1);
         const nombre = document.getElementById('numberOfArticles');
         const newNombre = countProductCart();
@@ -283,7 +283,7 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
-function myFunction() {
+function showSnackBar() {
   // Get the snackbar DIV
   const x = document.getElementById("snackbar");
 

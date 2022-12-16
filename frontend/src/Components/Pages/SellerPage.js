@@ -110,6 +110,7 @@ async function showProduct(product) {
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
     const { category } = product[i];
+    const categoryId = product[i].id_category;
     items += `
     <div class="col-md-8 col-lg-6 col-xl-4" style="display:inline-block">
         <div class="card" style="border-radius: 15px;">
@@ -129,7 +130,7 @@ async function showProduct(product) {
                         <p class="small text-muted">by ${storeName}</p>
                     </div>
                     <div>
-                        <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
+                        <p class="small text-muted"><a href="#" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
                     </div>
                 </div>
             </div>
@@ -152,6 +153,8 @@ async function showProduct(product) {
 
   const lenght = a.length;
 
+
+  // permet le render vers la page du produit cliqué
   for (let j = 0; j < lenght; j += 1) {
     a[j].addEventListener('click', async (e) => {
       e.preventDefault();
@@ -161,6 +164,18 @@ async function showProduct(product) {
       Navigate('/test?id_product=', id);
     });
   }
+
+  // permet le render vers la page de la categorie cliqué
+  const cat = document.getElementsByClassName('categoryName');
+  const lengthCategories = cat.length;
+  for (let j = 0; j < lengthCategories; j += 1) {
+    cat[j].addEventListener('click', async (e) => {
+      e.preventDefault();
+      const idcat = cat[j].name;
+      // eslint-disable-next-line prefer-template
+      Navigate('/category?=', idcat);
+    });
+  } 
 }
 
 async function countAllProductBySeller(id) {
