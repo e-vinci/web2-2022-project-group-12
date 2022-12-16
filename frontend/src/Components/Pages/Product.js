@@ -292,7 +292,7 @@ async function getProductById(id) {
     };
     console.log('TEST ', id);
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getIdProduct/' + id, options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getIdProduct/` + id, options);
     product = await reponse.json();
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
@@ -315,7 +315,7 @@ async function postReview(data) {
       },
     };
 
-    const reponse = await fetch('/api/products/addReview', options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/addReview`, options);
 
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
@@ -347,7 +347,7 @@ async function getReviews(data) {
     };
 
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getReviews/' + data, options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getReviews/` + data, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }

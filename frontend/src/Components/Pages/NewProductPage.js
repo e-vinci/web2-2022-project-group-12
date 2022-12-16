@@ -117,7 +117,7 @@ const NewProductPage = () => {
           },
         };
 
-        const reponse = await fetch('/api/products/add', options);
+        const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/add`, options);
 
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
