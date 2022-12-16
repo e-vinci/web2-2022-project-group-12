@@ -82,7 +82,6 @@ const Navbar = () => {
     </div>
     `;
     navbarWrapper.innerHTML = navbar;
-
     
     if(active === 'homePage'){ // active home
         const activeD = document.getElementById('homePage');

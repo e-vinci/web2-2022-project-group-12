@@ -60,6 +60,12 @@ const SellerPage = async () => {
       clearActive();
       Navigate('/addProduct');
     });
+    const btnUpdate = document.getElementById('btnUpdate');
+    btnUpdate.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearActive();
+      Navigate('/update');
+    });
 
     console.log('test product undef 2:', products);
     // Affichage des produits
