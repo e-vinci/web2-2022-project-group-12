@@ -60,7 +60,7 @@ const PaypalPage = () =>{
                 });
               },
 
-              onApprove(data, actions) {
+               onApprove(data, actions) {
                 return actions.order.capture().then((orderData) => {
                   // Full available details
                   console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
@@ -69,19 +69,19 @@ const PaypalPage = () =>{
                   const element = document.getElementById('paypal-button-container');
                   element.innerHTML = '';
                   element.innerHTML = '<h3>Thank you for your payment! You will be redirected</h3>';
-                  
+                  endTransaction();
                   // Or go to another URL:  actions.redirect('thank_you.html'); 
-                
+                  async function endTransaction(){
                     const user = getAuthenticatedUser();
-                     addOrder();
-                     shoppingCart(user.email);
+                    await addOrder();
+                    await shoppingCart(user.email);
                     const nombre = document.getElementById('numberOfArticles');
                     const newNombre = countProductCart();
                     nombre.innerHTML = newNombre;
                     setTimeout(() => {
                       Navigate("/")
                     }, 3400)
-                });
+                }});
               },
 
     onError(err) {

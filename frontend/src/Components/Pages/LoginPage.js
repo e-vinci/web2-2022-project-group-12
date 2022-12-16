@@ -99,10 +99,6 @@ const LoginPage = () => {
       password,
     };
 
-    if(email === "" || password === ""){
-      renderPopUp();
-    }
-
     try {
       const options = {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -116,6 +112,7 @@ const LoginPage = () => {
       
       
       if (!reponse.ok) {
+        renderPopUp();
         throw new Error(
           // eslint-disable-next-line no-irregular-whitespace
           `fetch error : ${reponse.status} : ${reponse.statusText}`,
