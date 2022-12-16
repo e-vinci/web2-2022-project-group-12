@@ -23,6 +23,7 @@ const CategoryPage = async () => {
 
 
   const placeResultats = document.getElementById('imgProduct');
+  
   results.forEach((resultat) => {
     // const imageUrl = resultat?.url;
     const productId = resultat.id_product;
@@ -31,6 +32,7 @@ const CategoryPage = async () => {
     const storeName = resultat.store_name;
     const storeId = resultat.id_user;
     const { category } = resultat;
+    console.log(resultat);
     placeResultats.innerHTML += `
         <div class="col-md-8 col-lg-6 col-xl-4">
           <div class="card" style="border-radius: 15px;">
@@ -50,7 +52,7 @@ const CategoryPage = async () => {
                           <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">by ${storeName}</a></p>
                       </div>
                       <div>
-                            <p class="small text-muted">#${category}</p>
+                            <p class="small text-muted">${category}</p>
                         </div>
                   </div>
                   

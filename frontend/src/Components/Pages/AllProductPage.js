@@ -62,7 +62,12 @@ async function showProduct(product) {
    
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
     const id = product[i].id_product;
-    const storeName = product[i].store_name;
+    let storeName;
+    storeName = product[i].store_name;
+
+    if(storeName === undefined){
+      storeName = "Pas de vendeur";
+    }
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
     const { category } = product[i];
@@ -83,7 +88,7 @@ async function showProduct(product) {
                 <div class="d-flex justify-content-between">
                     <div>
                         <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                        <p class="small text-muted">by ${storeName}</p>
+                        <p class="small text-muted"> ${storeName}</p>
                     </div>
                     <div>
                         <p class="small text-muted"><a href="#" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
@@ -125,8 +130,8 @@ async function showProduct(product) {
 
   // permet le render vers la page de la categorie cliqué
   const cat = document.getElementsByClassName('categoryName');
-  const lengthCategories = cat.length;
-  for (let j = 0; j < lengthCategories; j += 1) {
+  
+  for (let j = 0; j < cat.length; j += 1) {
     cat[j].addEventListener('click', async (e) => {
       e.preventDefault();
       const idcat = cat[j].name;

@@ -47,62 +47,9 @@ const html = `
 
     <!-- HTML CATEGORIES -->
     <div class="container-fluid pt-5">
-        <h1>Categories</h1>
-            <div class="row px-xl-5 pb-3">
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                          <img class="img-fluid" src="img/cat-1.jpg" alt="">
-                        </a>
-                        <h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
-                        </a>
-                        <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
-                        </a>
-                        <h5 class="font-weight-semi-bold m-0">Accerssories</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
-                        </a>
-                        <h5 class="font-weight-semi-bold m-0">Bags</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-5.jpg" alt="">
-                        </a>
-                        <h5 class="font-weight-semi-bold m-0">Shoes</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-6.jpg" alt="">
-                        </a>
-                        <h5 class="font-weight-semi-bold m-0">Home</h5>
-                    </div>
-                </div>
+    <h1>Categories</h1>
+            <div class="row px-xl-5 pb-3" id="categories">
+            
             </div>
       </div>
   `;
@@ -156,7 +103,6 @@ const HomePage = async () => {
   carouselButtons.innerHTML = items;
 
   // Fetch pour aller chercher tous les produits dans la db
-
   try {
     const options = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -191,6 +137,29 @@ const HomePage = async () => {
     console.error('error: ', err);
   }
 
+
+  try {
+    const options = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const reponse = await fetch('/api/categories/getAllCategories', options);
+
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+    }
+
+    const category = await reponse.json();
+    await showCategories(category);
+
+    }
+   catch (err) {
+    console.error('error: ', err);
+  }
+
 };
 
 
@@ -206,10 +175,17 @@ async function showLastProduct(product) {
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
 
     const id = product[i].id_product;
-    const storeName = product[i].store_name;
+    let storeName;
+    storeName = product[i].store_name;
+
+    if(storeName === undefined){
+      storeName = "Pas de vendeur";
+    }
     const nameProduct = product[i].name;
     const priceProduct = product[i].price;
     const {category} = product[i];
+    const categoryName = {category}.name;
+    console.log(product[i].id_category)
     const categoryId = product[i].id_category;
 
     items += `
@@ -223,10 +199,10 @@ async function showLastProduct(product) {
               <div class="d-flex justify-content-between">
                     <div>
                         <p><a href="#!" class="text-dark productName" name="${id}">${nameProduct}</a></p>
-                        <p class="small text-muted">by ${storeName}</p>
+                        <p class="small text-muted"> ${storeName}</p>
                     </div>
                     <div>
-                        <p class="small text-muted"><a href="#" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
+                        <p class="small text-muted"><a href="#" class="text-dark categoryName" name="${categoryId}">${categoryName}</a></p>
                     </div>
                 </div>
             </div>
@@ -270,6 +246,48 @@ async function showLastProduct(product) {
       Navigate('/category?=', idcat);
     });}
 }; 
+
+
+async function showCategories(categories){
+  
+  const category = document.getElementById('categories')
+  let items =``;
+  let i = 0;
+
+  while (i < categories.length){
+    const categoryName = categories[i].name;
+    const categoryId = categories[i].id_category;
+
+    items+=`
+      <div class="col-lg-4 col-md-6 pb-1">
+          <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                <a href = "#" class="text-dark categoryName" name="${categoryId}"><h5 class="font-weight-semi-bold m-0" >${categoryName}</h5></a>
+          </div>
+      </div>
+    `
+    i += 1;
+  }
+  
+  category.innerHTML = items;
+
+   
+  const cat = document.getElementsByClassName('categoryName');
+  for (let j = 0; j < cat.length; j += 1) {
+    cat[j].addEventListener('click', async (e) => {
+      console.log(cat[j].name)
+      e.preventDefault();
+      const idcat = cat[j].name;
+      // eslint-disable-next-line prefer-template
+      Navigate('/category?=', idcat);
+    });}
+  
+ 
+
+}
+
+
+
+
 
 function importAll(r) {
   return r.keys().map(r);
