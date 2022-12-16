@@ -95,8 +95,8 @@ const LoginPage = () => {
     const password = document.getElementById('pwd').value;
 
     const newData = {
-      email,
-      password,
+      "email": email,
+      "password": password
     };
 
     if(email === "" || password === ""){
