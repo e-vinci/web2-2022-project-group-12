@@ -104,7 +104,7 @@ const BecomeSeller = () => {
           },
         };
         console.log("logloglog");
-        const reponse = await fetch('/api/users/becomeSeller', options);
+        const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/becomeSeller`, options);
         console.log("logfgfdgfdgdgloglog");
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);

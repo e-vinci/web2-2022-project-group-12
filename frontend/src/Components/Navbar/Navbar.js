@@ -7,7 +7,6 @@ import { setSearch } from '../../utils/utilsSearch';
 import Navigate from '../Router/Navigate';
 import { countProductCart } from '../../utils/utilsCart';
 import { clearPage } from '../../utils/render';
-import SearchResultsPage from '../Pages/SearchResultsPage';
 import { clearActive, getActiveLink } from '../../utils/activeLink';
 import { getUserIcon } from '../../utils/userIcon';
 
@@ -83,7 +82,6 @@ const Navbar = () => {
     </div>
     `;
     navbarWrapper.innerHTML = navbar;
-
     
     if(active === 'homePage'){ // active home
         const activeD = document.getElementById('homePage');
@@ -285,7 +283,7 @@ const Navbar = () => {
         };
         console.log(JSON.stringify(data));
         // eslint-disable-next-line prefer-template
-        const results = await fetch('/api/products/search/' + data, options);
+        const results = await fetch(`${process.env.API_BASE_URL}/api/products/search/` + data, options);
         const products = await results.json();
         console.log(products);
 
@@ -295,7 +293,7 @@ const Navbar = () => {
           throw new Error(`fetch error : ${results.status}${results.statusText}`);
         }
         clearActive();
-        SearchResultsPage();
+        Navigate('/search');
         /* const user = await reponse.json(); */
       } catch (err) {
         // eslint-disable-next-line no-console

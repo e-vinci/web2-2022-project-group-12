@@ -95,8 +95,8 @@ const LoginPage = () => {
     const password = document.getElementById('pwd').value;
 
     const newData = {
-      email,
-      password,
+      "email": email,
+      "password": password
     };
 
     try {
@@ -108,7 +108,7 @@ const LoginPage = () => {
         },
       };
 
-      const reponse = await fetch('/api/users/login', options);
+      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/login`, options);
       
       
       if (!reponse.ok) {

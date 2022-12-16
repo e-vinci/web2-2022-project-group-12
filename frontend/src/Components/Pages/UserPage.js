@@ -62,7 +62,6 @@ const UserPage = async () => {
   setActiveLink('userPage');
   setUserIcon('userPage');
   Navbar();
-  
   const user = await getAuthenticatedUser();
   console.log('lqalallaa',user);
   const seller = await isSeller(user.userId);
@@ -90,18 +89,14 @@ const UserPage = async () => {
         clearActive();
         Navigate('/becomeSeller');
       });
-      const btnUpdate = document.getElementById('btnUpdate');
-      btnUpdate.addEventListener('click', (e) => {
-        e.preventDefault();
-        clearActive();
-        Navigate('/update');
-      });
+       
     }
   }
 };
 
 async function isSeller(id) {
   let result;
+  console.log("saluuuut");
   try {
     const options = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -110,11 +105,12 @@ async function isSeller(id) {
       },
     };
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/users/getIdStore/' + id, options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getIdStore/` + id, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
     result = await reponse.json();
+    console.log("RESSULT", result);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);

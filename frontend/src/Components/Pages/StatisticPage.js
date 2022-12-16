@@ -46,7 +46,6 @@ if (!response.ok) {
 const StatisticPage = () => {
   clearPage();
   setActiveLink('statisticPage');
-
   setUserIcon('extUserPage');
   Navbar();
   // verifie si l'user s'est login pour acceder à cette page

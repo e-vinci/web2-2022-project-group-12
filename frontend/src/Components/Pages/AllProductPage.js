@@ -31,7 +31,7 @@ const AllProductPage = async () => {
       },
     };
 
-    const reponse = await fetch('/api/products/getAll', options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAll`, options);
     console.log("coucou2");
 
     if (!reponse.ok) {

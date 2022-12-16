@@ -39,8 +39,9 @@ router.get('/getStore/:id', async (req, res) => {
 // Permet de récupérer un vendeur en particulier avec un id qui pourrait etre seulment un user
 // sert pour une verification dans userPage
 router.get('/getIdStore/:id', async (req, res) => {
+  console.log("je suis passé", req.params.id);
   const result = await userModel.getIdStore(req.params.id);
-  if (result === null) return null;
+  console.log("rsult", result);
   return res.json(result);
 });
 

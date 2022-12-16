@@ -68,5 +68,17 @@ router.post('/addAnswer', async (req, res) => {
   return res.json(answer);
 });
 
+// Ajoute une review au produit
+router.get('/getReviews/:id', async (req, res) => {
+  const reviews = await productModel.getReviews(req.params.id);
+  res.send(reviews);
+});
+
+// Ajoute une reponse à la review d'un produit
+router.get('/getAnswers/:id', async (req, res) => {
+  const answers = await productModel.getAnswers(req.params.id);
+  res.send(answers);
+});
+
 
 module.exports = router;
