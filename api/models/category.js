@@ -13,7 +13,8 @@ class Category {
 
   // Permet de recuperer toutes les categories dans la base des données //
   async getAllCategories() {
-    const categories = await (await db.query(`SELECT c.name FROM projetWeb.categories c`)).rows;
+    const categories = await (await db.query(`SELECT * FROM projetWeb.categories `)).rows;
+    console.log(categories)
     return categories;
   }
 
