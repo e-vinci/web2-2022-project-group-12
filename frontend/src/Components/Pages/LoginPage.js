@@ -112,7 +112,7 @@ const LoginPage = () => {
         },
       };
 
-      const reponse = await fetch('/api/users/login', options);
+      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/login`, options);
       
       
       if (!reponse.ok) {

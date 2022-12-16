@@ -147,7 +147,7 @@ const StorePage = async () => {
       };
 
       // eslint-disable-next-line prefer-template
-      const reponse = await fetch('/api/products/getAllBySeller/' + id, options);
+      const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + id, options);
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
@@ -172,7 +172,7 @@ const StorePage = async () => {
       };
 
       // eslint-disable-next-line prefer-template
-      const reponse = await fetch('/api/users/getStore/' + id, options);
+      const reponse = await fetch(`${process.env.API_BASE_URL}api/users/getStore/` + id, options);
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
