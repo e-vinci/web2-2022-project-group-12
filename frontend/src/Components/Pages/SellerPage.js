@@ -34,7 +34,6 @@ let html = `
 const SellerPage = async () => {
   clearPage();
   setActiveLink('userPage');
-
   setUserIcon('userPage');
   Navbar();
   const user = await getAuthenticatedUser();

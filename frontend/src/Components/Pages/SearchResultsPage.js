@@ -4,8 +4,9 @@ import 'animate.css';
 import { getSearch } from '../../utils/utilsSearch';
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
-import { clearActive } from '../../utils/activeLink';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 
 // HTML CODE
 const html = `
@@ -22,8 +23,9 @@ const html = `
 
 const SearchResultsPage = async () => {
   clearPage();
-  clearActive();
+  setActiveLink('extUserPage');
   setUserIcon('extUserPage');
+  Navbar();
   const main = document.querySelector('main');
   main.innerHTML = html;
   const results = getSearch();

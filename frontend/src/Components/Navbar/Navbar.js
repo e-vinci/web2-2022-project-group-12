@@ -7,7 +7,6 @@ import { setSearch } from '../../utils/utilsSearch';
 import Navigate from '../Router/Navigate';
 import { countProductCart } from '../../utils/utilsCart';
 import { clearPage } from '../../utils/render';
-import SearchResultsPage from '../Pages/SearchResultsPage';
 import { clearActive, getActiveLink } from '../../utils/activeLink';
 import { getUserIcon } from '../../utils/userIcon';
 
@@ -295,7 +294,7 @@ const Navbar = () => {
           throw new Error(`fetch error : ${results.status}${results.statusText}`);
         }
         clearActive();
-        SearchResultsPage();
+        Navigate('/search');
         /* const user = await reponse.json(); */
       } catch (err) {
         // eslint-disable-next-line no-console
