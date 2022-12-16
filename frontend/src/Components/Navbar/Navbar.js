@@ -283,7 +283,7 @@ const Navbar = () => {
         };
         console.log(JSON.stringify(data));
         // eslint-disable-next-line prefer-template
-        const results = await fetch('/api/products/search/' + data, options);
+        const results = await fetch(`${process.env.API_BASE_URL}/api/products/search/` + data, options);
         const products = await results.json();
         console.log(products);
 

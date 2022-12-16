@@ -216,7 +216,7 @@ async function postReview(data) {
       },
     };
 
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/addRevie`, options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/addReview`, options);
 
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
