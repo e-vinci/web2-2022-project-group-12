@@ -213,22 +213,28 @@ const Navbar = () => {
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
       `;
-    }if (userIcon === 'userPage'){ // active user
+    }
+    
+    
+    // icon thing
+    if (userIcon === 'userPage'){ // active user
       const activeD = document.getElementById('userPage');
       activeD.innerHTML += `
           <a id="user" class="nav-item nav-link active"><i class="bi bi-person-fill"></i></a>
       `;
-    }if (active === 'userPage'){ // active user
-        const activeD = document.getElementById('userPage');
-        activeD.innerHTML += `
-            <a id="user" class="nav-item nav-link active"><i class="bi bi-person"></i></a>
-        `;
     }else if (userIcon === 'extUserPage'){ // inactive extern user
       const activeD = document.getElementById('userPage');
       activeD.innerHTML += `
-          <a id="user" class="nav-item nav-link active"><i class="bi bi-person"></i></a>
+          <a id="user" class="nav-item nav-link"><i class="bi bi-person"></i></a>
       `;
-    }if (active === 'statisticPage'){ // active insights
+    }
+    // adds to icon thing
+    if (active === 'userPage'){ // active user
+        const activeD = document.getElementById('user');
+        activeD.classList.add("active");
+    }
+
+    if (active === 'statisticPage'){ // active insights
       const activeD = document.getElementById('statisticPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
@@ -259,54 +265,6 @@ const Navbar = () => {
 
   } // fin else
   
-  // Verification active link //
-  
-  /* let activeDiv;
-  switch(active){
-      case 'homePage':
-        activeDiv = document.getElementById('homePage');
-        activeDiv.innerHTML += `
-          <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
-        `;
-        break;
-    case 'userPage':
-        activeDiv = document.getElementById('userPage');
-        activeDiv.innerHTML += `
-            <a id="user" class="nav-item nav-link active"><i class="bi bi-person-fill"></i></a>
-        `;
-        break;
-    case 'extUserPage':
-        activeDiv = document.getElementById('userPage');
-        activeDiv.innerHTML += `
-            <a id="user" class="nav-item nav-link active"><i class="bi bi-person"></i></a>
-        `;
-        break;
-    case 'loginPage':
-        activeDiv = document.getElementById('loginPage');
-        activeDiv.innerHTML += `
-            <a href="#" class="nav-item nav-link active" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
-        `;
-        break;
-    case 'registerPage':
-        activeDiv = document.getElementById('registerPage');
-        activeDiv.innerHTML += `
-            <a href="#" class="nav-item nav-link active" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
-        `;
-        break;
-    case 'statisticPage':
-        activeDiv = document.getElementById('statisticPage');
-        activeDiv.innerHTML += `
-            <a href="#" class="nav-item nav-link active" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
-        `;
-        break;
-    case 'shopPage':
-        activeDiv = document.getElementById('shopPage');
-        activeDiv.innerHTML += `
-            <a href="#" class="nav-item nav-link active" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
-        `;
-        break;
-    default:
-  } */
 
   const btnSearch = document.getElementById('searchbtn');
   btnSearch.addEventListener('click', async (e) => {
@@ -336,6 +294,7 @@ const Navbar = () => {
         if (!results.ok) {
           throw new Error(`fetch error : ${results.status}${results.statusText}`);
         }
+        clearActive();
         SearchResultsPage();
         /* const user = await reponse.json(); */
       } catch (err) {
