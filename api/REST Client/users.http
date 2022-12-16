@@ -6,7 +6,7 @@ GET {{baseUrl}}/users
 
 ### Register one user
 
-POST {{baseUrl}}/users/register
+POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
@@ -16,4 +16,13 @@ Content-Type: application/json
     "password" : "123",
     "passwordConfirmed" : "123",
     "sex":"M"
+}
+
+###
+POST  {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email" : "v",
+    "password": "0"
 }

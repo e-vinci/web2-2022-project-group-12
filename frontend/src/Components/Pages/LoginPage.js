@@ -94,13 +94,9 @@ const LoginPage = () => {
     const password = document.getElementById('pwd').value;
 
     const newData = {
-      email,
-      password,
+      "email": email,
+      "password": password
     };
-
-    if(email === "" || password === ""){
-      renderPopUp();
-    }
 
     try {
       const options = {
@@ -111,10 +107,11 @@ const LoginPage = () => {
         },
       };
 
-      const reponse = await fetch('/api/users/login', options);
+      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/login`, options);
       
       
       if (!reponse.ok) {
+        renderPopUp();
         throw new Error(
           // eslint-disable-next-line no-irregular-whitespace
           `fetch error : ${reponse.status} : ${reponse.statusText}`,

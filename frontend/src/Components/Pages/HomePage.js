@@ -119,7 +119,7 @@ const HomePage = async () => {
       },
     };
 
-    const reponse = await fetch('/api/products/selectLastProduct', options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/selectLastProduct`, options);
 
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);

@@ -123,7 +123,7 @@ async function getCategorie(id) {
       };
   
       // eslint-disable-next-line prefer-template
-      const reponse = await fetch('/api/products/listByCategory/' + id, options);
+      const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/listByCategory/` + id, options);
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }

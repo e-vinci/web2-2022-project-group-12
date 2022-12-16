@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
   const { password } = req.body;
   const user = await userModel.doIExist(email, password);
 
-  if (user === null) return console.error("user not found");
+  if (user === null) return res.sendStatus(404);
   return res.json(user);
 });
 
@@ -39,8 +39,9 @@ router.get('/getStore/:id', async (req, res) => {
 // Permet de récupérer un vendeur en particulier avec un id qui pourrait etre seulment un user
 // sert pour une verification dans userPage
 router.get('/getIdStore/:id', async (req, res) => {
+  console.log("je suis passé", req.params.id);
   const result = await userModel.getIdStore(req.params.id);
-  if (result === null) return null;
+  console.log("rsult", result);
   return res.json(result);
 });
 

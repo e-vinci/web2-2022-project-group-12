@@ -180,7 +180,7 @@ const RegisterPage = () => {
         },
       };
 
-      const reponse = await fetch('/api/users/register', options);
+      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/register`, options);
 
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);

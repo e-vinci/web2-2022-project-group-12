@@ -34,7 +34,6 @@ let html = `
 const SellerPage = async () => {
   clearPage();
   setActiveLink('userPage');
-
   setUserIcon('userPage');
   Navbar();
   const user = await getAuthenticatedUser();
@@ -61,6 +60,12 @@ const SellerPage = async () => {
       clearActive();
       Navigate('/addProduct');
     });
+    const btnUpdate = document.getElementById('btnUpdate');
+    btnUpdate.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearActive();
+      Navigate('/update');
+    });
 
     console.log('test product undef 2:', products);
     // Affichage des produits
@@ -78,7 +83,7 @@ async function getAllBySeller(idSeller) {
       },
     };
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getAllBySeller/' + idSeller, options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + idSeller, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
@@ -195,7 +200,7 @@ async function countAllProductBySeller(id) {
     };
 
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/countAllBySeller', options);
+    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/countAllBySeller`, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }

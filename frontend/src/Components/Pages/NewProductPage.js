@@ -23,8 +23,7 @@ const formNewProduct = `
 
             <div class="mb-3 mt-3">
                 <label for="description">Product Description :</label>
-                <textarea class="form-control" id="description" placeholder="Enter the product description"
-                    name="description" rows="5"></textarea>
+                <textarea class="form-control" id="description" placeholder="Enter the product description" name="description" rows="5"></textarea>
             </div>
 
             <div class="mb-3 mt-3">
@@ -118,7 +117,7 @@ const NewProductPage = () => {
           },
         };
 
-        const reponse = await fetch('/api/products/add', options);
+        const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/add`, options);
 
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);

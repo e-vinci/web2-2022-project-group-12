@@ -111,7 +111,9 @@ class User {
     // Permet de recuperer un id d'un vendeur de la base des données par le moyen d'un id, sert pour une verification dans UserPage//
     async getIdStore(id) {
       const seller = await (  await db.query(`SELECT DISTINCT s.id_user FROM projetWeb.seller s WHERE s.id_user = $1`,[id],)).rows;
+      console.log("yoyoy", seller);
       if (seller.length === 0) {
+        console.log("je suiss paspaspapspasé");
         return null;
       }
       return seller;
