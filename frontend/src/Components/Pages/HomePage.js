@@ -7,6 +7,7 @@ import { clearPage } from '../../utils/render';
 import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
 
 
 // HTML CODE
@@ -65,6 +66,7 @@ const HomePage = async () => {
   setActiveLink('homePage');
   setUserIcon('extUserPage');
   Navbar();
+ 
   const main = document.querySelector('main');
   
   main.innerHTML = html;
@@ -166,6 +168,7 @@ const HomePage = async () => {
     console.error('error: ', err);
   }
 
+  Footer();
 };
 
 

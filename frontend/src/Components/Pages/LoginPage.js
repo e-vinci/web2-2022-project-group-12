@@ -3,7 +3,7 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
-import logoAsset from '../../assets/logo.png';
+import logoAsset from '../../assets/image0.png';
 import { shoppingCart } from '../../utils/utilsCart';
 import { createOrder } from '../../utils/utilsOrders';
 import { renderPopUp } from '../../utils/utilsForm';
@@ -23,7 +23,7 @@ const formLogin = `
 
                                     <div class="text-center">
                                         <img src="${logoAsset}" style="width: 185px;" alt="logo">
-                                        <h4 class="mt-1 mb-5 pb-1">We are VinciStore</h4>
+                                        
                                     </div>
 
                                     <form>
@@ -48,8 +48,7 @@ const formLogin = `
 
                                         <div class="d-flex align-items-center justify-content-center pb-4">
                                             <p class="mb-0 me-2">Don't have an account?</p>
-                                            <button type="button" class="btn btn-outline-primary" id="register">Create
-                                                new</button>
+                                            <button type="button" class="btn btn-outline-primary" id="register">Create New</button>
                                         </div>
                                     </form>
 
@@ -81,7 +80,7 @@ const LoginPage = () => {
 
   const btn = document.getElementById('login');
   
-  const btnRegister = document.getElementById('register');
+  const btnRegister= document.getElementById('register');
   
   btnRegister.addEventListener('click', async (e) => {
     e.preventDefault();

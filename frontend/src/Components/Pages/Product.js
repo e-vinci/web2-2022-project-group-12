@@ -22,7 +22,7 @@ const ProductPage = async () => {
   const url = id.split('=');
   const product = await getProductById(url[1]);
   const productId = product.id_product;
-  console.log("product id pour le review ",productId);
+  
   const storeName = product.store_name
   const productName = product.name;
   const productPrice = product.price;
@@ -30,68 +30,52 @@ const ProductPage = async () => {
   const storeId = product.id_user;
   const { category } = product;
   const categoryId = product.id_category;
-  console.log('produit', product);
+  
+
   // html de la page
   const html = `
-  <div class="container">
-  <div class="row" style="margin-top:30px">
-            <div class="col-md-2 order-md-1">
-              <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                  data-mdb-ripple-color="light">
-                  <img src="INSERER imageUrl ici apres" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                      class="img-fluid" alt="Laptop" />
-                  <a href="#!">
-                      <div class="mask"></div>
-                  </a>
-              </div>
-              </div>
-              </div>
-              <div class="row" style="margin-top:30px">
-            <div class="col-md-2 order-md-2">
-              <div class="card-body pb-0">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p><a href="#!" class="text-dark aProductName" name="${productId}">${productName}</a></p>
-                          <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">by ${storeName}</a></p>
-                      </div>
-                      <div id="categoria">
+
+  <section class="section" id="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                <div class="left-images">
+                    
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="right-content">
+                  <h3><a href="#" class="text-dark aProductName" name="${productId}">${productName}</a></h3>
+                    <span class="price"><p class="text-dark">${productPrice}€</p></span>
+                    <div id="categoria">
                           <p class="small text-muted"><a href="#!" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
-                      </div>
-                  </div>
-              </div>
-              <hr class="my-0" />
-              <div class="card-body pb-0">
-                  <div class="d-flex justify-content-between">
-                      <p class="text-dark">${productPrice}€</p>
-                  </div>
-              </div>
-              <div class="card-body pb-0">
-                  <div class="d-flex justify-content-between">
-                      <p class="text-dark">${productDescription}</p>
-                      <button type="button" name="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
-
-                  </div>
-              </div>
-              
-              </div>
-              </div>
+                    </div>
+                    <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">Store Name : ${storeName}</a></p>
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i><p>${productDescription}</p>
+                    </div>
+                    <div class="total">
+                    <h4>ADD TO CART</h4>
+                    <button type="button" name="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <hr class="my-0" />
+      <div id="loginStatus">
           
+      </div>
+      <div id="Reviews">
 
-      
-          <hr class="my-0" />
-          <div id="loginStatus">
+      </div>
           
-          </div>
-          <div id="Reviews">
+      </div>`;
 
-          </div>
-          
-          </div>
-
-          `;
   main.innerHTML = html;
 
-  // Permet d'ajouter le produit dans le panier
+  
   const btn = document.getElementById('btnAddtoCart');
 
   btn.addEventListener('click', async (e) => {
@@ -99,7 +83,7 @@ const ProductPage = async () => {
     addItemToCart(product.id, product.name, product.price, 1);
   });
 
-  // permet le render vers la page de la categorie cliqué
+
   const cat = document.getElementsByClassName('categoryName');
   const lengthCategories = cat.length;
   for (let j = 0; j < lengthCategories; j += 1) {
