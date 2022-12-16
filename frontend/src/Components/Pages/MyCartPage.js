@@ -1,6 +1,9 @@
+import { setActiveLink } from '../../utils/activeLink';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
+import { setUserIcon } from '../../utils/userIcon';
 import { countProductCart, getCartTotal, loadCart, removeItemFromCart } from '../../utils/utilsCart';
+import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
 const html = `
@@ -20,6 +23,10 @@ const html = `
 const MyCartPage = () => {
   // si la session contient un panier, afficher un bouton pour le supprimer (Ceci sert uniquepent de test de localStorage)
   clearPage();
+  setActiveLink('userPage');
+
+  setUserIcon('extUserPage');
+  Navbar();
   const userEmail = getAuthenticatedUser().email;
   const cart = loadCart(userEmail);
   const main = document.querySelector('main');

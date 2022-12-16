@@ -1,22 +1,33 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { setActiveLink } from '../../utils/activeLink';
 import { clearPage } from '../../utils/render';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
 const StorePage = async () => {
   clearPage();
+  setActiveLink('userPage');
+
+  setUserIcon('extUserPage');
+  Navbar();
   const main = document.querySelector('main');
 
   // permet d'aller chercher un paramètre dans l'url
   const id = window.location.search;
   const url = id.split('=');
   const store = await getStoreById(url[1]);
-  const idStore = store[0].id_user;
-  const storeName = store[0].store_name;
-  const firstName = store[0].first_name;
-  const lastName = store[0].last_name;
-  const {email} = store[0];
-  const profile = `
+  if ((store === null)) {
+    const error = `<h1>404 Store Not Found</h1>`
+    main.innerHTML += `${error}`;
+  } else {
+    const idStore = store[0].id_user;
+    const storeName = store[0].store_name;
+    const firstName = store[0].first_name;
+    const lastName = store[0].last_name;
+    const { email } = store[0];
+    const profile = `
     <div class="container">
         <div class="row" style="margin-top:30px">
             <div class="col-md-2 order-md-1">
@@ -37,27 +48,28 @@ const StorePage = async () => {
                 </div>
             </div>
         </div>
-      <h3>Products catalog : </h3>
-      <div class="allStoreProducts" class="row justify-content" id="products">
+        <h3>Products catalog : </h3>
+        <div class="allStoreProducts" class="row justify-content" id="products">
         
-      </div>
-    </div>
+        </div>
+
+  </div>
     `;
-  main.innerHTML = profile;
-  const products = await getAllStoreProducts(idStore);
-  const resultStatus = document.getElementById('products');
-  if (products.length === 0) {
-    resultStatus.innerHTML += `<p>This store doesn't have any products to sell yet</p>`;
-  } else {
-    const placeResultats = document.getElementById('products');
-    products.forEach((produit) => {
-      // const imageUrl = resultat?.url;
-      const productId = produit.id_product;
-      const productName = produit.name;
-      const productPrice = produit.price;
-      const { category } = produit;
-      const categoryId = produit.id_category;
-      placeResultats.innerHTML += `
+    main.innerHTML = profile;
+    const products = await getAllStoreProducts(idStore);
+    const resultStatus = document.getElementById('products');
+    if (products.length === 0) {
+      resultStatus.innerHTML += `<p>This store doesn't have any products to sell yet</p>`;
+    } else {
+      const placeResultats = document.getElementById('products');
+      products.forEach((produit) => {
+        // const imageUrl = resultat?.url;
+        const productId = produit.id_product;
+        const productName = produit.name;
+        const productPrice = produit.price;
+        const { category } = produit;
+        const categoryId = produit.id_category;
+        placeResultats.innerHTML += `
         <div class="col-md-8 col-lg-6 col-xl-4">
           <div class="card" style="border-radius: 15px;">
               <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
@@ -95,81 +107,80 @@ const StorePage = async () => {
           </div>
       </div>
       `;
-    }); // fin foreach
+      }); // fin foreach
 
-    // permet le render vers la page du product cliqué
-    const a = document.getElementsByClassName('aProductName');
-    for (let j = 0; j < a.length; j += 1) {
-      a[j].addEventListener('click', async (e) => {
-        e.preventDefault();
-        const idproduit = a[j].name;
-        // eslint-disable-next-line prefer-template
-        Navigate('/product?=', idproduit);
-      });
-    } // fin for
+      // permet le render vers la page du product cliqué
+      const a = document.getElementsByClassName('aProductName');
+      for (let j = 0; j < a.length; j += 1) {
+        a[j].addEventListener('click', async (e) => {
+          e.preventDefault();
+          const idproduit = a[j].name;
+          // eslint-disable-next-line prefer-template
+          Navigate('/product?=', idproduit);
+        });
+      } // fin for
 
-    // permet le render vers la page de la categorie cliqué
-    const cat = document.getElementsByClassName('categoryName');
-    const lengthCategories = cat.length;
-    for (let j = 0; j < lengthCategories; j += 1) {
-      cat[j].addEventListener('click', async (e) => {
-        e.preventDefault();
-        const idcat = cat[j].name;
-        // eslint-disable-next-line prefer-template
-        Navigate('/category?=', idcat);
-      });
-    } // fin for
+      // permet le render vers la page de la categorie cliqué
+      const cat = document.getElementsByClassName('categoryName');
+      const lengthCategories = cat.length;
+      for (let j = 0; j < lengthCategories; j += 1) {
+        cat[j].addEventListener('click', async (e) => {
+          e.preventDefault();
+          const idcat = cat[j].name;
+          // eslint-disable-next-line prefer-template
+          Navigate('/category?=', idcat);
+        });
+      } // fin for
+    } // fin else
   } // fin else
-}; // fin page
+}// fin page
+  async function getAllStoreProducts(id) {
+    // Permet d'aller chercher les informations du produit
+    let products;
 
-async function getAllStoreProducts(id) {
-  // Permet d'aller chercher les informations du produit
-  let products;
+    try {
+      const options = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getAllBySeller/' + id, options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      // eslint-disable-next-line prefer-template
+      const reponse = await fetch('/api/products/getAllBySeller/' + id, options);
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      }
+      products = await reponse.json();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
     }
-    products = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return products;
-} // fin function getAllStoreProducts(id)
+    return products;
+  } // fin function getAllStoreProducts(id)
 
-async function getStoreById(id) {
-  // Permet d'aller chercher les informations du produit
-  let store;
+  async function getStoreById(id) {
+    // Permet d'aller chercher les informations du produit
+    let store;
 
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+    try {
+      const options = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/users/getIdStore/' + id, options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      // eslint-disable-next-line prefer-template
+      const reponse = await fetch('/api/users/getStore/' + id, options);
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      }
+      store = await reponse.json();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
     }
-    store = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return store;
-} // fin function getStoreById(id)
-
+    return store;
+  } // fin function getStoreById(id)
 export default StorePage;

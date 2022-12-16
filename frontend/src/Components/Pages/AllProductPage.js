@@ -3,8 +3,16 @@ import 'animate.css';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
+import { clearPage } from '../../utils/render';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
 
 const AllProductPage = async () => {
+  clearPage();
+  setActiveLink('shopPage');
+  setUserIcon('extUserPage');
+  Navbar();
+  
   const html = `
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
@@ -124,6 +132,7 @@ async function showProduct(product) {
       e.preventDefault();
       const id = a[j].name;
       // eslint-disable-next-line prefer-template
+      clearActive();
       Navigate('/product?id_product=', id);
     });
   }
@@ -136,6 +145,7 @@ async function showProduct(product) {
       e.preventDefault();
       const idcat = cat[j].name;
       // eslint-disable-next-line prefer-template
+      clearActive();
       Navigate('/category?=', idcat);
     });
   } 

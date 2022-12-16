@@ -1,12 +1,20 @@
 /* eslint-disable prefer-destructuring */
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
+import { setUserIcon } from '../../utils/userIcon';
 import { getCartTotal, loadCart } from '../../utils/utilsCart';
+import Navbar from '../Navbar/Navbar';
+import { renderPopUp } from '../../utils/utilsForm';
 import Navigate from '../Router/Navigate';
 import PaypalPage from './Paypal';
 
 const CheckoutPage = () => {
   clearPage();
+  setActiveLink('userPage');
+
+  setUserIcon('extUserPage');
+  Navbar();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
   // eslint-disable-next-line prefer-destructuring
@@ -86,17 +94,19 @@ const CheckoutPage = () => {
 
                     <h4 class="mb-3">Payment</h4>
 
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" id="paypalID"
+                    <button class="btn btn-primary btn-lg btn-dark" type="submit" id="paypalID"
                         style="margin-bottom : 120px">Pay with Paypal</button>
                 </form>
 
             </div>
-            <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
-        </div>
+          <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
+       </div>
+       <div id="snackbar">Hep Hep Hep, tous les champs sont requis !</div>
     </div>
     `;
 
   if (user === undefined) {
+    clearActive();
     Navigate('/login');
   } else {
     clearPage();
@@ -165,10 +175,12 @@ const CheckoutPage = () => {
         console.log('paypal listener');
         PaypalPage();
       } else {
-        Navigate('/checkout');
+        renderPopUp();
       }
     });
   }
+
+
 };
 
 export default CheckoutPage;

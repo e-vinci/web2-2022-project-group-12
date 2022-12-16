@@ -9,12 +9,12 @@ import UserPage from '../Pages/UserPage';
 import BecomeSeller from '../Pages/BecomeSeller';
 import CheckoutPage from '../Pages/CheckoutPage';
 import StorePage from '../Pages/StorePage';
-import BasicSellerPage from '../Pages/BasicSellerPage';
 import PaypalPage from '../Pages/Paypal';
 import UpdateUser from '../Pages/UpdateUser';
 import SearchResultsPage from '../Pages/SearchResultsPage';
 import AllProductPage from '../Pages/AllProductPage';
 import CategoryPage from '../Pages/CategoryPage';
+import SellerPage from '../Pages/SellerPage';
 
 const routes = {
   '/': HomePage,
@@ -31,11 +31,11 @@ const routes = {
   '/checkout': CheckoutPage,
   '/store': StorePage,
   '/paypal': PaypalPage,
-  '/basicseller': BasicSellerPage,
   '/update': UpdateUser,
   '/search':SearchResultsPage,
   '/allProducts': AllProductPage,
-  '/category': CategoryPage
+  '/category': CategoryPage,
+  '/seller': SellerPage,
 };
 
 console.log('routes',routes);

@@ -4,6 +4,9 @@ import 'animate.css';
 import { addItemToCart, countProductCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 
 
 // HTML CODE
@@ -59,6 +62,9 @@ const html = `
 // HOME PAGE 
 const HomePage = async () => {
   clearPage();
+  setActiveLink('homePage');
+  setUserIcon('extUserPage');
+  Navbar();
   const main = document.querySelector('main');
   
   main.innerHTML = html;
@@ -125,7 +131,7 @@ const HomePage = async () => {
     for (let y = 0; y < btn.length; y += 1) {
       btn[y].addEventListener('click', async (e) => {
         e.preventDefault();
-        myFunction();
+        showSnackBar();
         addItemToCart(product[y].id_product ,product[y].name, product[y].price, 1);
         const nombre = document.getElementById('numberOfArticles');
         const newNombre = countProductCart();
@@ -232,6 +238,7 @@ async function showLastProduct(product) {
       e.preventDefault();
       const id = productName[j].name;
       // eslint-disable-next-line< prefer-template
+      clearActive();
       Navigate('/product?=', id);
     });
   }
@@ -243,6 +250,7 @@ async function showLastProduct(product) {
       e.preventDefault();
       const idcat = cat[j].name;
       // eslint-disable-next-line prefer-template
+      clearActive();
       Navigate('/category?=', idcat);
     });}
 }; 
@@ -293,7 +301,7 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
-function myFunction() {
+function showSnackBar() {
   // Get the snackbar DIV
   const x = document.getElementById("snackbar");
 

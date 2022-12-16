@@ -4,6 +4,8 @@ import 'animate.css';
 import { getSearch } from '../../utils/utilsSearch';
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
+import { clearActive } from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
 
 // HTML CODE
 const html = `
@@ -20,6 +22,8 @@ const html = `
 
 const SearchResultsPage = async () => {
   clearPage();
+  clearActive();
+  setUserIcon('extUserPage');
   const main = document.querySelector('main');
   main.innerHTML = html;
   const results = getSearch();
@@ -64,15 +68,12 @@ const SearchResultsPage = async () => {
               </div>
               <hr class="my-0" />
               <div class="card-body pb-0">
-                  <div class="d-flex justify-content-between">
+                  <div class="d-flex justify-content-between align-items-center">
                       <p class="text-dark">${productPrice}€</p>
-                  </div>
-              </div>
-              <hr class="my-0" />
-              <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                      <a href="#!" class="text-dark fw-bold">Cancel</a>
+
                       <button type="button" name="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
+
+                  
                   </div>
               </div>
           </div>
@@ -88,6 +89,7 @@ const SearchResultsPage = async () => {
         e.preventDefault();
         const id = a[j].name;
         // eslint-disable-next-line prefer-template
+        clearActive();
         Navigate('/product?=', id);
       });
     } // fin for
@@ -101,6 +103,7 @@ const SearchResultsPage = async () => {
         const id = shop[j].name;
         console.log('ID STORENAME', id);
         // eslint-disable-next-line prefer-template
+        clearActive();
         Navigate('/store?=', id);
       });
     } // fin for
@@ -114,6 +117,7 @@ const SearchResultsPage = async () => {
         const idcat = cat[j].name;
         console.log('ID CAT', idcat);
         // eslint-disable-next-line prefer-template
+        clearActive();
         Navigate('/category?=', idcat);
       });
     } // fin for

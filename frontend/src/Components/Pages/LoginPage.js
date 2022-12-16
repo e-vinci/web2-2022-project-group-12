@@ -5,11 +5,15 @@ import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
 import { shoppingCart } from '../../utils/utilsCart';
+import { createOrder } from '../../utils/utilsOrders';
+import { renderPopUp } from '../../utils/utilsForm';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 
 const formLogin = `
   
 <section class="h-100 gradient-form" style="background-color: #eee; margin-bottom : 200px">
         <div class="container py-5 h-100">
+        <div id="snackbar">The email or the password is incorrect !</div>
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black">
@@ -62,13 +66,16 @@ const formLogin = `
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>           
         </div>
     </section>
+    
+
 `;
 
 const LoginPage = () => {
   clearPage();
+  setActiveLink('loginPage');
   const main = document.querySelector('main');
   main.innerHTML = formLogin;
 
@@ -78,6 +85,7 @@ const LoginPage = () => {
   
   btnRegister.addEventListener('click', async (e) => {
     e.preventDefault();
+    clearActive();
     Navigate('/register');
   });
 
@@ -90,6 +98,11 @@ const LoginPage = () => {
       email,
       password,
     };
+
+    if(email === "" || password === ""){
+      renderPopUp();
+    }
+
     try {
       const options = {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -100,30 +113,45 @@ const LoginPage = () => {
       };
 
       const reponse = await fetch('/api/users/login', options);
-
+      
+      
       if (!reponse.ok) {
         throw new Error(
           // eslint-disable-next-line no-irregular-whitespace
           `fetch error : ${reponse.status} : ${reponse.statusText}`,
         );
       }
+      
       const user = await reponse.json();
-      let string = "shoppingCart";
-        string += user.email;
-        if ( await localStorage.getItem(string) == null){
+      
+      // If user has no cart, one is created
+      let userCart = "shoppingCart";
+         userCart += user.email;
+        if ( await localStorage.getItem(userCart) == null){
           await shoppingCart(user.email);
         }
+
+      // If user has no order history, creates one
+      let userOrder = "orders";
+      userOrder += user.email;
+      if ( await localStorage.getItem(userOrder) == null){
+        await createOrder(user.email);
+       }
+
+      // sets the Authenticated user to the actual user
       await setAuthenticatedUser(user);
-      console.log("userset ",user);
+
+      // reloads Navbar (display is different when user logged in)
       await Navbar();
 
-  
-      // eslint-disable-next-line no-console
+      // navigte to homePage
+      clearActive();
       await Navigate('/');
     } catch (err) {
       // eslint-disable-next-line
       console.error('error: ', err);
     }
-  });
+});
+  
 };
 export default LoginPage;

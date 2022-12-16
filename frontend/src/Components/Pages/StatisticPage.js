@@ -2,6 +2,9 @@ import { Chart } from 'chart.js/auto';
 import { clearPage } from '../../utils/render';
 import { getAuthenticatedUser } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 
 const text = `
 <div class="text-center">
@@ -42,9 +45,14 @@ if (!response.ok) {
 
 const StatisticPage = () => {
   clearPage();
+  setActiveLink('statisticPage');
+
+  setUserIcon('extUserPage');
+  Navbar();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
   if (user === undefined) {
+    clearActive();
     Navigate('/login');
   } else {
     clearPage();

@@ -2,8 +2,10 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
+import { setActiveLink } from '../../utils/activeLink';
 
-// const fs = require('fs');
 
 // formulaire NewProduct
 const formNewProduct = `
@@ -45,26 +47,17 @@ const formNewProduct = `
                     name="color">
             </div>
 
-
-
-            <div class="mb-3 mt-3">
-                <label class="control-label small" for="file_img">Add image(jpg/png):</label>
-                <input type="file" class="form-control" name="inpFile" id="inpFile">
-                <div class="image-preview" id="imagePreview">
-                  <img src="" alt="Image Preview" class="image-preview__image">
-                  <span class="image-preview__default-text">Image Preview</span>
-                </div>
-            </div>
-
-
-
-            <button type="submit" class="btn btn-primary" id="addProduct">Add Product</button>
+            <button type="submit" class="btn btn-dark position-relative" id="addProduct">Add Product</button>
         </div>
     </form>
 `;
 
 const NewProductPage = () => {
   clearPage();
+  setActiveLink('userPage');
+
+  setUserIcon('extUserPage');
+  Navbar();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
   if (user === undefined) {
@@ -77,38 +70,6 @@ const NewProductPage = () => {
     const btn = document.getElementById('addProduct');
 
 
-    // Afficher le preview du file choisie par le vendeur
-    const inpFile = document.getElementById("inpFile");
-    const previewContainer = document.getElementById("imagePreview");
-    const previewImage = previewContainer.querySelector(".image-preview__image");
-    const previewDefaultText= previewContainer.querySelector(".image-preview__default-text");
-
-
-
-    inpFile.addEventListener("change", function() {
-
-      const file =  this.files[0];
-
-      if(file){
-        const reader = new FileReader();
-
-        previewDefaultText.style.display = "none";
-        previewImage.style.display = "block";
-
-        reader.addEventListener("load", function(){
-          previewImage.setAttribute("src", this.result);
-        });
-
-        reader.readAsDataURL(file)
-      }else{
-        previewDefaultText.style.display = null;
-        previewImage.style.display = null;
-        previewImage.setAttribute("src", "")
-        console.log("test 3")
-      }
-
-    });
-
     // Ajout du Produit aprés avoir appuyé sur le bouton submit
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -118,8 +79,6 @@ const NewProductPage = () => {
       const description = document.getElementById('description').value;
       const price = document.getElementById('price').value;
       const color = document.getElementById('color').value;
-
-      // const image = document.getElementById('image').files;
 
       const idUser= user.userId
 
@@ -165,15 +124,6 @@ const NewProductPage = () => {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
         const idProduct = await reponse.json();
-
-
-
-      /*
-        console.log("id ::::::", idProduct);
-        const path =`'../../assets/product/image${idProduct}.img'`;
-        console.log("le path pour nouveau file::",path);
-        fs.appendFile(path,image); 
-      */
         
 
         Navigate('/product?id_product=', idProduct);
