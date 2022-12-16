@@ -3,6 +3,9 @@ import 'bootstrap';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 import 'animate.css';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 
 const html = `
     <div class="text-center">
@@ -56,19 +59,25 @@ const html = `
 
 const UserPage = async () => {
   clearPage();
+  setActiveLink('userPage');
+  setUserIcon('userPage');
+  Navbar();
+  
   const user = await getAuthenticatedUser();
   console.log('lqalallaa',user);
   const seller = await isSeller(user.userId);
   console.log('Seller: ', seller);
-  if (user === undefined) {
+  if (user === null) {
     console.log("pouplating main");
+    clearActive();
     Navigate('/login');
   } else {
     // eslint-disable-next-line
     const firstName = user.firstName;
     // verifie si l'user s'est login pour acceder à cette page
-    if (seller !== undefined) {
-      Navigate('/basicseller');
+    if (seller !== null) {
+      clearActive();
+      Navigate('/seller');
       console.log('ewa la miss');
     } else {
       const main = document.querySelector('main');
@@ -78,11 +87,13 @@ const UserPage = async () => {
       const btn = document.getElementById('btnSeller');
       btn.addEventListener('click', (e) => {
         e.preventDefault();
+        clearActive();
         Navigate('/becomeSeller');
       });
       const btnUpdate = document.getElementById('btnUpdate');
       btnUpdate.addEventListener('click', (e) => {
         e.preventDefault();
+        clearActive();
         Navigate('/update');
       });
     }

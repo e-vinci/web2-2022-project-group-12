@@ -2,6 +2,9 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuthenticatedUser } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 
 const html = `
 <form style="margin-top:30px">
@@ -50,13 +53,16 @@ const html = `
 `;
 
 const BecomeSeller = () => {
-  console.log('1');
   clearPage();
-  console.log('2');
+  setActiveLink('userPage');
+
+  setUserIcon('extUserPage');
+  Navbar();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
   if (user === undefined) {
     console.log('3');
+    clearActive();
     Navigate('/login');
   } else {
     console.log('4');
@@ -103,6 +109,7 @@ const BecomeSeller = () => {
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
+        clearActive();
         Navigate('/user');
         /* const user = await reponse.json(); */
         ;

@@ -6,6 +6,7 @@ import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
 import { shoppingCart } from '../../utils/utilsCart';
 import { loadOrders } from '../../utils/utilsOrders';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 
 const formLogin = `
   
@@ -70,6 +71,7 @@ const formLogin = `
 
 const LoginPage = () => {
   clearPage();
+  setActiveLink('loginPage');
   const main = document.querySelector('main');
   main.innerHTML = formLogin;
 
@@ -120,6 +122,7 @@ const LoginPage = () => {
         const orders = loadOrders(email);
         console.log("LES ORDRES SONT ",orders)
       // eslint-disable-next-line no-console
+      clearActive();
       await Navigate('/');
     } catch (err) {
       // eslint-disable-next-line

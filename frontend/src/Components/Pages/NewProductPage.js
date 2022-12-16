@@ -2,6 +2,9 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
+import { setActiveLink } from '../../utils/activeLink';
 
 
 // formulaire NewProduct
@@ -44,13 +47,17 @@ const formNewProduct = `
                     name="color">
             </div>
 
-            <button type="submit" class=""btn btn-dark position-relative" id="addProduct">Add Product</button>
+            <button type="submit" class="btn btn-dark position-relative" id="addProduct">Add Product</button>
         </div>
     </form>
 `;
 
 const NewProductPage = () => {
   clearPage();
+  setActiveLink('userPage');
+
+  setUserIcon('extUserPage');
+  Navbar();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
   if (user === undefined) {

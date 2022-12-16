@@ -1,5 +1,8 @@
+import { setActiveLink } from '../../utils/activeLink';
 import { getAuthenticatedUser, setAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
 const html = `
@@ -44,6 +47,9 @@ const html = `
 
 const UpdateUser = () => {
   clearPage();
+  setActiveLink('userPage');
+  setUserIcon('extUserPage');
+  Navbar();
   const user = getAuthenticatedUser();
   const { email } = user;
   console.log(email);

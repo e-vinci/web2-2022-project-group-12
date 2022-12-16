@@ -2,13 +2,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 
 let showProductBool = true;
 let html = `
 <div class="text-center">
-<button type="button" id="btnSeller"class="btn btn-dark position-relative">
-Become a seller <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
-</button>
 <button type="button" id="btnUpdate" class="btn btn-dark position-relative">
   Edit your profile <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
 </button>
@@ -31,8 +31,12 @@ Become a seller <svg width="1em" height="1em" viewBox="0 0 16 16" class="positio
 `;
 
 // Calling the page to render
-const BasicSellerPage = async () => {
+const SellerPage = async () => {
   clearPage();
+  setActiveLink('userPage');
+
+  setUserIcon('userPage');
+  Navbar();
   const user = await getAuthenticatedUser();
   const idUser = user.userId;
   const { email } = user;
@@ -44,6 +48,8 @@ const BasicSellerPage = async () => {
     showProductBool = false;
   }
   if (user === undefined) {
+    clearActive();
+    clearActive();
     Navigate('/login');
   } else {
     console.log("ceci est l'id", idUser);
@@ -52,6 +58,7 @@ const BasicSellerPage = async () => {
     const btnAdd = document.getElementById('btnAdd');
     btnAdd.addEventListener('click', async (e) => {
       e.preventDefault();
+      clearActive();
       Navigate('/addProduct');
     });
 
@@ -150,6 +157,7 @@ async function showProduct(product) {
       e.preventDefault();
       const id = a[j].name;
       // eslint-disable-next-line prefer-template
+      clearActive();
       Navigate('/test?id_product=', id);
     });
   }
@@ -190,4 +198,4 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
-export default BasicSellerPage;
+export default SellerPage;

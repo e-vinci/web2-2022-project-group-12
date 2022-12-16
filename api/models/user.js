@@ -41,7 +41,6 @@ class User {
     }
 
     const emailUser = user[0].email.toLowerCase();
-    console.log(emailUser)
     const token = jwt.sign(
       { emailUser }, // session data added to the payload (payload : part 2 of a JWT)
       jwtSecret, // secret used for the signature (signature part 3 of a JWT)
@@ -99,16 +98,24 @@ class User {
   }
 
   // Permet de recuperer un vendeur de la base des données par le moyen de son id //
-  async getSeller(id) {
-    // fixer les photos pour utiliser cette requete => await db.query(`SELECT u.first_name, u.last_name, u.email, s.store_name, s.id_user, ph.url as "photoURL", p.* FROM projetWeb.products p, projetWeb.users u, projetWeb.seller s, projetWeb.photos_users ph WHERE p.id_user = u.id_user AND ph.id_user = u.id_user AND u.id_user = s.id_user AND s.id_user = $1`,[id],)).rows;
+  async getStore(id) {
     const seller = await (
-    await db.query(`SELECT DISTINCT * FROM projetWeb.seller s WHERE s.id_user = $1`,[id],)).rows;
-    console.log("IDIIDIDISIDISQdIQS", id);
+      await db.query(`SELECT u.first_name, u.last_name, u.email, s.store_name, s.id_user, p.* FROM projetWeb.products p, projetWeb.users u, projetWeb.seller s  WHERE p.id_user = u.id_user AND u.id_user = s.id_user AND s.id_user = $1`,[id],)).rows;
+    // fixer les photos pour utiliser cette requete => await db.query(`SELECT u.first_name, u.last_name, u.email, s.store_name, s.id_user, ph.url as "photoURL", p.* FROM projetWeb.products p, projetWeb.users u, projetWeb.seller s, projetWeb.photos_users ph WHERE p.id_user = u.id_user AND ph.id_user = u.id_user AND u.id_user = s.id_user AND s.id_user = $1`,[id],)).rows;
     if (seller.length === 0) {
       return null;
     }
     return seller;
   }
+
+    // Permet de recuperer un id d'un vendeur de la base des données par le moyen d'un id, sert pour une verification dans UserPage//
+    async getIdStore(id) {
+      const seller = await (  await db.query(`SELECT DISTINCT s.id_user FROM projetWeb.seller s WHERE s.id_user = $1`,[id],)).rows;
+      if (seller.length === 0) {
+        return null;
+      }
+      return seller;
+    }
 
   async updateUser(body) {
     await db.query(

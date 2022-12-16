@@ -4,6 +4,7 @@ import { shoppingCart } from '../../utils/utilsCart';
 import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/logo.png';
 import { createOrder } from '../../utils/utilsOrders';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 
 
 
@@ -99,6 +100,7 @@ const formRegister = `
 
 const RegisterPage = () => {
   clearPage();
+  setActiveLink('registerPage');
   const main = document.querySelector('main');
   main.innerHTML = formRegister;
 
@@ -171,6 +173,7 @@ const RegisterPage = () => {
       }
       shoppingCart(email);
       createOrder(email);
+      clearActive();
       Navigate('/login');
       /* const user = await reponse.json(); */
     } catch (err) {

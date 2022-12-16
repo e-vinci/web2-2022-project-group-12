@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
+import { clearActive} from '../../utils/activeLink';
+import { setUserIcon } from '../../utils/userIcon';
+import Navbar from '../Navbar/Navbar';
 
 // HTML CODE
 const html = `
@@ -15,6 +18,9 @@ const html = `
 
 const CategoryPage = async () => {
   clearPage();
+  clearActive();
+  setUserIcon('extUserPage');
+  Navbar();
   const main = document.querySelector('main');
   main.innerHTML = html;
   const id = window.location.search;
@@ -81,6 +87,7 @@ const CategoryPage = async () => {
       e.preventDefault();
       const ida = a[j].name;
       // eslint-disable-next-line prefer-template
+      clearActive();
       Navigate('/product?=', ida);
     });
   } 
@@ -94,6 +101,7 @@ const CategoryPage = async () => {
       const idshop = shop[j].name;
       console.log('ID STORENAME', idshop);
       // eslint-disable-next-line prefer-template
+      clearActive();
       Navigate('/store?=', idshop);
     });
   } 

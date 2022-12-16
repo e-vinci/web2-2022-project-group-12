@@ -25,13 +25,21 @@ router.post('/login', async (req, res) => {
   const { password } = req.body;
   const user = await userModel.doIExist(email, password);
 
-  if (user === null) return console.error("Le user n'existe pas");
+  if (user === null) return null;
   return res.json(user);
 });
 
 // Permet de récupérer un vendeur en particulier avec id
+router.get('/getStore/:id', async (req, res) => {
+  const result = await userModel.getStore(req.params.id);
+  if (result === null) return null;
+  return res.json(result);
+});
+
+// Permet de récupérer un vendeur en particulier avec un id qui pourrait etre seulment un user
+// sert pour une verification dans userPage
 router.get('/getIdStore/:id', async (req, res) => {
-  const result = await userModel.getSeller(req.params.id);
+  const result = await userModel.getIdStore(req.params.id);
   if (result === null) return null;
   return res.json(result);
 });

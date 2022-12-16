@@ -1,8 +1,11 @@
 import { loadScript } from "@paypal/paypal-js";
+import { setActiveLink } from "../../utils/activeLink";
 import { getAuthenticatedUser } from "../../utils/auths";
 import { clearPage } from "../../utils/render";
+import { setUserIcon } from "../../utils/userIcon";
 import { getCartTotal, shoppingCart } from "../../utils/utilsCart";
 import { addOrder } from "../../utils/utilsOrders";
+import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
 
 const html = `
@@ -14,7 +17,10 @@ const html = `
 
 const PaypalPage = () =>{
     clearPage();
-    
+    setActiveLink('userPage');
+
+    setUserIcon('extUserPage');
+    Navbar();
     const main = document.querySelector('main');
     main.innerHTML = html;
 
