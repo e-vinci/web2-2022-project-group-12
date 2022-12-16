@@ -23,8 +23,7 @@ const formNewProduct = `
 
             <div class="mb-3 mt-3">
                 <label for="description">Product Description :</label>
-                <textarea class="form-control" id="description" placeholder="Enter the product description"
-                    name="description" rows="5"></textarea>
+                <textarea class="form-control" id="description" placeholder="Enter the product description" name="description" rows="5"></textarea>
             </div>
 
             <div class="mb-3 mt-3">
