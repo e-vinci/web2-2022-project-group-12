@@ -9,6 +9,7 @@ const productModel = new Product();
 router.get('/getAllBySeller/:id', async(req,res)=>{
   const result = await productModel.getAllProductBySeller(req.params.id);
   if(!result) res.sendStatus(404).end();
+  console.log('truc results',result);
   res.send(result);
 })
 

@@ -59,6 +59,7 @@ class Product {
         [idSeller],
       )
     ).rows;
+    console.log(product, 'truc getAll');
     return product;
   }
 
