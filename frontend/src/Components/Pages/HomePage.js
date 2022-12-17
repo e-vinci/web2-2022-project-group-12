@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
-import { setActiveLink } from '../../utils/activeLink';
+import {setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
+import { importAll } from '../../utils/utilsImages';
+import ProductLibrary from '../../Domain/ProductLibrary';
+import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-import { showProducts } from './exportProducts';
 
 
 // HTML CODE
@@ -63,6 +64,7 @@ const html = `
 
 // HOME PAGE 
 const HomePage = async () => {
+  
   clearPage();
   setActiveLink('homePage');
   setUserIcon('extUserPage');
@@ -71,7 +73,6 @@ const HomePage = async () => {
   const main = document.querySelector('main');
   
   main.innerHTML = html;
-  // eslint-disable-next-line no-useless-escape
   const imageCaroussel = importAll(require.context('../../assets/caroussel', true, /\.png$/));
 
   // Construction Caroussel 
@@ -111,61 +112,15 @@ const HomePage = async () => {
   }
   carouselButtons.innerHTML = items;
 
-  // Fetch pour aller chercher tous les produits dans la db
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/selectLastProduct`, options);
-    const reponse = await fetch(`/api/products/selectLastProduct`, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-
-    const product = await reponse.json();
-    await showProducts(product);
-
-    
-  } catch (err) {
-    console.error('error: ', err);
-  }
-
-
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // const reponse = await fetch('${process.env.API_BASE_URL}/api/categories/getAllCategories', options);
-    const reponse = await fetch('/api/categories/getAllCategories', options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-
-    const category = await reponse.json();
-    await showCategories(category);
-
-    }
-   catch (err) {
-    console.error('error: ', err);
-  }
-
+  ProductLibrary.prototype.showLastProduct();
+  const cat = await ProductLibrary.prototype.fetchCategories();
+  await showCategories(cat);
   Footer();
 };
 
-
-
-async function showCategories(categories){
+async function showCategories(categories) {
   
+  console.log(categories)
   const category = document.getElementById('categories')
   let items =``;
   let i = 0;
@@ -196,15 +151,6 @@ async function showCategories(categories){
       // eslint-disable-next-line prefer-template
       Navigate('/category?=', idcat);
     });}
-  
- 
-
 }
-
-
-function importAll(r) {
-  return r.keys().map(r);
-}
-
 
 export default HomePage;

@@ -3,7 +3,7 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
 import logoAsset from '../../assets/image0.png';
 import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
-import { setSearch } from '../../utils/utilsSearch';
+import ProductLibrary from '../../Domain/ProductLibrary';
 import Navigate from '../Router/Navigate';
 import { countProductCart } from '../../utils/utilsCart';
 import { clearPage } from '../../utils/render';
@@ -49,14 +49,10 @@ const Navbar = () => {
     </div>
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
             <div class="dropdown">
-                <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categories
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <a class="btn btn-secondary" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                <ul class="dropdown-menu" id="btnCategory">
+            
+
                 </ul>
             </div>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
@@ -81,7 +77,11 @@ const Navbar = () => {
     
     `;
     navbarWrapper.innerHTML = navbar;
-    
+
+    categoriesNavbar();
+    ProductLibrary.prototype.searchBar();
+
+
     if(active === 'homePage'){ // active home
         const activeD = document.getElementById('homePage');
         activeD.innerHTML += `
@@ -126,7 +126,7 @@ const Navbar = () => {
   } else {
     const totalProduct = countProductCart();
 
-    const navbar = `
+   const navbar = `
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a href="#" data-uri="/" class="text-decoration-none">
@@ -159,15 +159,7 @@ const Navbar = () => {
 
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
             <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+                
             </div>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
@@ -197,9 +189,17 @@ const Navbar = () => {
   `;
     navbarWrapper.innerHTML = navbar;
 
+    categoriesNavbar();
+    ProductLibrary.prototype.searchBar();
+
+    const userBtn = document.getElementById('user');
+    userBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      clearActive();
+      Navigate('/user?=', user.userId);
+    });
+
     
-
-
     if(active === 'homePage'){ // active home
         const activeD = document.getElementById('homePage');
         activeD.innerHTML += `
@@ -225,6 +225,8 @@ const Navbar = () => {
           <a id="user" class="nav-item nav-link"><i class="bi bi-person"></i></a>
       `;
     }
+
+
     // adds to icon thing
     if (active === 'userPage'){ // active user
         const activeD = document.getElementById('user');
@@ -253,56 +255,30 @@ const Navbar = () => {
       `;
     } 
 
-    const userBtn = document.getElementById('user');
-    userBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      clearActive();
-      Navigate('/user?=', user.userId);
-    });
-
-  } // fin else
+  } 
   
+}; 
 
-  const btnSearch = document.getElementById('searchbtn');
-  btnSearch.addEventListener('click', async (e) => {
+async function categoriesNavbar(){
+
+  const btnCategory = document.getElementById('btnCategory');
+  const allCategories = await ProductLibrary.prototype.fetchCategories();
+
+
+  btnCategory.addEventListener('click' , async (e) => {
+
     e.preventDefault();
-    // Récupération de toute les données avec les id
-    const data = document.getElementById('search').value;
+    let html = ``;
+    let i = 0;
+    while( i < allCategories.lengthg){
+    const nameCat = allCategories[i].name;
 
-    if (data === undefined) {
-      console.error('Search vide, ignorer l action');
-    } else {
-      try {
-        const options = {
-          method: 'GET', // *GET, POST, PUT, DELETE, etc.
-
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        console.log(JSON.stringify(data));
-        // eslint-disable-next-line prefer-template
-        // const results = await fetch(`${process.env.API_BASE_URL}/api/products/search/` + data, options);
-        // eslint-disable-next-line prefer-template
-        const results = await fetch(`/api/products/search/` + data, options);
-
-        const products = await results.json();
-        console.log(products);
-
-        setSearch(products);
-
-        if (!results.ok) {
-          throw new Error(`fetch error : ${results.status}${results.statusText}`);
-        }
-        clearActive();
-        Navigate('/search');
-        /* const user = await reponse.json(); */
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('error: ', err);
-      }
-    } // fin else
-  }); // fin eventListener();
-}; // fin page
-
+    html += `
+    <li><a class="dropdown-item categoryName " href="#">${nameCat}</a></li>
+    `
+    i += 1;
+    }
+    btnCategory.innerHTML = html;
+});
+}
 export default Navbar;

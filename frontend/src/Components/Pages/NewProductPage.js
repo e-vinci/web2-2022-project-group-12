@@ -5,7 +5,8 @@ import { getAuthenticatedUser } from '../../utils/auths';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
 import { setActiveLink } from '../../utils/activeLink';
-import { renderPopUp } from '../../utils/utilsForm';
+import ProductLibrary from '../../Domain/ProductLibrary';
+
 
 const NewProductPage = () => {
   clearPage();
@@ -64,105 +65,9 @@ const NewProductPage = () => {
     `;
     const main = document.querySelector('main');
     main.innerHTML = formNewProduct;
+    ProductLibrary.prototype.newProduct();
 
-    getCategories()
-
-    const btn = document.getElementById('addProduct');
-
-    // Ajout du Produit aprés avoir appuyé sur le bouton submit
-    btn.addEventListener('click', async (e) => {
-      e.preventDefault();
-
-      // Récupération de toute les données avec les id
-      const productname = document.getElementById('productName').value;
-      const description = document.getElementById('description').value;
-      const price = document.getElementById('price').value;
-      const color = document.getElementById('color').value;
-
-      const idUser = user.userId;
-
-      const selectElement = document.getElementById('categories');
-      const idCategory = selectElement.value;
-
-      if (
-        productname === undefined ||
-        description === undefined ||
-        price === undefined ||
-        color === undefined ||
-        idCategory === undefined
-      ) {
-        renderPopUp();
-      }
-
-      // Création d'un nouvel objet json
-      const NewProduct = {
-        productname,
-        description,
-        price,
-        color,
-        idUser,
-        idCategory,
-      };
-
-      try {
-        const options = {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          body: JSON.stringify(NewProduct),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-
-        // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/add`, options);
-        const reponse = await fetch(`/api/products/add`, options);
-
-        if (!reponse.ok) {
-          throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-        }
-        const idProduct = await reponse.json();
-
-        Navigate('/product?id_product=', idProduct);
-        /* const user = await reponse.json(); */
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('error: ', err);
-      }
-    });
   }
 };
-
-async function getCategories() {
-  let category;
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // category = await fetch('${process.env.API_BASE_URL}/api/categories/getAllCategories', options);
-    category = await fetch('/api/categories/getAllCategories', options);
-
-    if (!category.ok) {
-      throw new Error(`fetch error : ${category.status}${category.statusText}`);
-    }
-
-    category = await category.json();
-  } catch (err) {
-    console.error('error: ', err);
-  }
-
-  const categoryHtml = document.getElementById('categories');
-  console.log(category, 'category name');
-  category.forEach((categorie) => {
-    const categoryName = categorie.name;
-    const categoryId = categorie.id_category;
-
-    categoryHtml.innerHTML += `
-       <option value="${categoryId}">${categoryName}</option>
-      `;
-  });
-  }
 
 export default NewProductPage;

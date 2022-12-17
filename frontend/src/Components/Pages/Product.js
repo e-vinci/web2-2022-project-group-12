@@ -79,6 +79,7 @@ const ProductPage = async () => {
           
 
   <section class="section" id="product">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                   <div class="left-images">
@@ -103,6 +104,7 @@ const ProductPage = async () => {
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <hr class="my-0" />
       <div id="loginStatus">

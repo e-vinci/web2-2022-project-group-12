@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigate from '../Router/Navigate';
 import { clearActive } from '../../utils/activeLink';
 import { showProducts } from './exportProducts';
+import SellerLibrary from '../../Domain/SellerLibrary';
 
 // Calling the page to render
 async function SellerPage(user) {
@@ -33,35 +34,20 @@ async function SellerPage(user) {
       clearActive();
       Navigate('/addProduct');
     });
-    const products = await getAllBySeller(user.userId);
+    const btnUpdate = document.getElementById('btnUpdate');
+    btnUpdate.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearActive();
+      Navigate('/update');
+    });
+
+    const products = await SellerLibrary.prototype.getAllBySeller();
     showProducts(products);
-  } // fin else
+  } 
 
-} // fin page
+}; 
 
-async function getAllBySeller(idSeller) {
-  let products;
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
 
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + idSeller, options);
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/products/getAllBySeller/` + idSeller, options);
 
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    products = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return products;
-}
 
 export default SellerPage;

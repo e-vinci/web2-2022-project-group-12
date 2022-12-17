@@ -1,13 +1,10 @@
-import { setAuthenticatedUser } from '../../utils/auths';
+import { setActiveLink } from '../../utils/activeLink';
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from '../Navbar/Navbar';
-import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/image0.png';
-import { shoppingCart } from '../../utils/utilsCart';
-import { createOrder } from '../../utils/utilsOrders';
-import { renderPopUp } from '../../utils/utilsForm';
-import { clearActive, setActiveLink } from '../../utils/activeLink';
+import UserLibrary from '../../Domain/UserLibrary';
+import Navbar from '../Navbar/Navbar';
+
 
 const formLogin = `
   
@@ -75,77 +72,6 @@ const LoginPage = () => {
   Navbar();
   const main = document.querySelector('main');
   main.innerHTML = formLogin;
-
-  const btn = document.getElementById('login');
-  
-  const btnRegister= document.getElementById('register');
-  
-  btnRegister.addEventListener('click', async (e) => {
-    e.preventDefault();
-    clearActive();
-    Navigate('/register');
-  });
-
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('pwd').value;
-
-    const newData = {
-      "email": email,
-      "password": password
-    };
-
-    try {
-      const options = {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify(newData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
-      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/login`, options);
-      const reponse = await fetch(`/api/users/login`, options);
-      
-      if (!reponse.ok) {
-        renderPopUp();
-        throw new Error(
-          // eslint-disable-next-line no-irregular-whitespace
-          `fetch error : ${reponse.status} : ${reponse.statusText}`,
-        );
-      }
-      
-      const user = await reponse.json();
-      
-      // If user has no cart, one is created
-      let userCart = "shoppingCart";
-         userCart += user.email;
-        if ( await localStorage.getItem(userCart) == null){
-          await shoppingCart(user.email);
-        }
-
-      // If user has no order history, creates one
-      let userOrder = "orders";
-      userOrder += user.email;
-      if ( await localStorage.getItem(userOrder) == null){
-        await createOrder(user.email);
-       }
-
-      // sets the Authenticated user to the actual user
-      await setAuthenticatedUser(user);
-
-      // reloads Navbar (display is different when user logged in)
-      await Navbar();
-
-      // navigte to homePage
-      clearActive();
-      Navigate('/');
-    } catch (err) {
-      // eslint-disable-next-line
-      console.error('error: ', err);
-    }
-});
-  
+  UserLibrary.prototype.login();
 };
 export default LoginPage;

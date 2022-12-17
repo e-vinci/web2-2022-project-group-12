@@ -3,9 +3,9 @@ import 'animate.css';
 import { addItemToCart } from '../../utils/utilsCart';
 import Navbar from '../Navbar/Navbar';
 import { clearPage } from '../../utils/render';
-import { setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
-import { showProducts } from './exportProducts';
+import { setActiveLink } from '../../utils/activeLink';
+import ProductLibrary from '../../Domain/ProductLibrary';
 
 const AllProductPage = async () => {
   clearPage();
@@ -25,27 +25,8 @@ const AllProductPage = async () => {
   const main = document.querySelector('main');
   main.innerHTML = html;
 
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAll`, options);
-    const reponse = await fetch(`/api/products/getAll`, options);
-
-    console.log("coucou2");
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-
-    const product = await reponse.json();
-    await showProducts(product);
-
-    const btn = document.getElementsByName('btnAddtoCart');
+  ProductLibrary.prototype.showProduct();
+  const btn = document.getElementsByName('btnAddtoCart');
 
     for (let y = 0; y < btn.length; y += 1) {
       btn[y].addEventListener('click', async (e) => {
@@ -55,9 +36,6 @@ const AllProductPage = async () => {
         Navbar();
       });
     }
-  } catch (err) {
-    console.error('error: ', err);
-  }
 };
 
 
