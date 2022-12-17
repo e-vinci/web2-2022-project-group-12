@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import { setActiveLink } from '../../utils/activeLink';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
@@ -6,18 +7,19 @@ import { countProductCart, getCartTotal, loadCart, removeItemFromCart } from '..
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
+// HTML 
 const html = `
-<div class="col-md-4 order-md-2 mb-4 mx-auto" style="margin-top: 5%">
-  <h4 class="d-flex justify-content-between align-items-center mb-3">
-    <span class="text-muted">Your cart</span>
-    <span class="badge badge-secondary badge-pill">3</span>
-  </h4>
-  <ul class="list-group mb-3" id="listItem">
+    <div class="col-md-4 order-md-2 mb-4 mx-auto" style="margin-top: 5%">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">3</span>
+        </h4>
+        <ul class="list-group mb-3" id="listItem">
   
-  </ul>
+        </ul>
 
-  <button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
-</div>
+        <button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
+    </div>
 `;
 
 const MyCartPage = () => {
@@ -40,7 +42,7 @@ const MyCartPage = () => {
 
     console.log('le panier est', cart.objects);
 
-    // eslint-disable-next-line prefer-destructuring
+  
     const length = cart.objects.length;
     const id = document.getElementById('listItem');
     console.log('lenght : ', length);
@@ -70,23 +72,23 @@ const MyCartPage = () => {
 
     const btnToArticle = document.getElementsByClassName('buttonToItem');
     for (let y = 0; y < btnToArticle.length; y += 1) {
-      // eslint-disable-next-line no-loop-func
+    
       btnToArticle[y].addEventListener('click', async (e) => {
         e.preventDefault();
         console.log('Je suis dans le event listener');
-        // eslint-disable-next-line no-console
+        
         Navigate('/product?id_product=', cart.objects[y].id);
       });
     }
 
     const btn = document.getElementsByClassName('deleteArticleButton');
     for (let y = 0; y < btn.length; y += 1) {
-      // eslint-disable-next-line no-loop-func
+      
       btn[y].addEventListener('click', async (e) => {
         e.preventDefault();
         console.log('Je suis dans le event listener');
 
-        // eslint-disable-next-line no-console
+        
         removeItemFromCart(cart.objects[y].name);
         const nombre = document.getElementById('numberOfArticles');
         const newNombre = countProductCart();
@@ -97,9 +99,9 @@ const MyCartPage = () => {
     const btnCheckout = document.getElementById('checkoutButton');
     btnCheckout.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log('Je suis dans le event listener');
+      
 
-      // eslint-disable-next-line no-console
+      
 
       MyCartPage();
       Navigate('/checkout');

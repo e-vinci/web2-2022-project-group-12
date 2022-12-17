@@ -1,15 +1,11 @@
 import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { shoppingCart } from '../../utils/utilsCart';
-import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/image0.png';
-import { createOrder } from '../../utils/utilsOrders';
-import { clearActive, setActiveLink } from '../../utils/activeLink';
+import UserLibrary from '../../Domain/UserLibrary';
+import { setActiveLink } from '../../utils/activeLink';
 
 
-
-
-// Fromulaire Bootstrap
+// Register form 
 const formRegister = `
 <section class="h-100 gradient-form" style="background-color: #eee; margin-bottom : 300px">
         <div class="container py-4 h-100">
@@ -105,96 +101,14 @@ const formRegister = `
   `;
 
 const RegisterPage = () => {
+  
   clearPage();
   setActiveLink('registerPage');
   const main = document.querySelector('main');
   main.innerHTML = formRegister;
+  // Function register
+  UserLibrary.prototype.register();
 
-  const btn = document.getElementById('register');
-
-  const btnLogin = document.getElementById('login');
-  
-  btnLogin.addEventListener('click', async (e) => {
-    e.preventDefault();
-    clearActive();
-    Navigate('/login');
-  });
-
-  // Ajout de l'utilisateur aprés avoir appuyé sur le bouton submit
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-
-    // Récupération de toute les données avec les id
-    const lastname = document.getElementById('nom').value;
-    const firstname = document.getElementById('prenom').value;
-    const email = document.getElementById('email').value;
-    const homme = document.getElementById('homme').checked;
-    const femme = document.getElementById('femme').checked;
-    const autre = document.getElementById('autre').checked;
-    const password = document.getElementById('mdp').value;
-    const passwordConfirmed = document.getElementById('mdp2').value;
-    let sex;
-
-    // vérification des checkbox
-
-    if (homme === true) {
-      sex = 'M';
-    }
-    if (femme === true) {
-      sex = 'F';
-    }
-    if (autre === true) {
-      sex = 'A';
-    }
-
-    if (
-      lastname.value === undefined ||
-      firstname.value === undefined ||
-      email.value === undefined ||
-      password.value === undefined ||
-      passwordConfirmed.value === undefined
-    ) {
-      console.error('Please, complete all the forms');
-    }
-
-    if (password !== passwordConfirmed) {
-      console.error("Passwords don't match");
-    }
-
-    // Création d'un nouvel objet json
-    const newData = {
-      lastname,
-      firstname,
-      email,
-      password,
-      passwordConfirmed,
-      sex,
-    };
-
-    try {
-      const options = {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify(newData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
-      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/register`, options);
-
-      if (!reponse.ok) {
-        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-      }
-      shoppingCart(email);
-      createOrder(email);
-      clearActive();
-      Navigate('/login');
-      /* const user = await reponse.json(); */
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('error: ', err);
-    }
-  });
 };
 
 export default RegisterPage;

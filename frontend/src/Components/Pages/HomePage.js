@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-import { addItemToCart, countProductCart } from '../../utils/utilsCart';
-import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
-import { clearActive, setActiveLink } from '../../utils/activeLink';
+import {setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
+import { importAll } from '../../utils/utilsImages';
+import ProductLibrary from '../../Domain/ProductLibrary';
+import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 
@@ -62,6 +63,7 @@ const html = `
 
 // HOME PAGE 
 const HomePage = async () => {
+  
   clearPage();
   setActiveLink('homePage');
   setUserIcon('extUserPage');
@@ -70,7 +72,6 @@ const HomePage = async () => {
   const main = document.querySelector('main');
   
   main.innerHTML = html;
-  // eslint-disable-next-line no-useless-escape
   const imageCaroussel = importAll(require.context('../../assets/caroussel', true, /\.png$/));
 
   // Construction Caroussel 
@@ -110,157 +111,15 @@ const HomePage = async () => {
   }
   carouselButtons.innerHTML = items;
 
-  // Fetch pour aller chercher tous les produits dans la db
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/selectLastProduct`, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-
-    const product = await reponse.json();
-    await showLastProduct(product);
-
-    const btn = document.getElementsByName('btnAddtoCart');
-
-    for (let y = 0; y < btn.length; y += 1) {
-      btn[y].addEventListener('click', async (e) => {
-        e.preventDefault();
-        showSnackBar();
-        addItemToCart(product[y].id_product ,product[y].name, product[y].price, 1);
-        const nombre = document.getElementById('numberOfArticles');
-        const newNombre = countProductCart();
-        nombre.innerHTML = newNombre;
-
-      });
-    }
-  } catch (err) {
-    console.error('error: ', err);
-  }
-
-
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const reponse = await fetch('/api/categories/getAllCategories', options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-
-    const category = await reponse.json();
-    await showCategories(category);
-
-    }
-   catch (err) {
-    console.error('error: ', err);
-  }
-
+  ProductLibrary.prototype.showLastProduct();
+  const cat = await ProductLibrary.prototype.fetchCategories();
+  await showCategories(cat);
   Footer();
 };
 
-
-// Affiche les 5 derniers produits de la base de donnée 
-async function showLastProduct(product) {
+async function showCategories(categories) {
   
-  const cardProduct = document.getElementById('imgProduct');
-  let items = ``;
-  let i = 0;
-
-  while (i <  product.length) {
-
-    const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
-
-    const id = product[i].id_product;
-    let storeName;
-    storeName = product[i].store_name;
-
-    if(storeName === undefined){
-      storeName = "Pas de vendeur";
-    }
-    const nameProduct = product[i].name;
-    const priceProduct = product[i].price;
-    const {category} = product[i];
-    const categoryName = {category}.name;
-    console.log(product[i].id_category)
-    const categoryId = product[i].id_category;
-
-    items += `
-      <div class="col-md-8 col-lg-6 col-xl-4">
-          <div class="card" style="border-radius: 15px;">
-              <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-                  <img src="${imageProduit[i]}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid" alt="Laptop" />
-              </div>
-
-          <div class="card-body pb-0">
-              <div class="d-flex justify-content-between">
-                    <div>
-                        <p><a href="#!" class="text-dark productName" name="${id}">${nameProduct}</a></p>
-                        <p class="small text-muted"> ${storeName}</p>
-                    </div>
-                    <div>
-                        <p class="small text-muted"><a href="#" class="text-dark categoryName" name="${categoryId}">${categoryName}</a></p>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-0" />
-            <div class="card-body pb-0">
-                <div class="d-flex justify-content-between">
-                    <p class="text-dark">${priceProduct}€</p>
-                </div>
-            </div>
-            <hr class="my-0" />
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                    <a href="#!" class="text-dark fw-bold">Cancel</a>
-                    <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-  `;
-    i += 1;
-  }
-  cardProduct.innerHTML = items;
-
-  const productName = document.getElementsByClassName('productName');
-  for (let j = 0; j < product.length; j += 1) {
-    productName[j].addEventListener('click', async (e) => {
-      e.preventDefault();
-      const id = productName[j].name;
-      // eslint-disable-next-line< prefer-template
-      clearActive();
-      Navigate('/product?=', id);
-    });
-  }
-
-  
-  const cat = document.getElementsByClassName('categoryName');
-  for (let j = 0; j < cat.length; j += 1) {
-    cat[j].addEventListener('click', async (e) => {
-      e.preventDefault();
-      const idcat = cat[j].name;
-      // eslint-disable-next-line prefer-template
-      clearActive();
-      Navigate('/category?=', idcat);
-    });}
-}; 
-
-
-async function showCategories(categories){
-  
+  console.log(categories)
   const category = document.getElementById('categories')
   let items =``;
   let i = 0;
@@ -291,28 +150,9 @@ async function showCategories(categories){
       // eslint-disable-next-line prefer-template
       Navigate('/category?=', idcat);
     });}
-  
- 
-
 }
 
 
 
-
-
-function importAll(r) {
-  return r.keys().map(r);
-}
-
-function showSnackBar() {
-  // Get the snackbar DIV
-  const x = document.getElementById("snackbar");
-
-  // Add the "show" class to DIV
-  x.className = "show";
-
-  // After 3 seconds, remove the show class from DIV
-  setTimeout(()=> { x.className = x.className.replace("show", ""); }, 3000);
-}
 
 export default HomePage;

@@ -1,32 +1,42 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
+import SellerLibrary from '../../Domain/SellerLibrary';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
+import { importAll } from '../../utils/utilsImages';
 import Navbar from '../Navbar/Navbar';
 
-let showProductBool = true;
-let html = `
-<div class="text-center">
-<button type="button" id="btnUpdate" class="btn btn-dark position-relative">
-  Edit your profile <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
-</button>
-<button type="button" id="btnAdd" class="btn btn-dark position-relative">
- Add product <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
-</button>
-</div>
-<div style="margin-left: 920px">
-  <h1>Hello<div id="firstnameDiv"></div></h1>
-</div>
-</div>
-<div class="text-center">
-<h3 class="display-1">Products you're selling: </h3>
-</div>
 
-<div class="container py-5">
-<div class="row justify-content" id="MyProduct"></div>
-</div>
+let showProductBool = true;
+
+// HTML 
+let html = `
+  <div class="text-center">
+  
+      <button type="button" id="btnUpdate" class="btn btn-dark position-relative">
+        Edit your profile <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
+      </button>
+
+    <button type="button" id="btnAdd" class="btn btn-dark position-relative">
+      Add product <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
+    </button>
+
+  </div>
+
+  <div style="margin-left: 920px">
+    <h1>Hello<div id="firstnameDiv"></div></h1>
+  </div>
+
+  
+  <div class="text-center">
+    <h3 class="display-1">Products you're selling: </h3>
+  </div>
+
+  <div class="container py-5">
+  <div class="row justify-content" id="MyProduct"></div>
+  </div>
     
 `;
 
@@ -40,17 +50,20 @@ const SellerPage = async () => {
   const idUser = user.userId;
   const { email } = user;
   console.log(email);
-  const products = await getAllBySeller(idUser);
+  const products = SellerLibrary.prototype.getAllBySeller(idUser);
+
   if (showProductBool) {
     await showProduct(products);
-    console.log("lalalalalallalala");
     showProductBool = false;
   }
+
   if (user === undefined) {
     clearActive();
     clearActive();
     Navigate('/login');
-  } else {
+  } 
+  
+  else {
     console.log("ceci est l'id", idUser);
     const main = document.querySelector('main');
     main.innerHTML = html;
@@ -68,45 +81,22 @@ const SellerPage = async () => {
     });
 
     console.log('test product undef 2:', products);
-    // Affichage des produits
-  } // fin else
+   
+  } 
 
-}; // fin page
+}; 
 
-async function getAllBySeller(idSeller) {
-  let products;
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + idSeller, options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    products = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return products;
-}
+
 
 async function showProduct(product) {
 
   const user = getAuthenticatedUser();
   const idUser = user.userId;
-  console.log("ceci est l'id (show product)", idUser);
-
-  const nbImage = await countAllProductBySeller(idUser);
-  console.log('nombre article :', nbImage);
+ 
+  const nbImage = SellerLibrary.prototype.countAllProductBySeller(idUser);
+  
   let items = ``;
   let i = 0;
-
-  console.log('test product undef:', product);
 
   while (i < nbImage) {
     const imageProduit = importAll(require.context('../../assets/product', true, /\.png$/));
@@ -159,7 +149,8 @@ async function showProduct(product) {
   const lenght = a.length;
 
 
-  // permet le render vers la page du produit cliqué
+  // allows rendering to the page of the clicked product
+
   for (let j = 0; j < lenght; j += 1) {
     a[j].addEventListener('click', async (e) => {
       e.preventDefault();
@@ -170,7 +161,8 @@ async function showProduct(product) {
     });
   }
 
-  // permet le render vers la page de la categorie cliqué
+  // allows rendering to the page of the clicked category
+
   const cat = document.getElementsByClassName('categoryName');
   const lengthCategories = cat.length;
   for (let j = 0; j < lengthCategories; j += 1) {
@@ -181,41 +173,6 @@ async function showProduct(product) {
       Navigate('/category?=', idcat);
     });
   } 
-}
-
-async function countAllProductBySeller(id) {
-  let number;
-
-  const Data = {
-    id,
-  };
-
-  try {
-    const options = {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify(Data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/countAllBySeller`, options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    number = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  console.log('number: ', number);
-
-  return number;
-}
-
-function importAll(r) {
-  return r.keys().map(r);
 }
 
 export default SellerPage;

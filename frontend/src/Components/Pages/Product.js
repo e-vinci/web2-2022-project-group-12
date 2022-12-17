@@ -34,51 +34,6 @@ const ProductPage = async () => {
 
   // html de la page
   const html = `
-  <div class="container">
-  <div class="row" style="margin-top:30px">
-            <div class="col-md-2 order-md-1">
-              <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                  data-mdb-ripple-color="light">
-                  <img src="INSERER imageUrl ici apres" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                      class="img-fluid" alt="Laptop" />
-                  <a href="#!">
-                      <div class="mask"></div>
-                  </a>
-              </div>
-              </div>
-              </div>
-              <div class="row" style="margin-top:30px">
-            <div class="col-md-2 order-md-2">
-              <div class="card-body pb-0">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p><a href="#!" class="text-dark aProductName" name="${productId}">${productName}</a></p>
-                          <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">by ${storeName}</a></p>
-                      </div>
-                      <div id="categoria">
-                          <p class="small text-muted"><a href="#!" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
-                      </div>
-                  </div>
-              </div>
-              <hr class="my-0" />
-              <div class="card-body pb-0">
-                  <div class="d-flex justify-content-between">
-                      <p class="text-dark">${productPrice}€</p>
-                  </div>
-              </div>
-              <div class="card-body pb-0">
-                  <div class="d-flex justify-content-between">
-                      <p class="text-dark">${productDescription}</p>
-                      <div id="cartFeature">
-                        
-                      </div>
-                  </div>
-              </div>
-              
-              </div>
-              </div>
-          
-
   <section class="section" id="product">
         <div class="container">
             <div class="row">
@@ -97,6 +52,9 @@ const ProductPage = async () => {
                     <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">Store Name : ${storeName}</a></p>
                     <div class="quote">
                         <i class="fa fa-quote-left"></i><p>${productDescription}</p>
+                        <div id="cartFeature">
+                        
+                      </div>
                     </div>
                     <div class="total">
                     <h4>ADD TO CART</h4>
@@ -155,12 +113,6 @@ const ProductPage = async () => {
     cartDiv.innerHTML = `
       <button type="button" id="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
     `;
-    const btn = document.getElementById('btnAddtoCart');
-
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      addItemToCart(productId, product.name, product.price, 1);
-    });
 
     loginStatus.innerHTML += `
     <hr class="my-0" />
