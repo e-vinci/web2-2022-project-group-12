@@ -8,7 +8,6 @@ import Navbar from '../Navbar/Navbar';
 
 const html = `
 <form style="margin-top:30px">
-        <div class="container mt-3">
             <h2>Store</h2>
             <div class="mb-3 mt-3">
                 <label for="name">Name your store!</label>
@@ -48,7 +47,6 @@ const html = `
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" id="sell">Start selling!</button>
-        </div>
     </form>
 `;
 
@@ -104,7 +102,9 @@ const BecomeSeller = () => {
           },
         };
         console.log("logloglog");
-        const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/becomeSeller`, options);
+        // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/becomeSeller`, options);
+        const reponse = await fetch(`/api/users/becomeSeller`, options);
+
         console.log("logfgfdgfdgdgloglog");
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);

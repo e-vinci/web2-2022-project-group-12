@@ -25,7 +25,6 @@ const CheckoutPage = () => {
   const email = user.email;
 
   const html = `
-  <div class="container">
         <div class="row">
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3" style="margin-top : 30px">Nearly there...</h4>
@@ -102,7 +101,6 @@ const CheckoutPage = () => {
           <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
        </div>
        <div id="snackbar">Hep Hep Hep, tous les champs sont requis !</div>
-    </div>
     `;
 
   if (user === undefined) {

@@ -5,51 +5,7 @@ import { getAuthenticatedUser } from '../../utils/auths';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
 import { setActiveLink } from '../../utils/activeLink';
-
-
-// formulaire NewProduct
-const formNewProduct = `
-    <div class="">
-        <h2>Add a product</h2>
-    </div>
-    <form>
-        <div class="container mt-3">
-
-            <div class="mb-3 mt-3">
-                <label for="name">Product Name :</label>
-                <input type="text" class="form-control" id="productName" placeholder="Enter the product name"
-                    name="productName">
-            </div>
-
-            <div class="mb-3 mt-3">
-                <label for="description">Product Description :</label>
-                <textarea class="form-control" id="description" placeholder="Enter the product description" name="description" rows="5"></textarea>
-            </div>
-
-            <div class="mb-3 mt-3">
-                <label for="email">Price :</label>
-                <input type="text" class="form-control" id="price" placeholder="Enter the price" name="price">
-            </div>
-
-            <div class="mb-3 mt-3">
-                <select class="form-select" aria-label="Default select example" id="select1">
-                    <option selected>Open this select menu</option>
-                    <option value="1">test</option>
-                    <option value="2">vetement</option>
-                    <option value="3">object</option>
-                </select>
-            </div>
-
-            <div class="mb-3 mt-3">
-                <label for="color">Color :</label>
-                <input type="color" class="form-control" id="color" placeholder="Enter the color of the product"
-                    name="color">
-            </div>
-
-            <button type="submit" class="btn btn-dark position-relative" id="addProduct">Add Product</button>
-        </div>
-    </form>
-`;
+import { renderPopUp } from '../../utils/utilsForm';
 
 const NewProductPage = () => {
   clearPage();
@@ -63,11 +19,55 @@ const NewProductPage = () => {
     Navigate('/login');
   } else {
     clearPage();
+
+    // formulaire NewProduct
+    const formNewProduct = `
+      <div class="">
+          <h2>Add a product</h2>
+      </div>
+      <form>
+
+              <div class="mb-3 mt-3">
+                  <label for="name">Product Name :</label>
+                  <input type="text" class="form-control" id="productName" placeholder="Enter the product name"
+                      name="productName">
+              </div>
+
+              <div class="mb-3 mt-3">
+                  <label for="description">Product Description :</label>
+                  <textarea class="form-control" id="description" placeholder="Enter the product description" name="description" rows="5"></textarea>
+              </div>
+
+              <div class="mb-3 mt-3">
+                  <label for="email">Price :</label>
+                  <input type="text" class="form-control" id="price" placeholder="Enter the price" name="price">
+              </div>
+
+              <div class="mb-3 mt-3">
+                  <label for="email">Category :</label>
+                  <select id="categories" class="form-select" aria-label="Default select example">
+                    <option selected disabled>Choose</option>
+
+                  </select>
+              </div>
+
+              <div class="mb-3 mt-3">
+                  <label for="color">Color :</label>
+                  <input type="color" class="form-control" id="color" placeholder="Enter the color of the product"
+                      name="color">
+              </div>
+
+              <button type="submit" class="btn btn-success rounded-pill position-relative" id="addProduct"><i class="bi bi-plus-lg"></i> Add</button>
+              <div id="snackbar">Product added!</div>
+      
+      </form>
+    `;
     const main = document.querySelector('main');
     main.innerHTML = formNewProduct;
 
-    const btn = document.getElementById('addProduct');
+    getCategories()
 
+    const btn = document.getElementById('addProduct');
 
     // Ajout du Produit aprés avoir appuyé sur le bouton submit
     btn.addEventListener('click', async (e) => {
@@ -79,13 +79,11 @@ const NewProductPage = () => {
       const price = document.getElementById('price').value;
       const color = document.getElementById('color').value;
 
-      const idUser= user.userId
+      const idUser = user.userId;
 
-      const selectElement = document.getElementById('select1')
+      const selectElement = document.getElementById('categories');
       const idCategory = selectElement.value;
 
-      console.log("les donnees", productname,description,price,color,idUser,idCategory)
-      console.log("les donnees .value", productname.value,description.value,price.value,color.value,idUser.value,idCategory.value)
       if (
         productname === undefined ||
         description === undefined ||
@@ -93,7 +91,7 @@ const NewProductPage = () => {
         color === undefined ||
         idCategory === undefined
       ) {
-        console.error('Veuillez compléter tous les champs');
+        renderPopUp();
       }
 
       // Création d'un nouvel objet json
@@ -103,10 +101,8 @@ const NewProductPage = () => {
         price,
         color,
         idUser,
-        idCategory
+        idCategory,
       };
-
-      
 
       try {
         const options = {
@@ -117,13 +113,13 @@ const NewProductPage = () => {
           },
         };
 
-        const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/add`, options);
+        // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/add`, options);
+        const reponse = await fetch(`/api/products/add`, options);
 
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
         const idProduct = await reponse.json();
-        
 
         Navigate('/product?id_product=', idProduct);
         /* const user = await reponse.json(); */
@@ -131,12 +127,42 @@ const NewProductPage = () => {
         // eslint-disable-next-line no-console
         console.error('error: ', err);
       }
-
-
-     
-
     });
   }
 };
+
+async function getCategories() {
+  let category;
+  try {
+    const options = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    // category = await fetch('${process.env.API_BASE_URL}/api/categories/getAllCategories', options);
+    category = await fetch('/api/categories/getAllCategories', options);
+
+    if (!category.ok) {
+      throw new Error(`fetch error : ${category.status}${category.statusText}`);
+    }
+
+    category = await category.json();
+  } catch (err) {
+    console.error('error: ', err);
+  }
+
+  const categoryHtml = document.getElementById('categories');
+  console.log(category, 'category name');
+  category.forEach((categorie) => {
+    const categoryName = categorie.name;
+    const categoryId = categorie.id_category;
+
+    categoryHtml.innerHTML += `
+       <option value="${categoryId}">${categoryName}</option>
+      `;
+  });
+  }
 
 export default NewProductPage;

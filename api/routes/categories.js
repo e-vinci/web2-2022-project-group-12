@@ -11,4 +11,10 @@ router.get('/getAllCategories', async (req, res) => {
     res.send(categories);
   });
 
+  // Compte tous les produits dans la db
+router.get('/getCategory/:id', async (req, res) => {
+  const categories = await categoryModel.getCategorie(req.params.id);
+  res.send(categories);
+});
+
 module.exports = router;

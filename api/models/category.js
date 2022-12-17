@@ -4,9 +4,8 @@ const db = require('../db/db');
 class Category {
   // Permet d'ajouter un nouvelle categorie dans la base des données //
   async addCategory(data) {
-    const category = await db.query(`INSERT INTO projetWeb.categories (name) VALUES($1, $2)`, [
+    const category = await db.query(`INSERT INTO projetWeb.categories (name) VALUES($1)`, [
       data.name,
-      data.sup,
     ]);
     return category;
   }
@@ -25,6 +24,11 @@ class Category {
       console.log("coucou c'est le nombre de categories" , countCategory);
       return countCategory;
 
+  }
+
+  async getCategorie(data){
+    const categorie = await (await db.query(`SELECT * FROM projetWeb.categories WHERE id_category = $1 `,[data])).rows;
+    return categorie[0];
   }
 
 }

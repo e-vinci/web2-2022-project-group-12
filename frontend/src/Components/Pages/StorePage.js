@@ -28,7 +28,6 @@ const StorePage = async () => {
     const lastName = store[0].last_name;
     const { email } = store[0];
     const profile = `
-    <div class="container">
         <div class="row" style="margin-top:30px">
             <div class="col-md-2 order-md-1">
                 <div class"image">
@@ -52,8 +51,6 @@ const StorePage = async () => {
         <div class="allStoreProducts" class="row justify-content" id="products">
         
         </div>
-
-  </div>
     `;
     main.innerHTML = profile;
     const products = await getAllStoreProducts(idStore);
@@ -146,8 +143,10 @@ const StorePage = async () => {
         },
       };
 
+      /// const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + id, options);
       // eslint-disable-next-line prefer-template
-      const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + id, options);
+      const reponse = await fetch(`/api/products/getAllBySeller/` + id, options);
+
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
@@ -172,7 +171,10 @@ const StorePage = async () => {
       };
 
       // eslint-disable-next-line prefer-template
-      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getStore/` + id, options);
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getStore/` + id, options);
+      // eslint-disable-next-line prefer-template
+      const reponse = await fetch(`/api/users/getStore/` + id, options);
+
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }

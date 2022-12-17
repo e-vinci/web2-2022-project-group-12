@@ -7,7 +7,6 @@ import Navigate from '../Router/Navigate';
 
 const html = `
         <form style="margin-top:30px">   
-          <div class="container mt-3">
               <div>
                   <h4>Your informations</h4>
                   <div class="mb-3 mt-3">
@@ -40,8 +39,7 @@ const html = `
 
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary" id="sell" >Start selling!</button>
-          </div> 
+              <button type="submit" class="btn btn-primary" id="sell" >Save settings</button>
         </form>
 `;
 
@@ -96,7 +94,10 @@ const UpdateUser = () => {
         },
       };
       console.log('logloglog');
-      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUser`, options);
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUser`, options);
+
+      const reponse = await fetch(`/api/users/updateUser`, options);
+
       console.log('logfgfdgfdgdgloglog: ', reponse);
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);

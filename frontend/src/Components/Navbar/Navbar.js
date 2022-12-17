@@ -39,7 +39,7 @@ const Navbar = () => {
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products" id="search">
                     <div class="input-group-append">
-                        <button class="input-group-text bg-transparent text-primary" id="searchbtn">
+                        <button class="input-group-text bg-transparent  loupe" id="searchbtn">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
@@ -47,7 +47,6 @@ const Navbar = () => {
             </form>
         </div>
     </div>
-    <div class="container-fluid mb-5">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
             <div class="dropdown">
                 <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
@@ -79,7 +78,7 @@ const Navbar = () => {
                 </div>
             </div>
         </nav>
-    </div>
+    
     `;
     navbarWrapper.innerHTML = navbar;
     
@@ -141,7 +140,7 @@ const Navbar = () => {
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products" id="search">
                     <div class="input-group-append">
-                        <button class="input-group-text bg-transparent text-primary" id="searchbtn">
+                        <button class="input-group-text bg-transparent  loupe" id="searchbtn">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
@@ -149,7 +148,7 @@ const Navbar = () => {
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <a href="#" class="btn border" data-uri="/cart">
+            <a href="#" class="btn border loupe" data-uri="/cart">
                 <i class="bi bi-cart"></i>
                 <span id="numberOfArticles">${totalProduct}</span>
             </a>
@@ -283,7 +282,10 @@ const Navbar = () => {
         };
         console.log(JSON.stringify(data));
         // eslint-disable-next-line prefer-template
-        const results = await fetch(`${process.env.API_BASE_URL}/api/products/search/` + data, options);
+        // const results = await fetch(`${process.env.API_BASE_URL}/api/products/search/` + data, options);
+        // eslint-disable-next-line prefer-template
+        const results = await fetch(`/api/products/search/` + data, options);
+
         const products = await results.json();
         console.log(products);
 

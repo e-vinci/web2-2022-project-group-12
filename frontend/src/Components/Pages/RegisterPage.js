@@ -5,14 +5,13 @@ import Navigate from '../Router/Navigate';
 import logoAsset from '../../assets/image0.png';
 import { createOrder } from '../../utils/utilsOrders';
 import { clearActive, setActiveLink } from '../../utils/activeLink';
+import Navbar from '../Navbar/Navbar';
 
 
 
 
 // Fromulaire Bootstrap
 const formRegister = `
-<section class="h-100 gradient-form" style="background-color: #eee; margin-bottom : 300px">
-        <div class="container py-4 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black">
@@ -100,13 +99,13 @@ const formRegister = `
                     </div>
                 </div>
             </div>           
-        </div>
-    </section>
+
   `;
 
 const RegisterPage = () => {
   clearPage();
   setActiveLink('registerPage');
+  Navbar();
   const main = document.querySelector('main');
   main.innerHTML = formRegister;
 
@@ -180,7 +179,8 @@ const RegisterPage = () => {
         },
       };
 
-      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/register`, options);
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/register`, options);
+      const reponse = await fetch(`/api/users/register`, options);
 
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);

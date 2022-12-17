@@ -11,8 +11,6 @@ import { clearActive, setActiveLink } from '../../utils/activeLink';
 
 const formLogin = `
   
-<section class="h-100 gradient-form" style="background-color: #eee; margin-bottom : 200px">
-        <div class="container py-5 h-100">
         <div id="snackbar">The email or the password is incorrect !</div>
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
@@ -66,8 +64,7 @@ const formLogin = `
                     </div>
                 </div>
             </div>           
-        </div>
-    </section>
+
     
 
 `;
@@ -75,6 +72,7 @@ const formLogin = `
 const LoginPage = () => {
   clearPage();
   setActiveLink('loginPage');
+  Navbar();
   const main = document.querySelector('main');
   main.innerHTML = formLogin;
 
@@ -107,8 +105,8 @@ const LoginPage = () => {
         },
       };
 
-      const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/login`, options);
-      
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/login`, options);
+      const reponse = await fetch(`/api/users/login`, options);
       
       if (!reponse.ok) {
         renderPopUp();
@@ -142,7 +140,7 @@ const LoginPage = () => {
 
       // navigte to homePage
       clearActive();
-      await Navigate('/');
+      Navigate('/');
     } catch (err) {
       // eslint-disable-next-line
       console.error('error: ', err);
