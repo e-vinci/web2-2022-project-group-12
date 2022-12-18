@@ -292,7 +292,7 @@ async function categoriesNavbar() {
     allCategories.forEach((element) => {
       const nameCat = element.name;
       const categoryId =element.id_category;
-
+      btnCategory.innerHTM =``;
       btnCategory.innerHTML += `
       <li><a class="dropdown-item categoryName " href="#" name="${categoryId}">${nameCat}</a></li>
       `;

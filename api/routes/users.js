@@ -97,6 +97,10 @@ router.post('/getUserEmail' , async(req,res)=>{
   return res.json(result);
 });
 
+router.post('/deleteAccount', async(req,res)=>{
+  const result = await userModel.deleteUser(req.body.userId);
+  return res.json(result);
+});
 
 module.exports = router;
 

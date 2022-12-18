@@ -43,4 +43,9 @@ function saveOrder(orders) {
 
 }
 
-export {loadOrders, addOrder, createOrder}
+function deleteOrders(){
+  const user = getAuthenticatedUser();
+  localStorage.removeItem(`orders${user.email}`)
+}
+
+export {loadOrders, addOrder, createOrder, deleteOrders}

@@ -65,7 +65,7 @@ const UpdateUser = () => {
               </div>
                   <p style="font-size:200%; margin-top:50px">Delete your account</p>
                   <p>This will permanently delete your account and all of your informations</p>
-                  <button type="submit" class="btn btn-outline-danger" id="deleteBtn" >Delete</button>
+                  <button type="button" class="btn btn-outline-danger" id="deleteBtn" >Delete</button>
                   
               
               </div>
