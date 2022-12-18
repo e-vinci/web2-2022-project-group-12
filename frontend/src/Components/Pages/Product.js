@@ -7,6 +7,7 @@ import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
 import relativeTime from '../../utils/utilsDate';
+import ProductLibrary from '../../Domain/ProductLibrary';
 
 // Cette page permet l'affichage des données d'un seul produit en cliquant sur un bouton de la homepage
 
@@ -21,7 +22,7 @@ const ProductPage = async () => {
   // permet d'aller chercher un paramètre dans l'url
   const id = window.location.search;
   const url = id.split('=');
-  const product = await getProductById(url[1]);
+  const product = await ProductLibrary.prototype.getProductById(url[1]);
   const productId = product.id_product;
   const storeName = product.store_name;
   const productName = product.name;
@@ -165,7 +166,7 @@ const ProductPage = async () => {
           idProduct: product.id_product,
         };
 
-        postReview(NewReview);
+        ProductLibrary.prototype.postReview(NewReview);
         ProductPage();
       }
     }); // fin eventListener
@@ -173,7 +174,7 @@ const ProductPage = async () => {
 
   // montre tt les reviews d'un produit
   const reviewshtml = document.getElementById('Reviews');
-  const reviewlist = await getReviews(productId);
+  const reviewlist = await ProductLibrary.prototype.getReviews(productId);
   console.log(reviewlist, 'le review list');
   if (reviewlist.length === 0) {
     reviewshtml.innerHTML += `<p>No reviews on this product yet</p>`;
@@ -201,91 +202,5 @@ const ProductPage = async () => {
   } // fin else
 }; // fin page
 
-async function getProductById(id) {
-  // Permet d'aller chercher les informations du produit
-  let product;
-
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    console.log('TEST ', id);
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getIdProduct/` + id, options);
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/products/getIdProduct/` + id, options);
-
-    product = await reponse.json();
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err.message);
-  }
-  return product;
-}
-
-async function postReview(data) {
-  let idReview;
-  try {
-    const options = {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/addReview`, options);
-    const reponse = await fetch(`/api/products/addReview`, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    idReview = await reponse.json();
-    console.log(idReview);
-    /*  
-console.log("id ::::::", idProduct);
-const path =`'../../assets/product/image${idProduct}.img'`;
-console.log("le path pour nouveau file::",path);
-fs.appendFile(path,image); 
-*/
-    /* const user = await reponse.json(); */
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return idReview;
-} // fin function postReview
-
-async function getReviews(data) {
-  let result;
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getReviews/` + data, options);
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/products/getReviews/` + data, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    result = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return result;
-} // fin function getReviews
 
 export default ProductPage;

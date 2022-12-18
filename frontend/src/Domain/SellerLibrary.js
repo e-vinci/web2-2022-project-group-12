@@ -61,6 +61,35 @@ class SellerLibrary {
 
     return number;
   }
+
+
+  async  getStoreById(id) {
+    // Permet d'aller chercher les informations du produit
+    let store;
+  
+    try {
+      const options = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+  
+      // eslint-disable-next-line prefer-template
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getStore/` + id, options);
+      // eslint-disable-next-line prefer-template
+      const reponse = await fetch(`/api/users/getStore/` + id, options);
+  
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      }
+      store = await reponse.json();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
+    }
+    return store;
+  } // fin function getStoreById(id)
 }
 
 export default SellerLibrary;

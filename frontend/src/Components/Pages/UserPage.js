@@ -9,48 +9,12 @@ import Navbar from '../Navbar/Navbar';
 import SellerPage from './SellerPage';
 import UserLibrary from '../../Domain/UserLibrary';
 
-/* let unUSEDhtml =`<div class="col-md-8 col-lg-6 col-xl-4">
-<div class="card" style="border-radius: 15px;">
-    <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-        <a href="#!">
-            <div class="mask"></div>
-        </a>
-    </div>
-
-    <div class="card-body pb-0">
-        <div class="d-flex justify-content-between">
-            <div>
-                <p><a href="#!" class="text-dark aProductName" name="${id}">${nameProduct}</a></p>
-                <p class="small text-muted">by ${storeName}</p>
-            </div>
-            <div>
-                <p class="small text-muted"><a href="#" class="text-dark">${category}</a></p>
-            </div>
-        </div>
-    </div>
-    <hr class="my-0" />
-    <div class="card-body pb-0">
-        <div class="d-flex justify-content-between">
-            <p class="text-dark">${priceProduct}€</p>
-        </div>
-    </div>
-    <hr class="my-0" />
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-            <a href="#!" class="text-dark fw-bold">Cancel</a>
-            <button type="button" name="btnAddtoCart" value="${id}" class="btn btn-primary">Add to cart</button>
-        </div>
-    </div>
-</div>
-</div>`; */
-
 const UserPage = async () => {
   clearPage();
   setActiveLink('userPage');
   setUserIcon('userPage');
   Navbar();
   const user = await getAuthenticatedUser();
-  console.log(user,'dans la user page')
   const seller = await UserLibrary.prototype.isSeller(user.userId);
   if (user === null) {
     clearActive();
@@ -107,7 +71,6 @@ const UserPage = async () => {
     });
   }
 };
-
 
 
 export default UserPage;
