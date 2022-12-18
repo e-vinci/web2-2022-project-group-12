@@ -100,7 +100,11 @@ function countProductCart(){
   const user = getAuthenticatedUser();
   const cart = loadCart(user.email);
   const {length} = cart.objects;
-  return length;
+  let count = 0;
+  for (let i = 0; i < length; i += 1) {
+     count += cart.objects[i].count;
+  }
+  return count;
 
 }
 
