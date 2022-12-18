@@ -182,6 +182,8 @@ class User {
     );
     await await db.query(`DELETE FROM projetWeb.users WHERE id_user = $1`, [body]);
   }
+  
 }
+
 
 module.exports = { User };

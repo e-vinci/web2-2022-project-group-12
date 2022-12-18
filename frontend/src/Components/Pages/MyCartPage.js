@@ -6,10 +6,11 @@ import { setUserIcon } from '../../utils/userIcon';
 import { countProductCart, getCartTotal, loadCart, removeItemFromCart } from '../../utils/utilsCart';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
+import 'animate.css';
 
 // HTML 
 const html = `
-    <div class="col-md-4 order-md-2 mb-4 mx-auto" style="margin-top: 5%">
+    <div class="col-md-4 order-md-2 mb-4 mx-auto animate__animated animate__headShake" style="margin-top: 5%">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Your cart</span>
             <span class="badge badge-secondary badge-pill">3</span>
@@ -32,7 +33,7 @@ const MyCartPage = () => {
   const cart = loadCart(userEmail);
   const main = document.querySelector('main');
   if (cart.objects.length === 0) {
-    main.innerHTML = `<h1 class="cover-heading  " style="margin-top : 200px; text-align : center">
+    main.innerHTML = `<h1 class="cover-heading animate__animated animate__tada" style="margin-top : 200px; text-align : center">
                         Votre panier est vide &#128524
                       </h1>`;
   } else {
@@ -98,10 +99,6 @@ const MyCartPage = () => {
     const btnCheckout = document.getElementById('checkoutButton');
     btnCheckout.addEventListener('click', (e) => {
       e.preventDefault();
-      
-
-      
-
       MyCartPage();
       Navigate('/checkout');
     });

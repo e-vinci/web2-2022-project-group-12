@@ -23,7 +23,6 @@ const routes = {
   '/login': LoginPage,
   '/product': Product,
   '/stats': StatisticPage,
-  '/add': NewProductPage,
   '/logout': '/logout',
   '/cart': MyCartPage,
   '/addProduct': NewProductPage,

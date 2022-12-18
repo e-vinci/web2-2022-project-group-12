@@ -441,6 +441,33 @@ class UserLibrary {
       }
     });
   }
+
+  async  isSeller(id) {
+    let result;
+    console.log('saluuuut', id);
+    try {
+      const options = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      // eslint-disable-next-line prefer-template
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getIdStore/` + id, options);
+      // eslint-disable-next-line prefer-template
+      const reponse = await fetch(`/api/users/getIdStore/` + id, options);
+  
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      }
+      result = await reponse.json();
+      console.log('RESSULT', result);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
+    }
+    return result;
+  }
 }
 
 export default UserLibrary;
