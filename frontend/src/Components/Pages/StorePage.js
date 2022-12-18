@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductLibrary from '../../Domain/ProductLibrary';
-import UserLibrary from '../../Domain/UserLibrary';
+import SellerLibrary from '../../Domain/SellerLibrary';
 import { setActiveLink } from '../../utils/activeLink';
 import { clearPage } from '../../utils/render';
 import { setUserIcon } from '../../utils/userIcon';
@@ -18,7 +18,7 @@ const StorePage = async () => {
   // permet d'aller chercher un paramètre dans l'url
   const id = window.location.search;
   const url = id.split('=');
-  const store = await UserLibrary.prototype.getStoreById(url[1]);
+  const store = await SellerLibrary.prototype.getStoreById(url[1]);
   if (store === null) {
     const error = `<h1>404 Store Not Found</h1>`;
     main.innerHTML += `${error}`;
@@ -49,12 +49,12 @@ const StorePage = async () => {
         </div>
         <hr/>
         <p style="font-size:150%">Products catalog: </p>
-        <div class="allStoreProducts" class="row justify-content" id="imgProduct">
+        <div class="allStoreProducts" id="imgProduct">
         
         </div>
     `;
     main.innerHTML = profile;
-    const products = await ProductLibrary.prototype.getAllStoreProducts(idStore);
+    const products =await  ProductLibrary.prototype.getAllStoreProducts(idStore);
     const resultStatus = document.getElementById('products');
     if (products.length === 0) {
       resultStatus.innerHTML += `<p>This store doesn't have any products to sell yet</p>`;

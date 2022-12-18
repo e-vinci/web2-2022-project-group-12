@@ -1,4 +1,6 @@
 /* eslint-disable class-methods-use-this */
+// eslint-disable-next-line import/no-cycle
+import SearchResultsPage from '../Components/Pages/SearchResultsPage';
 import Navigate from '../Components/Router/Navigate';
 import { clearActive } from '../utils/activeLink';
 import { getAuthenticatedUser, isAuthenticated } from '../utils/auths';
@@ -196,7 +198,7 @@ class ProductLibrary {
             throw new Error(`fetch error : ${results.status}${results.statusText}`);
           }
           clearActive();
-          Navigate('/search');
+          SearchResultsPage();
           /* const user = await reponse.json(); */
         } catch (err) {
           // eslint-disable-next-line no-console
