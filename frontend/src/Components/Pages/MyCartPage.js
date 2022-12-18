@@ -23,15 +23,17 @@ const html = `
 `;
 
 const MyCartPage = () => {
-  // si la session contient un panier, afficher un bouton pour le supprimer (Ceci sert uniquepent de test de localStorage)
+  // si la session contient un panier, afficher un bouton pour le supprimer (Ceci sert uniquement de test de localStorage)
   clearPage();
   setActiveLink('userPage');
 
   setUserIcon('extUserPage');
   Navbar();
   const userEmail = getAuthenticatedUser().email;
+  // charge le panier
   const cart = loadCart(userEmail);
   const main = document.querySelector('main');
+  // si le panier est vide, affiche un message
   if (cart.objects.length === 0) {
     main.innerHTML = `<h1 class="cover-heading animate__animated animate__tada" style="margin-top : 200px; text-align : center">
                         Votre panier est vide &#128524
@@ -40,12 +42,10 @@ const MyCartPage = () => {
     main.innerHTML = html;
     let html2 = ``;
 
-    console.log('le panier est', cart.objects);
-
-  
     const length = cart.objects.length;
     const id = document.getElementById('listItem');
     console.log('lenght : ', length);
+    // affichage de tous les objets du panier
     for (let i = 0; i < length; i += 1) {
       let totalPriceForThisArticle = 0;
       totalPriceForThisArticle = cart.objects[i].price * cart.objects[i].count;
@@ -61,34 +61,29 @@ const MyCartPage = () => {
         </li>
 `;
     }
-
+    // affichage du prix total
     const totalPrice = getCartTotal();
     html2 += `<li class="list-group-item d-flex justify-content-between">
-<span>Total Price</span>
-<strong>${totalPrice} €</strong>
-</li>`;
+                <span>Total Price</span>
+                <strong>${totalPrice} €</strong>
+              </li>`;
 
     id.innerHTML = html2;
 
     const btnToArticle = document.getElementsByClassName('buttonToItem');
     for (let y = 0; y < btnToArticle.length; y += 1) {
-    
+      // si l'utilisateur clique sur le produit, redirige vers la page du produit
       btnToArticle[y].addEventListener('click', async (e) => {
         e.preventDefault();
-        console.log('Je suis dans le event listener');
-        
         Navigate('/product?id_product=', cart.objects[y].id);
       });
     }
-
+    // ajout des boutons de suppression des articles
     const btn = document.getElementsByClassName('deleteArticleButton');
     for (let y = 0; y < btn.length; y += 1) {
       
       btn[y].addEventListener('click', async (e) => {
         e.preventDefault();
-        console.log('Je suis dans le event listener');
-
-        
         removeItemFromCart(cart.objects[y].name);
         const nombre = document.getElementById('numberOfArticles');
         const newNombre = countProductCart();
@@ -96,6 +91,7 @@ const MyCartPage = () => {
         MyCartPage();
       });
     }
+    // bouton pour passer a la checkout page
     const btnCheckout = document.getElementById('checkoutButton');
     btnCheckout.addEventListener('click', (e) => {
       e.preventDefault();

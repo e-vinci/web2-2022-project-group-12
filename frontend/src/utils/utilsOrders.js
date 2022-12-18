@@ -1,29 +1,28 @@
 import { getAuthenticatedUser } from "./auths";
 import { loadCart } from "./utilsCart";
 
-
+// cree un liste de commandes en localStorage
 const createOrder = (email) => {
     const items = [];
     const orders = {
      objects : items,
      email
   }
-  console.log("orders created");
   let string = "orders";
     string+=email;
     localStorage.setItem(string,JSON.stringify(orders));
 };
 
+// ajoute le panier a la lise de commandes
 async function addOrder(){
-    console.log("Test d'ajout");
     const user = await getAuthenticatedUser();
     const orders = await loadOrders(user.email)
     const cart = await loadCart(user.email);
     await orders.objects.push(cart.objects)
-    console.log("order added", cart)
     saveOrder(orders);
 }
 
+// charge la liste des commandes
 function loadOrders(email) {
     console.log("Test ordres chager");
     let string = "orders";
@@ -33,16 +32,15 @@ function loadOrders(email) {
     return orders;
 }
 
+// ennregistre liste de la commande passee en parametre
 function saveOrder(orders) {
   const user = getAuthenticatedUser();
   let string = "orders";
   string+=user.email;
   localStorage.setItem(string, JSON.stringify(orders));
-  const ordersNew  = localStorage.getItem(string);
-  console.log("Le nouvel ordre est", ordersNew);
-
 }
 
+// supprime la liste de commandes de la localstorage (suppression de compte)
 function deleteOrders(){
   const user = getAuthenticatedUser();
   localStorage.removeItem(`orders${user.email}`)
