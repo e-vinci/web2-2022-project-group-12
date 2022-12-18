@@ -1,3 +1,4 @@
+import { clearPage } from "../../utils/render";
 
 
 const html = `
@@ -34,6 +35,7 @@ website and its services</p>
 
 
 const CGU = () => {
+  clearPage();
     const main = document.querySelector('main');
     main.innerHTML = html;
   };

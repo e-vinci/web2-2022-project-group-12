@@ -8,10 +8,38 @@ const Router = () => {
   onFrontendLoad();
   onNavBarClick();
   onHistoryChange();
+  onFooterClick()
 };
 
 function onNavBarClick() {
   const navbarWrapper = document.querySelector('#navbarWrapper');
+
+  navbarWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+    const navBarItemClicked = e.target;
+    let uri = navBarItemClicked?.dataset?.uri;
+    if (!uri) {
+      const parent = navBarItemClicked.parentElement;
+      uri = parent?.dataset?.uri;
+    }
+    const componentToRender = routes[uri];
+    if (!componentToRender) {
+      throw Error(`The ${uri} ressource does not exist.`);
+    }
+    
+
+    if (componentToRender === '/logout') {
+      logout();
+    }else{
+      componentToRender();
+      window.history.pushState({}, '', usePathPrefix(uri));
+    }
+  });
+}
+
+
+function onFooterClick() {
+  const navbarWrapper = document.querySelector('#footerWrapper');
 
   navbarWrapper.addEventListener('click', (e) => {
     e.preventDefault();

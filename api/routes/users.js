@@ -94,6 +94,7 @@ router.post('/updateUserPassword', async (req, res) => {
 // Permet de récupérer un produit en particulier avec id
 router.post('/getUserEmail' , async(req,res)=>{
   const result = await userModel.getUserEmail(req.body);
+  if (result === null) return res.sendStatus(404);
   return res.json(result);
 });
 

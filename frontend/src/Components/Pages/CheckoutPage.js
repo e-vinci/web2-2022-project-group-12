@@ -100,7 +100,7 @@ const CheckoutPage = () => {
             </div>
           <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
        </div>
-       <div id="snackbar">Hep Hep Hep, tous les champs sont requis !</div>
+       <div id="snackbar">You must complete all forms!</div>
     `;
 
   if (user === undefined) {
