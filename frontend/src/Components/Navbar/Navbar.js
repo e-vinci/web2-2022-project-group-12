@@ -163,7 +163,7 @@ const Navbar = () => {
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <a href="#" class="btn border loupe" data-uri="/cart">
+            <a href="#" class="btn border loupe animate__animated animate__bounceIn" data-uri="/cart">
                 <i class="bi bi-cart"></i>
                 <span id="numberOfArticles">${totalProduct}</span>
             </a>
