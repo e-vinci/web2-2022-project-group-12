@@ -6,7 +6,7 @@ import { clearPage } from '../../utils/render';
 import {setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
-import { showProducts } from './exportProducts';
+import ProductLibrary from '../../Domain/ProductLibrary';
 
 // HTML CODE
 const html = `
@@ -35,7 +35,7 @@ const SearchResultsPage = async () => {
     resultStatus.innerHTML += `<p>No results found</p>`;
   } else {
     resultStatus.innerHTML += `<p>${nombreResultats} results found</p>`;
-    showProducts(results);
+    ProductLibrary.prototype.showProducts(results);
   } // fin else
 }; // fin page
 export default SearchResultsPage;

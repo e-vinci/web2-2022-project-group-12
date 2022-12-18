@@ -5,7 +5,9 @@ import { clearPage } from '../../utils/render';
 import { clearActive } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
-import { showProducts } from './exportProducts';
+import CategoryLibrary from '../../Domain/CategoryLibrary';
+import ProductLibrary from '../../Domain/ProductLibrary';
+
 
 // HTML CODE
 const html = `
@@ -25,67 +27,15 @@ const CategoryPage = async () => {
   main.innerHTML = html;
   const id = window.location.search;
   const url = id.split('=');
-  const results = await listbyCategorie(url[1]);
-  const category = await getCategorie(url[1]);
+  const results = await CategoryLibrary.prototype.listbyCategorie(url[1]);
+  const category = await CategoryLibrary.prototype.getCategorie(url[1]);
 
   const titleCategory = document.getElementById('titleCategory');
   titleCategory.innerHTML = `
     <h2>Category: ${category.name}</h2>
   `;
-  showProducts(results);
+  ProductLibrary.prototype.showProducts(results);
 };
+
 export default CategoryPage;
 
-async function listbyCategorie(id) {
-  let categorie;
-
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/listByCategory/` + id, options);
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/products/listByCategory/` + id, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    categorie = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return categorie;
-}
-
-async function  getCategorie(id) {
-  let categorie;
-
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getCategory/` + id, options);
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/categories/getCategory/` + id, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    categorie = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return categorie;
-}

@@ -119,12 +119,54 @@ class User {
       return seller;
     }
 
-  async updateUser(body) {
+  async updateUserFirstName(body) {
     await db.query(
-      'UPDATE projetWeb.users SET first_name = $1, last_name = $2, sex = $3 WHERE email = $4',
-      [body.firstName, body.lastName, body.sex, body.email],
+      'UPDATE projetWeb.users SET first_name = $1 WHERE id_user = $2',
+      [body.firstName, body.id],
     );
   }
+
+  async updateUserLastName(body) {
+    await db.query(
+      'UPDATE projetWeb.users SET last_name = $1 WHERE id_user = $2',
+      [body.lastName, body.id],
+    );
+  }
+
+  async updateUserEmail(body) {
+    await db.query(
+      'UPDATE projetWeb.users SET email = $1 WHERE id_user = $2',
+      [body.email.toLowerCase(), body.id],
+    );
+  }
+
+  async updateUserPassword(body) {
+    const hashedPassword = await bcrypt.hash(body.password, saltRounds);
+    await db.query(
+      'UPDATE projetWeb.users SET password = $1 WHERE id_user = $2',
+      [hashedPassword, body.id],
+    );
+  }
+
+  // Permet de recuperer un id d'un user par le moyen de son email //
+  async getUserEmail(body) {
+    const id = await db.query(`SELECT u.id_user FROM projetWeb.users u WHERE u.email = $1`,[body.toLowerCase()]).rows;
+    if (id.length === 0) {
+      return null;
+    }
+    return id[0].id_user;
+  }
+
+ /* ce truc wola il semblait simple mais enft non woyaaaa
+  async DeleteUser(id) {
+    await ( await db.query(`
+    DELETE FROM projetWeb.seller, projetWeb.photos_users, projetWeb.ratings, projetWeb.products WHERE some_fk_field IN (SELECT some_id FROM some_Table);
+    DELETE FROM projetWeb.users WHERE id_user = $1`,[id]));
+  } */
+
+
 }
+
+
 
 module.exports = { User };

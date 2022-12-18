@@ -32,7 +32,7 @@ const CheckoutPage = () => {
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name</label>
-                            <input type="text" class="form-control test" placeholder="" value="${firstName}" name="test"
+                            <input type="text" class="form-control test" placeholder="Enter your first name" value="${firstName}" name="test"
                                 required="required">
                             <div class="invalid-feedback">
                                 Valid first name is required.
@@ -40,7 +40,7 @@ const CheckoutPage = () => {
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last name</label>
-                            <input type="text" class="form-control test" placeholder="" value="${lastName}" name="test"
+                            <input type="text" class="form-control test" placeholder="Enter your last name" value="${lastName}" name="test"
                                 required="required">
                             <div class="invalid-feedback">
                                 Valid last name is required.

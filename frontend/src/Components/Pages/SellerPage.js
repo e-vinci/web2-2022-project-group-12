@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigate from '../Router/Navigate';
 import { clearActive } from '../../utils/activeLink';
-import { showProducts } from './exportProducts';
 import SellerLibrary from '../../Domain/SellerLibrary';
+import ProductLibrary from '../../Domain/ProductLibrary';
 
 // Calling the page to render
 async function SellerPage(user) {
@@ -41,8 +41,9 @@ async function SellerPage(user) {
       Navigate('/update');
     });
 
-    const products = await SellerLibrary.prototype.getAllBySeller();
-    showProducts(products);
+    const products = await SellerLibrary.prototype.getAllBySeller(user.userId);
+    console.log(products, 'ici prodcts')
+    ProductLibrary.prototype.showProducts(products);
   } 
 
 }; 

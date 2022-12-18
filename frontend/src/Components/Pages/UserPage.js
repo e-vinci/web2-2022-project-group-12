@@ -49,6 +49,7 @@ const UserPage = async () => {
   setUserIcon('userPage');
   Navbar();
   const user = await getAuthenticatedUser();
+  console.log(user,'dans la user page')
   const seller = await isSeller(user.userId);
   if (user === null) {
     clearActive();
@@ -59,14 +60,14 @@ const UserPage = async () => {
     // eslint-disable-next-line no-unused-vars
     main.innerHTML += `
       <div class="d-flex justify-content-between">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-start col">
           <div>
             <h1 class="display-6" id="nomUser">
               <i class="bi bi-person-fill"></i> 
             </h1>
           </div>
         </div>
-        <div id="boutons" class="d-flex flex-row-reverse w-25 p-3 justify-content-evenly">
+        <div id="boutons" class="d-flex flex-row-reverse col-4 p-3 justify-content-evenly">
             <button type="button" id="btnUpdate" class="btn btn-outline-secondary rounded-pill position-relative"><i class="bi bi-gear-fill"></i> Edit your profile</button>
         </div>
         
@@ -101,14 +102,14 @@ const UserPage = async () => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       clearActive();
-      Navigate('/update');
+      Navigate('/settings');
     });
   }
 };
 
 async function isSeller(id) {
   let result;
-  console.log('saluuuut');
+  console.log('saluuuut', id);
   try {
     const options = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.

@@ -19,7 +19,7 @@ const html = `
 </div>
 <div id="smart-button-container">
     <div style="text-align: center; margin-top: 5%;" id="paypal-button-container">
-    
+
     </div>
 </div>
    `

@@ -9,6 +9,7 @@ import { countProductCart } from '../../utils/utilsCart';
 import { clearPage } from '../../utils/render';
 import { clearActive, getActiveLink } from '../../utils/activeLink';
 import { getUserIcon } from '../../utils/userIcon';
+import CategoryLibrary from '../../Domain/CategoryLibrary';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -80,7 +81,7 @@ const Navbar = () => {
 
     categoriesNavbar();
     ProductLibrary.prototype.searchBar();
-
+    
 
     if(active === 'homePage'){ // active home
         const activeD = document.getElementById('homePage');
@@ -155,11 +156,14 @@ const Navbar = () => {
         </div>
 
     </div>
-    <div class="container-fluid mb-5">
 
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
             <div class="dropdown">
-                
+              <a class="btn btn-secondary" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+              <ul class="dropdown-menu" id="btnCategory">
+              
+
+              </ul>
             </div>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
@@ -184,7 +188,6 @@ const Navbar = () => {
                 </div>
             </div>
         </nav>
-    </div>
        
   `;
     navbarWrapper.innerHTML = navbar;
@@ -192,14 +195,6 @@ const Navbar = () => {
     categoriesNavbar();
     ProductLibrary.prototype.searchBar();
 
-    const userBtn = document.getElementById('user');
-    userBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      clearActive();
-      Navigate('/user?=', user.userId);
-    });
-
-    
     if(active === 'homePage'){ // active home
         const activeD = document.getElementById('homePage');
         activeD.innerHTML += `
@@ -211,7 +206,6 @@ const Navbar = () => {
           <a href="#" class="nav-item nav-link" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
       `;
     }
-    
     
     // icon thing
     if (userIcon === 'userPage'){ // active user
@@ -255,6 +249,12 @@ const Navbar = () => {
       `;
     } 
 
+    const userBtn = document.getElementById('user');
+    userBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      clearActive();
+      Navigate('/user?=', user.userId);
+    });
   } 
   
 }; 
@@ -262,23 +262,20 @@ const Navbar = () => {
 async function categoriesNavbar(){
 
   const btnCategory = document.getElementById('btnCategory');
-  const allCategories = await ProductLibrary.prototype.fetchCategories();
+  const allCategories = await CategoryLibrary.prototype.getAllCategories();
 
 
   btnCategory.addEventListener('click' , async (e) => {
 
     e.preventDefault();
-    let html = ``;
-    let i = 0;
-    while( i < allCategories.lengthg){
-    const nameCat = allCategories[i].name;
+    allCategories.forEach(element => {
+      const nameCat = element.name;
 
-    html += `
-    <li><a class="dropdown-item categoryName " href="#">${nameCat}</a></li>
-    `
-    i += 1;
-    }
-    btnCategory.innerHTML = html;
+      btnCategory.innerHTML += `
+      <li><a class="dropdown-item categoryName " href="#">${nameCat}</a></li>
+      `;
+    });
+  
 });
 }
 export default Navbar;

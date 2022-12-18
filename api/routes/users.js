@@ -68,11 +68,35 @@ router.post('/becomeSeller', async (req, res) => {
 }); */
 
 // Permet d'update les info d'un user
-router.post('/updateUser', async (req, res) => {
-  await userModel.updateUser(req.body);
-  console.log(req.body);
-  return res.json(req.body);
-})
+router.post('/updateUserFirstName', async (req, res) => {
+  const result = await userModel.updateUserFirstName(req.body);
+  return res.json(result);
+});
+
+// Permet d'update les info d'un user
+router.post('/updateUserLastName', async (req, res) => {
+  const result = await userModel.updateUserLastName(req.body);
+  return res.json(result);
+});
+
+// Permet d'update les info d'un user
+router.post('/updateUserEmail', async (req, res) => {
+  const result = await userModel.updateUserEmail(req.body);
+  return res.json(result);
+});
+
+// Permet d'update les info d'un user
+router.post('/updateUserPassword', async (req, res) => {
+  const result = await userModel.updateUserPassword(req.body);
+  return res.json(result);
+});
+
+// Permet de récupérer un produit en particulier avec id
+router.post('/getUserEmail' , async(req,res)=>{
+  const result = await userModel.getUserEmail(req.body);
+  return res.json(result);
+});
+
 
 module.exports = router;
 

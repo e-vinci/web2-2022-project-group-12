@@ -25,7 +25,7 @@ const AllProductPage = async () => {
   const main = document.querySelector('main');
   main.innerHTML = html;
 
-  ProductLibrary.prototype.showProduct();
+  ProductLibrary.prototype.showProducts(await ProductLibrary.prototype.getAll());
   const btn = document.getElementsByName('btnAddtoCart');
 
     for (let y = 0; y < btn.length; y += 1) {

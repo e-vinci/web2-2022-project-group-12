@@ -1,8 +1,6 @@
-import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Footer = () =>{
-    clearPage();
     const footerWrapper = document.querySelector('#footerWrapper');
 
     const footer = `
@@ -61,4 +59,4 @@ const Footer = () =>{
 
 }
 
-export default Footer();
+export default Footer;

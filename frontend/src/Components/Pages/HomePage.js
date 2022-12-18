@@ -8,7 +8,7 @@ import { importAll } from '../../utils/utilsImages';
 import ProductLibrary from '../../Domain/ProductLibrary';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer';
+import CategoryLibrary from '../../Domain/CategoryLibrary';
 
 
 // HTML CODE
@@ -112,35 +112,27 @@ const HomePage = async () => {
   }
   carouselButtons.innerHTML = items;
 
-  ProductLibrary.prototype.showLastProduct();
-  const cat = await ProductLibrary.prototype.fetchCategories();
+  ProductLibrary.prototype.showProducts(await ProductLibrary.prototype.selectLastProduct());
+  const cat = await CategoryLibrary.prototype.getAllCategories();
   await showCategories(cat);
-  Footer();
-};
+}; // fin page
 
 async function showCategories(categories) {
   
   console.log(categories)
   const category = document.getElementById('categories')
-  let items =``;
-  let i = 0;
+  categories.forEach(element => {
+    const categoryName = element.name;
+    const categoryId = element.id_category;
 
-  while (i < categories.length){
-    const categoryName = categories[i].name;
-    const categoryId = categories[i].id_category;
-
-    items+=`
+    category.innerHTML+=`
       <div class="col-lg-4 col-md-6 pb-1">
           <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                 <a href = "#" class="text-dark categoryName textProduct" name="${categoryId}"><h5 class="font-weight-semi-bold m-0" >${categoryName}</h5></a>
           </div>
       </div>
     `
-    i += 1;
-  }
-  
-  category.innerHTML = items;
-
+  });
    
   const cat = document.getElementsByClassName('categoryName');
   for (let j = 0; j < cat.length; j += 1) {

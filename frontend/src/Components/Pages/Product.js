@@ -82,27 +82,27 @@ const ProductPage = async () => {
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                  <div class="left-images">
-                      
-                  </div>
+                <div class="left-images">
+                    
                 </div>
-                <div class="col-lg-4">
-                    <div class="right-content">
-                      <h3><a href="#" class="text-dark aProductName" name="${productId}">${productName}</a></h3>
-                        <span class="price"><p class="text-dark">${productPrice}€</p></span>
-                        <div id="categoria">
-                              <p class="small text-muted"><a href="#!" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
-                        </div>
-                        <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">Store Name : ${storeName}</a></p>
-                        <div class="quote">
-                            <i class="fa fa-quote-left"></i><p>${productDescription}</p>
-                        </div>
-                        <div class="total">
-                        <h4>ADD TO CART</h4>
-                        <button type="button" name="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
-                        </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="right-content">
+                  <h3><a href="#" class="text-dark aProductName" name="${productId}">${productName}</a></h3>
+                    <span class="price"><p class="text-dark">${productPrice}€</p></span>
+                    <div id="categoria">
+                          <p class="small text-muted"><a href="#!" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
+                    </div>
+                    <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">Store Name : ${storeName}</a></p>
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i><p>${productDescription}</p>
+                    </div>
+                    <div class="total">
+                    <h4>ADD TO CART</h4>
+                    <button type="button" name="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </section>
