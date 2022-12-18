@@ -10,19 +10,26 @@ import Navbar from '../Navbar/Navbar';
 const StorePage = async () => {
   clearPage();
   setActiveLink('userPage');
-
   setUserIcon('extUserPage');
+
+  // reload la navbar apres avoir set l'actif
   Navbar();
+  
   const main = document.querySelector('main');
 
   // permet d'aller chercher un paramètre dans l'url
   const id = window.location.search;
   const url = id.split('=');
+
+  // renvoye les informations principales du store
   const store = await SellerLibrary.prototype.getStoreById(url[1]);
+
   if (store === null) {
+    // si store est null alors la page affiche une erreur 404
     const error = `<h1>404 Store Not Found</h1>`;
-    main.innerHTML += `${error}`;
+    main.innerHTML = `${error}`;
   } else {
+    // sinon renderiser les info de la page
     const idStore = store[0].id_user;
     const storeName = store[0].store_name;
     const firstName = store[0].first_name;
@@ -54,14 +61,19 @@ const StorePage = async () => {
         </div>
     `;
     main.innerHTML = profile;
+
+    // recupere tous les produits de ce store
     const products =await  ProductLibrary.prototype.getAllStoreProducts(idStore);
     const resultStatus = document.getElementById('products');
     if (products.length === 0) {
-      resultStatus.innerHTML += `<p>This store doesn't have any products to sell yet</p>`;
+      resultStatus.innerHTML += `<p style="font-size:150%" class="text-center">This store doesn't have any products to sell yet</p>`;
     } else {
+      // affiche les produits de ce store
       ProductLibrary.prototype.showProducts(products);
     } // fin else
+
   } // fin else
+
 }; // fin page
 
 

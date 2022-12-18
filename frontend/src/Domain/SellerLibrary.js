@@ -15,7 +15,6 @@ class SellerLibrary {
       // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + idSeller,options);
       // eslint-disable-next-line prefer-template
       const reponse = await fetch(`/api/products/getAllBySeller/` + idSeller, options);
-      console.log(reponse, 'reponse du fetch')
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
@@ -24,7 +23,6 @@ class SellerLibrary {
       // eslint-disable-next-line no-console
       console.error('error: ', err);
     }
-    console.log(products,'dans les fetch product')
     return products;
   }
 
@@ -57,7 +55,6 @@ class SellerLibrary {
       // eslint-disable-next-line no-console
       console.error('error: ', err);
     }
-    console.log('number: ', number);
 
     return number;
   }

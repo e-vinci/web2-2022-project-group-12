@@ -112,14 +112,14 @@ const HomePage = async () => {
   }
   carouselButtons.innerHTML = items;
 
+  // affichage des produits de la home page
   ProductLibrary.prototype.showProducts(await ProductLibrary.prototype.selectLastProduct());
   const cat = await CategoryLibrary.prototype.getAllCategories();
   await showCategories(cat);
 }; // fin page
 
 async function showCategories(categories) {
-  
-  console.log(categories)
+  // fonction qui affiche les categories à l'ecran
   const category = document.getElementById('categories')
   categories.forEach(element => {
     const categoryName = element.name;
@@ -133,11 +133,11 @@ async function showCategories(categories) {
       </div>
     `
   });
-   
+  
+  // permet de redirect vers la page de la categorie en cliqué
   const cat = document.getElementsByClassName('categoryName');
   for (let j = 0; j < cat.length; j += 1) {
     cat[j].addEventListener('click', async (e) => {
-      console.log(cat[j].name)
       e.preventDefault();
       const idcat = cat[j].name;
       // eslint-disable-next-line prefer-template

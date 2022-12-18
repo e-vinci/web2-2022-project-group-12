@@ -78,17 +78,6 @@ class ProductLibrary {
       const selectElement = document.getElementById('categories');
       const idCategory = selectElement.value;
 
-      console.log('les donnees', productname, description, price, color, idUser, idCategory);
-      console.log(
-        'les donnees .value',
-        productname.value,
-        description.value,
-        price.value,
-        color.value,
-        idUser.value,
-        idCategory.value,
-      );
-
       if (
         productname === undefined ||
         description === undefined ||
@@ -97,39 +86,39 @@ class ProductLibrary {
         idCategory === undefined
       ) {
         console.error('Veuillez compléter tous les champs');
-      }
-
-      // Création d'un nouvel objet json
-      const NewProduct = {
-        productname,
-        description,
-        price,
-        color,
-        idUser,
-        idCategory,
-      };
-
-      try {
-        const options = {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          body: JSON.stringify(NewProduct),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      } else {
+        // Création d'un nouvel objet json
+        const NewProduct = {
+          productname,
+          description,
+          price,
+          color,
+          idUser,
+          idCategory,
         };
 
-        const reponse = await fetch(`/api/products/add`, options);
+        try {
+          const options = {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            body: JSON.stringify(NewProduct),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          };
 
-        if (!reponse.ok) {
-          throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+          const reponse = await fetch(`/api/products/add`, options);
+
+          if (!reponse.ok) {
+            throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+          }
+          const idProduct = await reponse.json();
+
+          Navigate('/product?id_product=', idProduct);
+          /* const user = await reponse.json(); */
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error('error: ', err);
         }
-        const idProduct = await reponse.json();
-
-        Navigate('/product?id_product=', idProduct);
-        /* const user = await reponse.json(); */
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('error: ', err);
       }
     });
   }
@@ -157,7 +146,6 @@ class ProductLibrary {
     }
 
     const categoryHtml = document.getElementById('categories');
-    console.log(category, 'category name');
     category.forEach((categorie) => {
       const categoryName = categorie.name;
       const categoryId = categorie.id_category;
@@ -186,11 +174,9 @@ class ProductLibrary {
               'Content-Type': 'application/json',
             },
           };
-          console.log(JSON.stringify(data));
           // eslint-disable-next-line prefer-template
           const results = await fetch(`/api/products/search/` + data, options);
           const products = await results.json();
-          console.log(products);
 
           setSearch(products);
 
@@ -217,9 +203,7 @@ class ProductLibrary {
     const user = await isAuthenticated();
     if (!user) {
       while (i < product.length) {
-        const imageProduit = importAll(
-          require.context('../assets/product', true, /\.png$/),
-        );
+        const imageProduit = importAll(require.context('../assets/product', true, /\.png$/));
         const productId = product[i].id_product;
         const productName = product[i].name;
         const productPrice = product[i].price;
@@ -263,9 +247,7 @@ class ProductLibrary {
       cardProduct.innerHTML = items;
     } else {
       while (i < product.length) {
-        const imageProduit = importAll(
-          require.context('../assets/product', true, /\.png$/),
-        );
+        const imageProduit = importAll(require.context('../assets/product', true, /\.png$/));
         const productId = product[i].id_product;
         const productName = product[i].name;
         const productPrice = product[i].price;
@@ -339,7 +321,6 @@ class ProductLibrary {
       shop[j].addEventListener('click', async (e) => {
         e.preventDefault();
         const id = shop[j].name;
-        console.log('ID STORENAME', id);
         // eslint-disable-next-line prefer-template
         clearActive();
         Navigate('/store?=', id);
@@ -353,7 +334,6 @@ class ProductLibrary {
       cat[j].addEventListener('click', async (e) => {
         e.preventDefault();
         const idcat = cat[j].name;
-        console.log('ID CAT', idcat);
         // eslint-disable-next-line prefer-template
         clearActive();
         Navigate('/category?=', idcat);
@@ -376,10 +356,10 @@ class ProductLibrary {
     } // fin if
   }
 
-  async  getAllStoreProducts(id) {
+  async getAllStoreProducts(id) {
     // Permet d'aller chercher les informations du produit
     let products;
-  
+
     try {
       const options = {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -387,11 +367,11 @@ class ProductLibrary {
           'Content-Type': 'application/json',
         },
       };
-  
+
       /// const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + id, options);
       // eslint-disable-next-line prefer-template
       const reponse = await fetch(`/api/products/getAllBySeller/` + id, options);
-  
+
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
@@ -402,12 +382,11 @@ class ProductLibrary {
     }
     return products;
   } // fin function getAllStoreProducts(id)
-  
 
   async getProductById(id) {
     // Permet d'aller chercher les informations du produit
     let product;
-  
+
     try {
       const options = {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -415,12 +394,11 @@ class ProductLibrary {
           'Content-Type': 'application/json',
         },
       };
-      console.log('TEST ', id);
       // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getIdProduct/` + id, options);
-  
+
       // eslint-disable-next-line prefer-template
       const reponse = await fetch(`/api/products/getIdProduct/` + id, options);
-  
+
       product = await reponse.json();
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
@@ -431,7 +409,7 @@ class ProductLibrary {
     }
     return product;
   }
-  
+
   async postReview(data) {
     let idReview;
     try {
@@ -442,10 +420,10 @@ class ProductLibrary {
           'Content-Type': 'application/json',
         },
       };
-  
+
       // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/addReview`, options);
       const reponse = await fetch(`/api/products/addReview`, options);
-  
+
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
@@ -464,7 +442,7 @@ class ProductLibrary {
     }
     return idReview;
   } // fin function postReview
-  
+
   async getReviews(data) {
     let result;
     try {
@@ -474,12 +452,12 @@ class ProductLibrary {
           'Content-Type': 'application/json',
         },
       };
-  
+
       // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getReviews/` + data, options);
-  
+
       // eslint-disable-next-line prefer-template
       const reponse = await fetch(`/api/products/getReviews/` + data, options);
-  
+
       if (!reponse.ok) {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
@@ -490,6 +468,5 @@ class ProductLibrary {
     }
     return result;
   } // fin function getReviews
-
 }
 export default ProductLibrary;

@@ -79,11 +79,6 @@ router.post('/updateUserLastName', async (req, res) => {
   return res.json(result);
 });
 
-// Permet d'update les info d'un user
-router.post('/updateUserEmail', async (req, res) => {
-  const result = await userModel.updateUserEmail(req.body);
-  return res.json(result);
-});
 
 // Permet d'update les info d'un user
 router.post('/updateUserPassword', async (req, res) => {
@@ -91,18 +86,12 @@ router.post('/updateUserPassword', async (req, res) => {
   return res.json(result);
 });
 
-// Permet de récupérer un produit en particulier avec id
-router.post('/getUserEmail' , async(req,res)=>{
-  const result = await userModel.getUserEmail(req.body);
-  if (result === null) return res.sendStatus(404);
-  return res.json(result);
-});
+
 
 router.post('/deleteAccount', async(req,res)=>{
   const result = await userModel.deleteUser(req.body.userId);
   return res.json(result);
 });
-
 
 module.exports = router;
 

@@ -5,11 +5,14 @@ import SellerLibrary from '../../Domain/SellerLibrary';
 import ProductLibrary from '../../Domain/ProductLibrary';
 
 // Calling the page to render
+// recoit en parametre l'user depuis la UserPage
 async function SellerPage(user) {
   if (user === undefined) {
+    // renvoye vers login si pas connecté
     clearActive();
     Navigate('/login');
   }else {
+    // renderise la page seller
     const sellerHtml = document.getElementById('sellerThings');
     sellerHtml.innerHTML +=`
       <div class="d-flex justify-content-start">
@@ -41,14 +44,12 @@ async function SellerPage(user) {
       Navigate('/update');
     });
 
+    // recupere les produits du seller
     const products = await SellerLibrary.prototype.getAllBySeller(user.userId);
-    console.log(products, 'ici prodcts')
+    // affiche les produits du seller
     ProductLibrary.prototype.showProducts(products);
-  } 
+  } // fin else
 
-}; 
-
-
-
+}; // fin page
 
 export default SellerPage;

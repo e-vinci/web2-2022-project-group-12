@@ -23,24 +23,39 @@ const html = `
 </div>
   `;
 
+// page des resultats du search dans la navbar
 const SearchResultsPage = async () => {
   clearPage();
   setActiveLink('extUserPage');
   setUserIcon('extUserPage');
+
+  // reload la navbar apres avoir set l'actif
   Navbar();
+
   const main = document.querySelector('main');
   main.innerHTML = html;
+
+  // recupere les produits trouvé par le search
   const results = getSearch();
+
   const resultStatus = document.getElementById('resultStatus');
   const nombreResultats = results.length;
   if (nombreResultats === 0) {
+
     resultStatus.innerHTML += `<p>No results found</p>`;
+
   }else if(nombreResultats === 1){
+
     resultStatus.innerHTML += `<p>${nombreResultats} result found</p>`;
+    // affiche les produits du search
     ProductLibrary.prototype.showProducts(results);
+
   }else{
+
     resultStatus.innerHTML += `<p>${nombreResultats} results found</p>`;
+    // affiche les produits du search
     ProductLibrary.prototype.showProducts(results);
+
   } // fin else
   
 }; // fin page

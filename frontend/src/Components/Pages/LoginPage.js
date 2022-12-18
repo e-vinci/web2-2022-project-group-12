@@ -72,6 +72,8 @@ const LoginPage = () => {
   Navbar();
   const main = document.querySelector('main');
   main.innerHTML = formLogin;
+
+  // effectue l'envoie au backend les info du login
   UserLibrary.prototype.login();
 };
 export default LoginPage;

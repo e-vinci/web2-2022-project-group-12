@@ -1,5 +1,5 @@
 import UserLibrary from '../../Domain/UserLibrary';
-import { setActiveLink } from '../../utils/activeLink';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import { setUserIcon } from '../../utils/userIcon';
@@ -11,10 +11,15 @@ const UpdateUser = () => {
   setActiveLink('userPage');
   setUserIcon('extUserPage');
   Navbar();
+
+  // recupere l'utilisateur connecté
   const user = getAuthenticatedUser();
   if (user === undefined) {
+    // renvoye vers login si pas connecté
+    clearActive();
     Navigate('/login');
   } else {
+    // renderise la page settings
     const html = `
         <form>   
               <div class="row d-flex align-items-end">
@@ -67,6 +72,7 @@ const UpdateUser = () => {
     const main = document.querySelector('main');
     main.innerHTML = html;
 
+    // methodes appelant les boutons en questions et executant les methodes backend
     UserLibrary.prototype.changeFirstName(user);
     UserLibrary.prototype.changeLastName(user);
     UserLibrary.prototype.changePassword(user);

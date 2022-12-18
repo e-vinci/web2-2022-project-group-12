@@ -54,22 +54,20 @@ const html = `
 const BecomeSeller = () => {
   clearPage();
   setActiveLink('userPage');
-
   setUserIcon('extUserPage');
+
+  // reload la navbar apres avoir set l'actif
   Navbar();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
   if (user === undefined) {
-    console.log('3');
     clearActive();
     Navigate('/login');
   } else {
-    console.log('4');
     clearPage();
     const main = document.querySelector('main');
     main.innerHTML = html;
-    console.log('5');
-    
+    // envoie les info à la db
     UserLibrary.prototype.becomeSeller(user);
   }
 };

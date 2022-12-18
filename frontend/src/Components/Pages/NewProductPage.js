@@ -4,7 +4,7 @@ import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
-import { setActiveLink } from '../../utils/activeLink';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 import ProductLibrary from '../../Domain/ProductLibrary';
 import UserLibrary from '../../Domain/UserLibrary';
 
@@ -14,12 +14,15 @@ const NewProductPage = async () => {
   setActiveLink('userPage');
   setUserIcon('extUserPage');
   Navbar();
-  // verifie si l'user s'est login pour acceder à cette page
+  
   const user = await getAuthenticatedUser();
   const seller = await UserLibrary.prototype.isSeller(user.userId)
   if (user === undefined) {
+    // verifie si l'user s'est login pour acceder à cette page
+    clearActive();
     Navigate('/login');
   } else if(seller == null){
+    // si le user n'est pas un seller il n'a pas acces à cette page, il est redirect vers devenir seller
     Navigate('/becomeSeller')
   }else{
     // formulaire NewProduct
@@ -66,6 +69,8 @@ const NewProductPage = async () => {
     `;
     const main = document.querySelector('main');
     main.innerHTML = formNewProduct;
+
+    // methode post back end pour ajouter le produit das la db
     ProductLibrary.prototype.newProduct();
 
   }

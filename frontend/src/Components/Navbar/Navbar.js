@@ -138,9 +138,10 @@ const Navbar = async () => {
           <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
       `;
     }
-
+    // affichage des categories dans la nav bar (marche pas bien pour raison non trouvée)
     const allCategories = await CategoryLibrary.prototype.getAllCategories();
     categoriesNavbar(allCategories);
+    // envoie les info du search à la methode qui genere le search
     ProductLibrary.prototype.searchBar();
   } else {
     const totalProduct = countProductCart();
@@ -277,8 +278,10 @@ const Navbar = async () => {
           <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
       `;
     }
+    // affichage des categories dans la nav bar (marche pas bien pour raison non trouvée)
     const allCategories = await CategoryLibrary.prototype.getAllCategories();
     categoriesNavbar(allCategories);
+    // envoie les info du search à la methode qui genere le search
     ProductLibrary.prototype.searchBar();
 
     const userBtn = document.getElementById('user');
@@ -290,6 +293,7 @@ const Navbar = async () => {
   }
 };
 
+// fonction qui permet de rendre cliquable toutes les categories affiché dans la navbar
 async function categoriesNavbar(allCategories) {
   const btnCategory = document.getElementById('btnCategory');
   btnCategory.addEventListener('click', async (e) => {
@@ -302,7 +306,6 @@ async function categoriesNavbar(allCategories) {
       btnCategory.innerHTML += `
       <li><a class="dropdown-item categoryName textProduct" id="categoryNam" href="#" name="${categoryId}">${nameCat}</a></li>
       `;
-
     });
     const cat = document.getElementById('categoryNam');
     cat.addEventListener('click', async (k) => {

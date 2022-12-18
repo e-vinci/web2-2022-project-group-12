@@ -11,6 +11,8 @@ const AllProductPage = async () => {
   clearPage();
   setActiveLink('shopPage');
   setUserIcon('extUserPage');
+
+  // reload la navbar apres avoir set l'actif
   Navbar();
   
   const html = `
@@ -26,13 +28,13 @@ const AllProductPage = async () => {
   const main = document.querySelector('main');
   main.innerHTML = html;
 
+  // affiche tous les produits de la db
   ProductLibrary.prototype.showProducts(await ProductLibrary.prototype.getAll());
   const btn = document.getElementsByName('btnAddtoCart');
 
     for (let y = 0; y < btn.length; y += 1) {
       btn[y].addEventListener('click', async (e) => {
         e.preventDefault();
-        console.log(btn[y].value);
         addItemToCart(btn[y].value, 5, 1);
         Navbar();
       });

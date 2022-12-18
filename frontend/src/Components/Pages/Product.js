@@ -80,6 +80,7 @@ const ProductPage = async () => {
 
   main.innerHTML = html;
 
+  // permet de redircet vers la page de la category clique
   const cat = document.getElementsByClassName('categoryName');
   const lengthCategories = cat.length;
   for (let j = 0; j < lengthCategories; j += 1) {
@@ -92,7 +93,7 @@ const ProductPage = async () => {
     });
   } // fin for
 
-  // permet le render vers la page du store cliqué
+  // permet le redirect vers la page du store cliqué
   const shop = document.getElementsByClassName('storeID');
   const lengthShop = shop.length;
   for (let j = 0; j < lengthShop; j += 1) {
@@ -178,7 +179,6 @@ const ProductPage = async () => {
   // montre tt les reviews d'un produit
   const reviewshtml = document.getElementById('Reviews');
   const reviewlist = await ProductLibrary.prototype.getReviews(productId);
-  console.log(reviewlist, 'le review list');
   if (reviewlist.length === 0) {
     reviewshtml.innerHTML += `<p style="font-size:150%;padding:10px" class="text-center">No reviews on this product yet</p>`;
   } else {
@@ -203,6 +203,7 @@ const ProductPage = async () => {
       `;
     });
   } // fin else
+
 }; // fin page
 
 

@@ -39,7 +39,6 @@ class UserLibrary {
           },
         };
 
-        console.log("coucou logi  ")
         const reponse = await fetch(`/api/users/login`, options);
         if (!reponse.ok) {
           renderPopUp();
@@ -64,7 +63,6 @@ class UserLibrary {
         if ((await localStorage.getItem(userOrder)) == null) {
           await createOrder(user.email);
         }
-        console.log(user, 'l user');
         // sets the Authenticated user to the actual user
         await setAuthenticatedUser(user);
 
@@ -127,11 +125,15 @@ class UserLibrary {
         password.value === undefined ||
         passwordConfirmed.value === undefined
       ) {
-        console.error('Please, complete all the forms');
+        const message = document.getElementById('message');
+        message.innerHTML += `<div id="snackbar">Please, complete all the fields!</div>`;
+        renderPopUp();
       }
 
       if (password !== passwordConfirmed) {
-        console.error("Passwords don't match");
+        const message = document.getElementById('message');
+        message.innerHTML += `<div id="snackbar">Passwords do not match!</div>`;
+        renderPopUp();
       }
 
       // Creation of a new json object
@@ -205,11 +207,9 @@ class UserLibrary {
             'Content-Type': 'application/json',
           },
         };
-        console.log('logloglog');
         // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/becomeSeller`, options);
         const reponse = await fetch(`/api/users/becomeSeller`, options);
 
-        console.log('logfgfdgfdgdgloglog');
         if (!reponse.ok) {
           throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
         }
@@ -441,7 +441,6 @@ class UserLibrary {
 
   async  isSeller(id) {
     let result;
-    console.log('saluuuut', id);
     try {
       const options = {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -458,7 +457,6 @@ class UserLibrary {
         throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
       }
       result = await reponse.json();
-      console.log('RESSULT', result);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('error: ', err);
