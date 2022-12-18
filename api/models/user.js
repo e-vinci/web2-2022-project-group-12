@@ -139,12 +139,6 @@ class User {
     ]);
   }
 
-  async updateUserEmail(body) {
-    await db.query('UPDATE projetWeb.users SET email = $1 WHERE id_user = $2', [
-      body.email.toLowerCase(),
-      body.id,
-    ]);
-  }
 
   async updateUserPassword(body) {
     const hashedPassword = await bcrypt.hash(body.password, saltRounds);
@@ -154,16 +148,6 @@ class User {
     ]);
   }
 
-  // Permet de recuperer un id d'un user par le moyen de son email //
-  async getUserEmail(body) {
-    const id = await db.query(`SELECT u.id_user FROM projetWeb.users u WHERE u.email = $1`, [
-      body.toLowerCase(),
-    ]).rows;
-    if (id.length === 0) {
-      return null;
-    }
-    return id[0].id_user;
-  }
 
   /* ce truc wola il semblait simple mais enft non woyaaaa */
   async deleteUser(body) {
@@ -198,6 +182,8 @@ class User {
     );
     await await db.query(`DELETE FROM projetWeb.users WHERE id_user = $1`, [body]);
   }
+  
 }
+
 
 module.exports = { User };

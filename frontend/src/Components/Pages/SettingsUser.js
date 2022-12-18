@@ -25,7 +25,7 @@ const UpdateUser = () => {
                       
                   </div>
                   <div class="col">
-                    <button type="submit" class="btn btn-success" id="lastnameBtn" >Save</button>
+                    <button type="button" class="btn btn-success" id="lastnameBtn" >Save</button>
                   </div>
               </div>
               <div class="row d-flex align-items-end">
@@ -35,17 +35,7 @@ const UpdateUser = () => {
                       
                   </div>
                   <div class="col">
-                    <button type="submit" class="btn btn-success" id="firstnameBtn" >Save</button>
-                  </div>
-              </div>
-              <div class="row d-flex align-items-end">
-                  <div class="col-3 mt-3">
-                      <label for="email">E-mail: </label>
-                      <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email">
-                      
-                  </div>
-                  <div class="col">
-                    <button type="submit" class="btn btn-success" id="emailBtn" >Save</button>
+                    <button type="button" class="btn btn-success" id="firstnameBtn" >Save</button>
                   </div>
               </div>
                   <p style="font-size:200%; margin-top:50px">Change password</p>
@@ -58,7 +48,7 @@ const UpdateUser = () => {
                       <label for="confpassword">Confirm password</label>
                       <input type="password" class="form-control" id="confpassword" placeholder="Repeat your password" name="confpassword">
                   </div>
-                  <button type="submit" class="btn btn-success" id="passwordBtn" >Save</button>
+                  <button type="button" class="btn btn-success" id="passwordBtn" >Save</button>
               
               </div>
 
@@ -79,7 +69,6 @@ const UpdateUser = () => {
 
     UserLibrary.prototype.changeFirstName(user);
     UserLibrary.prototype.changeLastName(user);
-    UserLibrary.prototype.changeEmail(user);
     UserLibrary.prototype.changePassword(user);
     UserLibrary.prototype.deleteAccount(user);
   }

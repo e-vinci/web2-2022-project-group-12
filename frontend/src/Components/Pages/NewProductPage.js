@@ -6,21 +6,22 @@ import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
 import { setActiveLink } from '../../utils/activeLink';
 import ProductLibrary from '../../Domain/ProductLibrary';
+import UserLibrary from '../../Domain/UserLibrary';
 
 
-const NewProductPage = () => {
+const NewProductPage = async () => {
   clearPage();
   setActiveLink('userPage');
-
   setUserIcon('extUserPage');
   Navbar();
   // verifie si l'user s'est login pour acceder à cette page
-  const user = getAuthenticatedUser();
+  const user =  getAuthenticatedUser();
+  const seller = await UserLibrary.prototype.isSeller(user.userId)
   if (user === undefined) {
     Navigate('/login');
-  } else {
-    clearPage();
-
+  } else if(seller ==null){
+    Navigate('/becomeSeller')
+  }else{
     // formulaire NewProduct
     const formNewProduct = `
       <div class="">

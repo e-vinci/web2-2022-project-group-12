@@ -341,74 +341,6 @@ class UserLibrary {
     }); // fin listener
   }
 
-  async changeEmail(user) {
-    const emailbtn = document.getElementById('emailBtn');
-    emailbtn.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById('email').value;
-
-      const userDB = await this.getUserEmail(email);
-      console.log(userDB[0], 'truc user db');
-
-      if (email.length < 1) {
-        const erreur = document.getElementById('message');
-        erreur.innerHTML = `
-          <div id="snackbar">Enter a valid email</div>
-        `;
-        renderPopUp();
-      } else if (userDB[0].length > 0) {
-        const erreur = document.getElementById('message');
-        erreur.innerHTML = `
-          <div id="snackbar">This email is already used</div>
-        `;
-        renderPopUp();
-      } else {
-        try {
-          const NewData = {
-            email,
-            id: user.userId,
-          };
-          const options = {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            body: JSON.stringify(NewData),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          };
-          // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUser`, options);
-
-          const reponse = await fetch(`/api/users/updateUserEmail`, options);
-
-          if (!reponse.ok) {
-            throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-          }
-          const newUser = {
-            userId: user.userId,
-            email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            password: user.password,
-          };
-          if (email !== undefined) {
-            newUser.email = email;
-          }
-          setAuthenticatedUser(newUser);
-          const meesage = document.getElementById('message');
-          meesage.innerHTML += `
-            <div id="snackbar">Your email has been updated!</div>
-          `;
-          renderPopUp();
-          Navigate('/user?idSeller=', user.userId);
-          /* const user = await reponse.json(); */
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.error('error: ', err);
-        }
-      } // fin else
-    });
-  }
-
   async changePassword(user) {
     const passwordbtn = document.getElementById('passwordBtn');
     passwordbtn.addEventListener('click', async (e) => {
@@ -431,7 +363,7 @@ class UserLibrary {
               'Content-Type': 'application/json',
             },
           };
-          // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUser`, options);
+          // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUserPassword`, options);
 
           const reponse = await fetch(`/api/users/updateUserPassword`, options);
 
@@ -470,32 +402,6 @@ class UserLibrary {
     });
   } // fin else
 
-  async getUserEmail(email) {
-    let idUSER;
-    try {
-      const options = {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify(email),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUser`, options);
-
-      // eslint-disable-next-line prefer-template
-      const reponse = await fetch(`/api/users/getUserEmail`, options);
-
-      if (!reponse.ok) {
-        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-      }
-      idUSER = await reponse.json();
-      /* const user = await reponse.json(); */
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('error: ', err);
-    }
-    return idUSER;
-  }
 
   async deleteAccount(user) {
     const deletebtn = document.getElementById('deleteBtn');
@@ -513,7 +419,7 @@ class UserLibrary {
             'Content-Type': 'application/json',
           },
         };
-        // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUser`, options);
+        // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/deleteAccount`, options);
 
         // eslint-disable-next-line prefer-template
         const reponse = await fetch(`/api/users/deleteAccount`, options);
@@ -533,6 +439,33 @@ class UserLibrary {
         console.error('error: ', err);
       }
     });
+  }
+
+  async  isSeller(id) {
+    let result;
+    console.log('saluuuut', id);
+    try {
+      const options = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      // eslint-disable-next-line prefer-template
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getIdStore/` + id, options);
+      // eslint-disable-next-line prefer-template
+      const reponse = await fetch(`/api/users/getIdStore/` + id, options);
+  
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      }
+      result = await reponse.json();
+      console.log('RESSULT', result);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
+    }
+    return result;
   }
 }
 

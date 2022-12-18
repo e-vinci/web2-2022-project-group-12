@@ -7,6 +7,7 @@ import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
 import SellerPage from './SellerPage';
+import UserLibrary from '../../Domain/UserLibrary';
 
 /* let unUSEDhtml =`<div class="col-md-8 col-lg-6 col-xl-4">
 <div class="card" style="border-radius: 15px;">
@@ -50,7 +51,7 @@ const UserPage = async () => {
   Navbar();
   const user = await getAuthenticatedUser();
   console.log(user,'dans la user page')
-  const seller = await isSeller(user.userId);
+  const seller = await UserLibrary.prototype.isSeller(user.userId);
   if (user === null) {
     clearActive();
     Navigate('/login');
@@ -107,31 +108,6 @@ const UserPage = async () => {
   }
 };
 
-async function isSeller(id) {
-  let result;
-  console.log('saluuuut', id);
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    // eslint-disable-next-line prefer-template
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getIdStore/` + id, options);
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/users/getIdStore/` + id, options);
 
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    result = await reponse.json();
-    console.log('RESSULT', result);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return result;
-}
 
 export default UserPage;
