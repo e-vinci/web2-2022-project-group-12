@@ -34,12 +34,13 @@ const PaypalPage = () =>{
     main.innerHTML = html;
 
     const idToPay = document.getElementById('priceToPay');
+    // cree un element script
     const script = document.createElement('script');
 
-    // paypal button script
+    // ajoute la source au script créé
     script.src = 'https://www.paypal.com/sdk/js?client-id=sd&currency=EUR&buyer-country=DE&commit=false';
 
-    // append to main because innerHTML does not read scripts
+    // Append au main (sinon il n'est pas executé)
     main.appendChild(script);
 
     // Display price on top of button
@@ -47,7 +48,7 @@ const PaypalPage = () =>{
     total += ' $';
     idToPay.innerHTML = total;
 
-    // paypal api script for the button
+    // script du bouton paypal
     loadScript({
       'client-id':
         'AWEnDzMJ1xdqqno_kFxSrbvBXeUu1AQXkmiggw9jw5sGSlSCpQrk-hkEN0_sBsSUprAyLZY18UaV1BEU',
@@ -74,12 +75,14 @@ const PaypalPage = () =>{
                   // Full available details
                   console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
 
-                  // Show a success message within this page, e.g.
+                  // affiche un message de réussite, e.g.
                   const element = document.getElementById('paypal-button-container');
                   element.innerHTML = '';
                   element.innerHTML = '<h3>Thank you for your payment! You will be redirected</h3>';
                   endTransaction();
-                  // Or go to another URL:  actions.redirect('thank_you.html'); 
+                  /* termine la transaction : ajoute le panier dans les commandes passées vide le panier et en cree un nouveau
+                  et redirige l'utilisater après 3.4 secondes
+                    */
                   async function endTransaction(){
                     const user = getAuthenticatedUser();
                     await addOrder();
@@ -98,7 +101,7 @@ const PaypalPage = () =>{
     }
   }).render('#paypal-button-container');
 }
-// initiate paypal button
+// initialise le bouton paypal
 initPayPalButton();})
 
   .catch((err) => {

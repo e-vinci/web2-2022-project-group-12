@@ -17,11 +17,8 @@ const CheckoutPage = () => {
   Navbar();
   // verifie si l'user s'est login pour acceder à cette page
   const user = getAuthenticatedUser();
-  // eslint-disable-next-line prefer-destructuring
   const firstName = user.firstName;
-  // eslint-disable-next-line prefer-destructuring
   const lastName = user.lastName;
-  // eslint-disable-next-line prefer-destructuring
   const email = user.email;
 
   const html = `
@@ -102,17 +99,15 @@ const CheckoutPage = () => {
        </div>
        <div id="snackbar"> All fields are required ! </div>
     `;
-
+  // si l'utilisateur n'est pas connecté, redirige au login
   if (user === undefined) {
     clearActive();
     Navigate('/login');
   } else {
+    // utilisateur connecté
     clearPage();
     const userEmail = getAuthenticatedUser().email;
     const cart = loadCart(userEmail);
-    const total = getCartTotal();
-    console.log('Le total est ', total);
-
     let html2 = `
       
       <div col-md-8 order-md-2 mb-4" style="margin-left : 50px; margin-top : 30px">
@@ -123,11 +118,9 @@ const CheckoutPage = () => {
       <ul class="list-group mb-3" id="listItem">
       
       `;
-    console.log('le panier est', cart.objects);
 
-    // eslint-disable-next-line prefer-destructuring
     const length = cart.objects.length;
-
+    // affichage de tous les articles du panier
     for (let i = 0; i < length; i += 1) {
       let totalPriceForThisArticle = 0;
       totalPriceForThisArticle = cart.objects[i].price * cart.objects[i].count;
@@ -142,7 +135,7 @@ const CheckoutPage = () => {
       </li>
     `;
     }
-
+    // affichage du prix total
     const totalPrice = getCartTotal();
     html2 += `
       <li class="list-group-item d-flex justify-content-between">
@@ -157,6 +150,8 @@ const CheckoutPage = () => {
     const id = document.getElementById('firstDiv');
     id.innerHTML = html2;
 
+    /* ecouteur du bouton pour acceder a la paypal page
+    vérifie que tous les champs son remplis, sinon affiche un popup */
     const paypalBtn = document.getElementById('form');
     paypalBtn.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -165,12 +160,10 @@ const CheckoutPage = () => {
       for (let i = 0; i < list.length; i += 1) {
         if (list[i].value === '') {
           bool = true;
-          console.log('Je suis passé', i);
           break;
         }
       }
       if (bool === false) {
-        console.log('paypal listener');
         PaypalPage();
       } else {
         renderPopUp();
