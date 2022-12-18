@@ -61,6 +61,14 @@ const UpdateUser = () => {
                   <button type="submit" class="btn btn-success" id="passwordBtn" >Save</button>
               
               </div>
+
+              </div>
+                  <p style="font-size:200%; margin-top:50px">Delete your account</p>
+                  <p>This will permanently delete your account and all of your informations</p>
+                  <button type="submit" class="btn btn-outline-danger" id="deleteBtn" >Delete</button>
+                  
+              
+              </div>
               
               <div id="message">
               </div>
@@ -73,6 +81,7 @@ const UpdateUser = () => {
     UserLibrary.prototype.changeLastName(user);
     UserLibrary.prototype.changeEmail(user);
     UserLibrary.prototype.changePassword(user);
+    UserLibrary.prototype.deleteAccount(user);
   }
 }
 

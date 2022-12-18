@@ -157,12 +157,18 @@ class User {
     return id[0].id_user;
   }
 
- /* ce truc wola il semblait simple mais enft non woyaaaa
+ /* ce truc wola il semblait simple mais enft non woyaaaa */
   async DeleteUser(id) {
     await ( await db.query(`
-    DELETE FROM projetWeb.seller, projetWeb.photos_users, projetWeb.ratings, projetWeb.products WHERE some_fk_field IN (SELECT some_id FROM some_Table);
-    DELETE FROM projetWeb.users WHERE id_user = $1`,[id]));
-  } */
+      DELETE FROM projetWeb.seller WHERE id_user IN (SELECT id_user FROM projetWeb.users WHERE id_user = $1);
+      DELETE FROM projetWeb.product_reviews WHERE id_user IN (SELECT id_user FROM projetWeb.users WHERE id_user = $1);
+      DELETE FROM projetWeb.photos_users WHERE id_user IN (SELECT id_user FROM projetWeb.users WHERE id_user = $1);
+      DELETE FROM projetWeb.products WHERE id_user IN (SELECT id_user FROM projetWeb.users WHERE id_user = $1);
+      DELETE FROM projetWeb.orders WHERE id_user IN (SELECT id_user FROM projetWeb.users WHERE id_user = $1);
+      DELETE FROM projetWeb.users WHERE id_user IN (SELECT id_user FROM projetWeb.users WHERE id_user = $1);
+      DELETE FROM projetWeb.users WHERE id_user = $1
+    `,[id]));
+  } 
 
 
 }
