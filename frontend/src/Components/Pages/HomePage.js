@@ -80,7 +80,7 @@ const HomePage = async () => {
   const carrouselListItem = document.getElementById('carousel-items');
   let i = 0;
   let items = ``;
-  while (i < 2) {
+  while (i < 3) {
     if (i === 0) {
       items += `<div class="carousel-item active" data-bs-interval="10000">
     <img src="${imageCaroussel[i]}" id="item-${i}" class="d-block w-100" alt="img">
@@ -98,7 +98,7 @@ const HomePage = async () => {
   i = 0;
   items = ``;
   const carouselButtons = document.getElementById('carousel-buttons');
-  while (i < 2) {
+  while (i < 3) {
     if (i === 0) {
       items += `<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i +
         1}"></button>

@@ -39,8 +39,8 @@ class UserLibrary {
           },
         };
 
+        console.log("coucou logi  ")
         const reponse = await fetch(`/api/users/login`, options);
-
         if (!reponse.ok) {
           renderPopUp();
           throw new Error(

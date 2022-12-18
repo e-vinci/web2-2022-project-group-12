@@ -40,6 +40,14 @@ const Footer = () =>{
                                     </li>
                                 </ul>
                         </div>
+                        <div class="col-md-3 mb-md-0 mb-3">
+                            <h5 class="text-uppercase">General conditions of use</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="#" class="nav-item nav-link active" data-uri="/cgu">CGU</a>
+                                    </li>
+                                </ul>
+                        </div>
                         <!-- Grid column -->
                     </div>
                     <!-- Grid row -->

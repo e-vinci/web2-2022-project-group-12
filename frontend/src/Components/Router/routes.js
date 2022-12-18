@@ -15,6 +15,7 @@ import SearchResultsPage from '../Pages/SearchResultsPage';
 import AllProductPage from '../Pages/AllProductPage';
 import CategoryPage from '../Pages/CategoryPage';
 import SellerPage from '../Pages/SellerPage';
+import CGU from '../Pages/CGU';
 
 const routes = {
   '/': HomePage,
@@ -36,6 +37,8 @@ const routes = {
   '/allProducts': AllProductPage,
   '/category': CategoryPage,
   '/seller': SellerPage,
+  '/cgu' : CGU,
+  
 };
 
 console.log('routes',routes);
