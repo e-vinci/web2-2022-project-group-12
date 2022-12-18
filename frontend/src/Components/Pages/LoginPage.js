@@ -3,12 +3,11 @@ import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logoAsset from '../../assets/image0.png';
 import UserLibrary from '../../Domain/UserLibrary';
+import Navbar from '../Navbar/Navbar';
 
 
 const formLogin = `
   
-<section class="h-100 gradient-form" style="background-color: #eee; margin-bottom : 200px">
-        <div class="container py-5 h-100">
         <div id="snackbar">The email or the password is incorrect !</div>
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
@@ -62,8 +61,7 @@ const formLogin = `
                     </div>
                 </div>
             </div>           
-        </div>
-    </section>
+
     
 
 `;
@@ -71,6 +69,7 @@ const formLogin = `
 const LoginPage = () => {
   clearPage();
   setActiveLink('loginPage');
+  Navbar();
   const main = document.querySelector('main');
   main.innerHTML = formLogin;
   UserLibrary.prototype.login();

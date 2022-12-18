@@ -25,7 +25,6 @@ const CheckoutPage = () => {
   const email = user.email;
 
   const html = `
-  <div class="container">
         <div class="row">
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3" style="margin-top : 30px">Nearly there...</h4>
@@ -33,7 +32,7 @@ const CheckoutPage = () => {
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name</label>
-                            <input type="text" class="form-control test" placeholder="" value="${firstName}" name="test"
+                            <input type="text" class="form-control test" placeholder="Enter your first name" value="${firstName}" name="test"
                                 required="required">
                             <div class="invalid-feedback">
                                 Valid first name is required.
@@ -41,7 +40,7 @@ const CheckoutPage = () => {
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last name</label>
-                            <input type="text" class="form-control test" placeholder="" value="${lastName}" name="test"
+                            <input type="text" class="form-control test" placeholder="Enter your last name" value="${lastName}" name="test"
                                 required="required">
                             <div class="invalid-feedback">
                                 Valid last name is required.
@@ -102,7 +101,6 @@ const CheckoutPage = () => {
           <div id="firstDiv" class="col-md-4 order-md-2 mb-4"></div>
        </div>
        <div id="snackbar">Hep Hep Hep, tous les champs sont requis !</div>
-    </div>
     `;
 
   if (user === undefined) {

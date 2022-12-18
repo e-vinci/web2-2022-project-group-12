@@ -34,6 +34,50 @@ const ProductPage = async () => {
 
   // html de la page
   const html = `
+  <div class="row" style="margin-top:30px">
+            <div class="col-md-2 order-md-1">
+              <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <img src="INSERER imageUrl ici apres" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                      class="img-fluid" alt="Laptop" />
+                  <a href="#!">
+                      <div class="mask"></div>
+                  </a>
+              </div>
+              </div>
+              </div>
+              <div class="row" style="margin-top:30px">
+            <div class="col-md-2 order-md-2">
+              <div class="card-body pb-0">
+                  <div class="d-flex justify-content-between">
+                      <div>
+                          <p><a href="#!" class="text-dark aProductName" name="${productId}">${productName}</a></p>
+                          <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">by ${storeName}</a></p>
+                      </div>
+                      <div id="categoria">
+                          <p class="small text-muted"><a href="#!" class="text-dark categoryName" name="${categoryId}">${category}</a></p>
+                      </div>
+                  </div>
+              </div>
+              <hr class="my-0" />
+              <div class="card-body pb-0">
+                  <div class="d-flex justify-content-between">
+                      <p class="text-dark">${productPrice}€</p>
+                  </div>
+              </div>
+              <div class="card-body pb-0">
+                  <div class="d-flex justify-content-between">
+                      <p class="text-dark">${productDescription}</p>
+                      <div id="cartFeature">
+                        
+                      </div>
+                  </div>
+              </div>
+              
+              </div>
+              </div>
+          
+
   <section class="section" id="product">
         <div class="container">
             <div class="row">
@@ -52,9 +96,6 @@ const ProductPage = async () => {
                     <p class="small text-muted"><a href="#!" class="text-dark storeID" name="${storeId}">Store Name : ${storeName}</a></p>
                     <div class="quote">
                         <i class="fa fa-quote-left"></i><p>${productDescription}</p>
-                        <div id="cartFeature">
-                        
-                      </div>
                     </div>
                     <div class="total">
                     <h4>ADD TO CART</h4>
@@ -73,18 +114,10 @@ const ProductPage = async () => {
             
           </div>
           
-        </div>`
+
+          `;
 
   main.innerHTML = html;
-
-  
-  const btn = document.getElementById('btnAddtoCart');
-
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    addItemToCart(product.id, product.name, product.price, 1);
-  });
-
 
   const cat = document.getElementsByClassName('categoryName');
   const lengthCategories = cat.length;
@@ -113,6 +146,12 @@ const ProductPage = async () => {
     cartDiv.innerHTML = `
       <button type="button" id="btnAddtoCart" value="${productId}" class="btn btn-dark"><i class="bi bi-cart-plus"></i></button>
     `;
+    const btn = document.getElementById('btnAddtoCart');
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      addItemToCart(productId, product.name, product.price, 1);
+    });
 
     loginStatus.innerHTML += `
     <hr class="my-0" />
@@ -168,100 +207,15 @@ const ProductPage = async () => {
       const userFirstNameReview = lareview.first_name;
       const userLastNameReview = lareview.last_name;
       const messageReview = lareview.message;
+      const dateReview = lareview.date;
       reviewshtml.innerHTML += `
         
         <div>
           <p>${userFirstNameReview} ${userLastNameReview}</p>
           <p>${messageReview}</p>
-          <button class="input-group-text btn btn-dark text-white" id="repondreShow">Answer</button>
-          <div id="ajoutReponse">
-
-          </div>
-          <div id="Answers">
-            
-          </div>
+          <p>${dateReview}</p>
         </div>
       `;
-      
-      const repondreReview = document.getElementById('repondreShow');
-
-      // Affichage de l'input pour une reponse
-      repondreReview.addEventListener('click', (e) => {
-        e.preventDefault();
-        reviewshtml.innerHTML =`
-        <div>
-          <p>${userFirstNameReview} ${userLastNameReview}</p>
-          <p>${messageReview}</p>
-          <div id="ajoutReponse">
-
-          </div>
-          <div id="Answers">
-            
-          </div>
-        </div>
-      `;
-        const ajoutReponse = document.getElementById('ajoutReponse');
-        ajoutReponse.innerHTML=``;
-        ajoutReponse.innerHTML += `
-        <form action="">
-          <label for="description">Asnwering...</label>
-          <div id="errorMessage">
-
-          </div>
-          <div class="input-group">
-              <textarea type="text" class="form-control" placeholder="Enter your answer here..." id="answerMessage" rows="2"></textarea>
-              <div class="input-group-append">
-                  <button class="input-group-text btn btn-dark text-white" id="answerBtn"><i class="bi bi-arrow-return-left"></i></button>
-              </div>
-          </div>
-        </from>
-        `;
-
-        const answerBtn = document.getElementById('answerBtn');
-
-        // Ajout d'une reponse a une review d'un produit
-        answerBtn.addEventListener('click', (d) => {
-          d.preventDefault();
-
-          // Récupération de toute les données avec les id
-          const answerMessage = document.getElementById('answerMessage').value;
-          const errorMessage = document.getElementById('errorMessage');
-          if (answerMessage.length < 1) {
-            errorMessage.innerHTML += `<p class="alert"><i class="bi bi-exclamation-circle-fill"></i> You can not post an empty reply!</p>`;
-          }
-
-          // Création d'un nouvel objet json
-          const NewAnswer = {
-            idUser: user.userId,
-            message: answerMessage,
-            idReview: lareview.id_review,
-          };
-
-          postAnswer(NewAnswer);
-          ProductPage();
-        }); // fin eventListener
-      }); // fin eventListener
-
-      // montre tt les reponses aux reviews du produit
-      const answerlist = await getAnswers(lareview.id_review);
-      const answerhtml = document.getElementById('Answers');
-
-      console.log(answerlist, 'answer listi ici')
-      if (answerlist.length === 0) {
-        // rien faire
-      } else {
-        answerlist.forEach(async (lareponse) => {
-          const userFirstNameAnswer = lareponse.first_name;
-          const userLastNameAnswer = lareponse.last_name;
-          const messageAnswer = lareponse.message;
-          answerhtml.innerHTML += `
-            <div>
-              <p>answer by ${userFirstNameAnswer} ${userLastNameAnswer}</p>
-              <p>${messageAnswer}</p>
-            </div>
-          `;
-        });
-      } // fin else
     });
   } // fin else
 }; // fin page
@@ -278,8 +232,11 @@ async function getProductById(id) {
       },
     };
     console.log('TEST ', id);
+    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getIdProduct/` + id, options);
+
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getIdProduct/` + id, options);
+    const reponse = await fetch(`/api/products/getIdProduct/` + id, options);
+
     product = await reponse.json();
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
@@ -302,7 +259,8 @@ async function postReview(data) {
       },
     };
 
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/addReview`, options);
+    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/addReview`, options);
+    const reponse = await fetch(`/api/products/addReview`, options);
 
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
@@ -333,63 +291,11 @@ async function getReviews(data) {
       },
     };
 
+    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getReviews/` + data, options);
+    
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getReviews/` + data, options);
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    result = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return result;
-} // fin function getReviews
+    const reponse = await fetch(`/api/products/getReviews/` + data, options);
 
-async function postAnswer(data) {
-  let idAnswer;
-  try {
-    const options = {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const reponse = await fetch('/api/products/addAnswer', options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    idAnswer = await reponse.json();
-    console.log(idAnswer);
-    /*  
-console.log("id ::::::", idProduct);
-const path =`'../../assets/product/image${idProduct}.img'`;
-console.log("le path pour nouveau file::",path);
-fs.appendFile(path,image); 
-*/
-    /* const user = await reponse.json(); */
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return idAnswer;
-} // fin function postReview
-
-async function getAnswers(data) {
-  let result;
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch('/api/products/getAnswers/' + data, options);
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }

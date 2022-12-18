@@ -14,20 +14,18 @@ const AllProductPage = async () => {
   Navbar();
   
   const html = `
-    <div class="container-fluid pt-5">
         <div class="row px-xl-5">
-          <div class="container py-5">
+          <div class="py-5">
               <div class="row justify-content" id="imgProduct">
   
               </div>
           </div>
       </div>
-    </div>
     `;
   const main = document.querySelector('main');
   main.innerHTML = html;
 
-  ProductLibrary.prototype.showProduct();
+  ProductLibrary.prototype.showProducts(await ProductLibrary.prototype.getAll());
   const btn = document.getElementsByName('btnAddtoCart');
 
     for (let y = 0; y < btn.length; y += 1) {

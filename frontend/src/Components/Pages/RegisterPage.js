@@ -3,12 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import logoAsset from '../../assets/image0.png';
 import UserLibrary from '../../Domain/UserLibrary';
 import { setActiveLink } from '../../utils/activeLink';
+import Navbar from '../Navbar/Navbar';
 
 
 // Register form 
 const formRegister = `
-<section class="h-100 gradient-form" style="background-color: #eee; margin-bottom : 300px">
-        <div class="container py-4 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black">
@@ -96,14 +95,14 @@ const formRegister = `
                     </div>
                 </div>
             </div>           
-        </div>
-    </section>
+
   `;
 
 const RegisterPage = () => {
   
   clearPage();
   setActiveLink('registerPage');
+  Navbar();
   const main = document.querySelector('main');
   main.innerHTML = formRegister;
   // Function register

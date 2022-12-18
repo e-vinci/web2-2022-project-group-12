@@ -5,10 +5,10 @@ import Navigate from '../Router/Navigate';
 import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
+import UserLibrary from '../../Domain/UserLibrary';
 
 const html = `
 <form style="margin-top:30px">
-        <div class="container mt-3">
             <h2>Store</h2>
             <div class="mb-3 mt-3">
                 <label for="name">Name your store!</label>
@@ -48,7 +48,6 @@ const html = `
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" id="sell">Start selling!</button>
-        </div>
     </form>
 `;
 
@@ -70,54 +69,8 @@ const BecomeSeller = () => {
     const main = document.querySelector('main');
     main.innerHTML = html;
     console.log('5');
-    const btn = document.getElementById('sell');
-
-    // Ajout de l'utilisateur aprés avoir appuyé sur le bouton submit
-    btn.addEventListener('click', async (e) => {
-      e.preventDefault();
-
-      // Récupération de toute les données avec les id
-      const storeName = document.getElementById('storename').value;
-      const country = document.getElementById('country').value;
-      const city = document.getElementById('city').value;
-      const zipCode = document.getElementById('zipcode').value;
-      const street = document.getElementById('street').value;
-      const building = document.getElementById('buildingcode').value;
-
-      // Création d'un nouvel objet json
-      const newData = {
-        userID: user.userId,
-        storeName,
-        country,
-        city,
-        zipCode,
-        street,
-        building,
-      };
-
-      try {
-        const options = {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          body: JSON.stringify(newData),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        console.log("logloglog");
-        const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/becomeSeller`, options);
-        console.log("logfgfdgfdgdgloglog");
-        if (!reponse.ok) {
-          throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-        }
-        clearActive();
-        Navigate('/user');
-        /* const user = await reponse.json(); */
-        ;
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('error: ', err);
-      }
-    });
+    
+    UserLibrary.prototype.becomeSeller(user);
   }
 };
 

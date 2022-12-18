@@ -16,10 +16,9 @@ const html = `
         </h4>
         <ul class="list-group mb-3" id="listItem">
   
-        </ul>
-
-        <button type="button" class="btn btn-success btn-lg" id="checkoutButton">Checkout</button>
-    </div>
+  </ul>
+  <button type="button" class="btn btn-success btn-lg" id="checkoutButton"><i class="bi bi-cart-check"></i> Checkout</button>
+</div>
 `;
 
 const MyCartPage = () => {
@@ -50,15 +49,15 @@ const MyCartPage = () => {
       let totalPriceForThisArticle = 0;
       totalPriceForThisArticle = cart.objects[i].price * cart.objects[i].count;
       html2 += `
-  <li class="list-group-item d-flex justify-content-between lh-condensed">
-  <div>
-    <a href="" class="buttonToItem" class="my-0">${cart.objects[i].name}</a>
-  </div>
-  <span class="text-muted">${cart.objects[i].price}€</span>
-  <small class="text-muted">Quantity : ${cart.objects[i].count}</small>
-  <small class="text-muted">Total : ${totalPriceForThisArticle}€</small>
-  <button type="button" class="deleteArticleButton btn btn-light"><i class="bi bi-cart-dash"></i> Cancel</button>
-  </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <div>
+          <a href="#" class="buttonToItem textProduct" class="my-0">${cart.objects[i].name}</a>
+        </div>
+        <span class="text-muted">${cart.objects[i].price}€</span>
+        <small class="text-muted">Quantity : ${cart.objects[i].count}</small>
+        <small class="text-muted">Total : ${totalPriceForThisArticle}€</small>
+        <button type="button" class="deleteArticleButton btn btn-light"><i class="bi bi-cart-dash"></i> Cancel</button>
+        </li>
 `;
     }
 

@@ -1,8 +1,6 @@
-import { clearPage } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Footer = () =>{
-    clearPage();
     const footerWrapper = document.querySelector('#footerWrapper');
 
     const footer = `
@@ -29,16 +27,16 @@ const Footer = () =>{
 
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
+                                        <a href="#" class="nav-item nav-link lienFooter" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
                                     </li>
                                     <li>
-                                        <a href="#" class="nav-item nav-link active" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
+                                        <a href="#" class="nav-item nav-link lienFooter" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
                                     </li>
                                     <li>
-                                        <a href="#" class="nav-item nav-link active" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
+                                        <a href="#" class="nav-item nav-link lienFooter" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
                                     </li>
                                     <li>
-                                        <a href="#" class="nav-item nav-link active" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
+                                        <a href="#" class="nav-item nav-link lienFooter" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
                                     </li>
                                 </ul>
                         </div>
@@ -57,8 +55,8 @@ const Footer = () =>{
                 <!-- Footer Links -->
 
                 <!-- Copyright -->
-                <div class="footer-copyright text-center py-3">© 2020 Copyright:
-                    <a href="/"> VinciStore.com</a>
+                <div class="footer-copyright text-center py-3">©2022 Copyright:
+                    <a href="/" class="lienFooter"> VinciStore.com</a>
                 </div>
                 <!-- Copyright -->
 
@@ -67,10 +65,6 @@ const Footer = () =>{
     `
     footerWrapper.innerHTML = footer;
 
-
-
-
-
 }
 
-export default Footer();
+export default Footer;

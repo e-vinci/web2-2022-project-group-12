@@ -10,7 +10,7 @@ import BecomeSeller from '../Pages/BecomeSeller';
 import CheckoutPage from '../Pages/CheckoutPage';
 import StorePage from '../Pages/StorePage';
 import PaypalPage from '../Pages/Paypal';
-import UpdateUser from '../Pages/UpdateUser';
+import SettingsUser from '../Pages/SettingsUser';
 import SearchResultsPage from '../Pages/SearchResultsPage';
 import AllProductPage from '../Pages/AllProductPage';
 import CategoryPage from '../Pages/CategoryPage';
@@ -32,7 +32,7 @@ const routes = {
   '/checkout': CheckoutPage,
   '/store': StorePage,
   '/paypal': PaypalPage,
-  '/update': UpdateUser,
+  '/settings': SettingsUser,
   '/search':SearchResultsPage,
   '/allProducts': AllProductPage,
   '/category': CategoryPage,

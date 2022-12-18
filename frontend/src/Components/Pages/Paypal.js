@@ -9,9 +9,18 @@ import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
 
 const html = `
-<div class ="container" style="text-align: center; margin-top : 100px"><strong> Amount to Pay : <div id="priceToPay"></div> </strong></div>
+<div style="text-align: center; margin-top : 100px">
+  <strong> Amount to Pay : 
+    <div id="priceToPay">
+    
+    </div> 
+  </strong>
+
+</div>
 <div id="smart-button-container">
-    <div style="text-align: center; margin-top: 5%;" id="paypal-button-container"></div>
+    <div style="text-align: center; margin-top: 5%;" id="paypal-button-container">
+
+    </div>
 </div>
    `
 

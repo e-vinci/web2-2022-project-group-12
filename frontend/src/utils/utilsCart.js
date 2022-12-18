@@ -37,7 +37,8 @@ return  console.error("le user n'a pas de cart")
 }
 
 function deleteCart() {
-  localStorage.removeItem('shoppingCart');
+  const user = getAuthenticatedUser();
+  localStorage.removeItem(`shoppingCart${user.email}`);
 }
 
 

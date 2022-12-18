@@ -8,17 +8,17 @@ import { importAll } from '../../utils/utilsImages';
 import ProductLibrary from '../../Domain/ProductLibrary';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer'
+import CategoryLibrary from '../../Domain/CategoryLibrary';
 
 
 // HTML CODE
 const html = `
     <div class="text-center">
-        <h1 class="display-1"> Vinci Store </h1>
+        <h1 class="display-3"> Vinci Store </h1>
     </div>
 
     <!-- HTML CAROUSSEL -->
-    <div class="carousselContainer ">
+    <div class="carousselContainer">
         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-indicators" id="carousel-buttons">
 
@@ -40,18 +40,19 @@ const html = `
     </div>
 
     <div class="text-center">
-          <h1 class="display-1">Products</h1>
-          <h3>Last collection ! </h3>
+          <h3 class="display-6">Last collection ! </h3>
       </div>
 
       <!-- HTML PRODUCTS -->
-      <div class="container py-5">
-          <div class="row justify-content" id="imgProduct"></div>
-          <div id="snackbar">Le produit a été ajouté a votre panier !</div>
+      <div class=" py-5">
+          <div class="row justify-content" id="imgProduct">
+          
+          </div>
+          
       </div>
 
     <!-- HTML CATEGORIES -->
-    <div class="container-fluid pt-5">
+    <div class="pt-5">
     <h1>Categories</h1>
             <div class="row px-xl-5 pb-3" id="categories">
             
@@ -110,36 +111,28 @@ const HomePage = async () => {
     i += 1;
   }
   carouselButtons.innerHTML = items;
-  
-  ProductLibrary.prototype.showLastProduct();
-  const cat = await ProductLibrary.prototype.fetchCategories();
+
+  ProductLibrary.prototype.showProducts(await ProductLibrary.prototype.selectLastProduct());
+  const cat = await CategoryLibrary.prototype.getAllCategories();
   await showCategories(cat);
-  Footer();
-};
+}; // fin page
 
 async function showCategories(categories) {
   
   console.log(categories)
   const category = document.getElementById('categories')
-  let items =``;
-  let i = 0;
+  categories.forEach(element => {
+    const categoryName = element.name;
+    const categoryId = element.id_category;
 
-  while (i < categories.length){
-    const categoryName = categories[i].name;
-    const categoryId = categories[i].id_category;
-
-    items+=`
+    category.innerHTML+=`
       <div class="col-lg-4 col-md-6 pb-1">
           <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                <a href = "#" class="text-dark categoryName" name="${categoryId}"><h5 class="font-weight-semi-bold m-0" >${categoryName}</h5></a>
+                <a href = "#" class="text-dark categoryName textProduct" name="${categoryId}"><h5 class="font-weight-semi-bold m-0" >${categoryName}</h5></a>
           </div>
       </div>
     `
-    i += 1;
-  }
-  
-  category.innerHTML = items;
-
+  });
    
   const cat = document.getElementsByClassName('categoryName');
   for (let j = 0; j < cat.length; j += 1) {
@@ -151,8 +144,5 @@ async function showCategories(categories) {
       Navigate('/category?=', idcat);
     });}
 }
-
-
-
 
 export default HomePage;

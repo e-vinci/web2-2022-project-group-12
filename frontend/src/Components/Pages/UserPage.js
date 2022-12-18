@@ -6,21 +6,7 @@ import 'animate.css';
 import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
-
-const html = `
-    <div class="text-center">
-        <button type="button" id="btnSeller"class="btn btn-dark position-relative">
-        Become a seller <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
-        </button>
-        <button type="button" id="btnUpdate" class="btn btn-dark position-relative">
-          Edit your profile <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1 bi bi-caret-down-fill" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
-        </button>
-      </div>
-      <div style="margin-left: 920px">
-        <h1>Hello<div id="firstnameDiv"></div></h1>
-      </div>
-    </div>
-  `;
+import SellerPage from './SellerPage';
 
 /* let unUSEDhtml =`<div class="col-md-8 col-lg-6 col-xl-4">
 <div class="card" style="border-radius: 15px;">
@@ -63,40 +49,67 @@ const UserPage = async () => {
   setUserIcon('userPage');
   Navbar();
   const user = await getAuthenticatedUser();
-  console.log('lqalallaa',user);
+  console.log(user,'dans la user page')
   const seller = await isSeller(user.userId);
-  console.log('Seller: ', seller);
   if (user === null) {
-    console.log("pouplating main");
     clearActive();
     Navigate('/login');
-  } else {
+  } else {// elements commun aux 2 pages seller et user
     // eslint-disable-next-line
-    const firstName = user.firstName;
+    const main = document.querySelector('main');
+    // eslint-disable-next-line no-unused-vars
+    main.innerHTML += `
+      <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-start col">
+          <div>
+            <h1 class="display-6" id="nomUser">
+              <i class="bi bi-person-fill"></i> 
+            </h1>
+          </div>
+        </div>
+        <div id="boutons" class="d-flex flex-row-reverse col-4 p-3 justify-content-evenly">
+            <button type="button" id="btnUpdate" class="btn btn-outline-secondary rounded-pill position-relative"><i class="bi bi-gear-fill"></i> Edit your profile</button>
+        </div>
+        
+      </div>
+        <div id="sellerThings">
+        
+        </div>
+      </div>
+
+    `;
+    const id = document.getElementById('nomUser');
+    id.innerHTML += `${user.firstName} ${user.lastName}`;
     // verifie si l'user s'est login pour acceder à cette page
     if (seller !== null) {
-      clearActive();
-      Navigate('/seller');
-      console.log('ewa la miss');
+      SellerPage(user);
     } else {
-      const main = document.querySelector('main');
-      main.innerHTML = html;
-      const id = document.getElementById('firstnameDiv');
-      id.innerHTML = firstName;
+      const boutons = document.getElementById('boutons');
+      boutons.innerHTML += `
+        <button type="button" id="btnSeller"class="btn btn-success rounded-pill position-relative"><i class="bi bi-shop"></i> Start selling!</button>
+      `;
       const btn = document.getElementById('btnSeller');
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         clearActive();
         Navigate('/becomeSeller');
       });
-       
-    }
+
+      
+    } // fin else
+
+    const btn = document.getElementById('btnUpdate');
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearActive();
+      Navigate('/settings');
+    });
   }
 };
 
 async function isSeller(id) {
   let result;
-  console.log("saluuuut");
+  console.log('saluuuut', id);
   try {
     const options = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -105,12 +118,15 @@ async function isSeller(id) {
       },
     };
     // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getIdStore/` + id, options);
+    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getIdStore/` + id, options);
+    // eslint-disable-next-line prefer-template
+    const reponse = await fetch(`/api/users/getIdStore/` + id, options);
+
     if (!reponse.ok) {
       throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
     }
     result = await reponse.json();
-    console.log("RESSULT", result);
+    console.log('RESSULT', result);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);

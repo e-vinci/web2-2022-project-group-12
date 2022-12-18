@@ -26,7 +26,7 @@ class Product {
   // Permet de comptes combien de produits il y a //
   async selectLastProduct() {
     const numberOfProduct = await (
-      await db.query(`SELECT * FROM projetWeb.products p ORDER BY p.id_product DESC LIMIT 5`)
+      await db.query(`SELECT DISTINCT p.id_product, p.name, p.price, c.name as "category", c.id_category, s.store_name, s.id_user FROM projetWeb.products p, projetWeb.categories c, projetWeb.users u, projetWeb.seller s  WHERE u.id_user = s.id_user AND u.id_user = p.id_user AND c.id_category = p.id_category ORDER BY p.id_product DESC LIMIT 5`)
     ).rows;
     return numberOfProduct;
   }
@@ -59,6 +59,7 @@ class Product {
         [idSeller],
       )
     ).rows;
+    console.log(product, 'truc getAll');
     return product;
   }
 
