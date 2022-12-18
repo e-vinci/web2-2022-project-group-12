@@ -3,6 +3,7 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
 import logoAsset from '../../assets/image0.png';
 import 'animate.css';
 import { getAuthenticatedUser } from '../../utils/auths';
+// eslint-disable-next-line import/no-cycle
 import ProductLibrary from '../../Domain/ProductLibrary';
 import Navigate from '../Router/Navigate';
 import { countProductCart } from '../../utils/utilsCart';
@@ -18,7 +19,7 @@ import CategoryLibrary from '../../Domain/CategoryLibrary';
  * - the router will show the Page associated to this URI when the user click on a nav-link
  */
 
-const Navbar = () => {
+const Navbar = async () => {
   clearPage();
   const navbarWrapper = document.querySelector('#navbarWrapper');
   const user = getAuthenticatedUser();
@@ -49,15 +50,17 @@ const Navbar = () => {
         </div>
     </div>
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-            <div class="dropdown">
-              <a class="btn btn-secondary" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-                <ul class="dropdown-menu" id="btnCategory">
             
-
-                </ul>
-            </div>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="collapse navbar-collapse justify-content-around" id="navbarCollapse">
+                
                 <div class="navbar-nav mr-auto py-0">
+                    <div class="dropdown">
+                      <a class="btn btn-secondary" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul class="dropdown-menu" id="btnCategory">
+                    
+
+                        </ul>
+                    </div>
                     <div id="homePage">
 
                     </div>
@@ -136,7 +139,8 @@ const Navbar = () => {
       `;
     }
 
-    categoriesNavbar();
+    const allCategories = await CategoryLibrary.prototype.getAllCategories();
+    categoriesNavbar(allCategories);
     ProductLibrary.prototype.searchBar();
   } else {
     const totalProduct = countProductCart();
@@ -172,15 +176,17 @@ const Navbar = () => {
     </div>
 
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-            <div class="dropdown">
-              <a class="btn btn-secondary" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-              <ul class="dropdown-menu" id="btnCategory">
-              
-
-              </ul>
-            </div>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            
+            <div class="collapse navbar-collapse justify-content-around" id="navbarCollapse">
+            
                 <div class="navbar-nav mr-auto py-0">
+                    <div class="dropdown">
+                      <a class="btn btn-secondary" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                      <ul class="dropdown-menu" id="btnCategory">
+                      
+
+                      </ul>
+                    </div>
                     <div id="homePage">
                         
                     </div>
@@ -271,7 +277,8 @@ const Navbar = () => {
           <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
       `;
     }
-    categoriesNavbar();
+    const allCategories = await CategoryLibrary.prototype.getAllCategories();
+    categoriesNavbar(allCategories);
     ProductLibrary.prototype.searchBar();
 
     const userBtn = document.getElementById('user');
@@ -283,31 +290,27 @@ const Navbar = () => {
   }
 };
 
-async function categoriesNavbar() {
+async function categoriesNavbar(allCategories) {
   const btnCategory = document.getElementById('btnCategory');
-  const allCategories = await CategoryLibrary.prototype.getAllCategories();
-
   btnCategory.addEventListener('click', async (e) => {
     e.preventDefault();
+    btnCategory.innerHTML = ``;
     allCategories.forEach((element) => {
       const nameCat = element.name;
-      const categoryId =element.id_category;
-      btnCategory.innerHTM =``;
-      btnCategory.innerHTML += `
-      <li><a class="dropdown-item categoryName " href="#" name="${categoryId}">${nameCat}</a></li>
-      `;
-    });
+      const categoryId = element.id_category;
 
-    const cat = document.getElementsByClassName('categoryName');
-    for (let j = 0; j < cat.length; j += 1) {
-      cat[j].addEventListener('click', async (k) => {
-        console.log(cat[j].name);
-        k.preventDefault();
-        const idcat = cat[j].name;
-        // eslint-disable-next-line prefer-template
-        Navigate('/category?=', idcat);
-      });
-    }
+      btnCategory.innerHTML += `
+      <li><a class="dropdown-item categoryName textProduct" id="categoryNam" href="#" name="${categoryId}">${nameCat}</a></li>
+      `;
+
+    });
+    const cat = document.getElementById('categoryNam');
+    cat.addEventListener('click', async (k) => {
+      k.preventDefault();
+      const idcat = cat.name;
+      // eslint-disable-next-line prefer-template
+      Navigate('/category?=', idcat);
+    });
   });
 }
 export default Navbar;

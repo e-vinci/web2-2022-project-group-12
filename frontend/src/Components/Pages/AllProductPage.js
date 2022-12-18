@@ -15,7 +15,8 @@ const AllProductPage = async () => {
   
   const html = `
         <div class="row px-xl-5">
-          <div class="py-5">
+          <p style="font-size:150%" class="text-center">You're viewing all of the products on our store</p>
+          <div class="py-2">
               <div class="row justify-content" id="imgProduct">
   
               </div>
