@@ -271,7 +271,7 @@ async function categoriesNavbar(){
     e.preventDefault();
     let html = ``;
     let i = 0;
-    while( i < allCategories.lengthg){
+    while( i < allCategories.length){
     const nameCat = allCategories[i].name;
 
     html += `

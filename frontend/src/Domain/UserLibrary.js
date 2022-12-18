@@ -28,8 +28,8 @@ async login(){
         const password = document.getElementById('pwd').value;
 
         const newData = {
-         "email": email,
-        "password": password
+          email,
+        password
         };
 
         try {
@@ -41,7 +41,9 @@ async login(){
             },
         };
 
+        console.log("coucou logi  ")
         const reponse = await fetch(`/api/users/login`, options);
+        console.log(reponse)
       
       
         if (!reponse.ok) {

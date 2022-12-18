@@ -266,9 +266,6 @@ async showProduct(){
         }
     
           categories = await reponse.json();
-          
-
-        
 
         }
        catch (err) {
