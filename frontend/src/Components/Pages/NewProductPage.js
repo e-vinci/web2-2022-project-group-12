@@ -15,11 +15,11 @@ const NewProductPage = async () => {
   setUserIcon('extUserPage');
   Navbar();
   // verifie si l'user s'est login pour acceder à cette page
-  const user =  getAuthenticatedUser();
+  const user = await getAuthenticatedUser();
   const seller = await UserLibrary.prototype.isSeller(user.userId)
   if (user === undefined) {
     Navigate('/login');
-  } else if(seller ==null){
+  } else if(seller == null){
     Navigate('/becomeSeller')
   }else{
     // formulaire NewProduct
