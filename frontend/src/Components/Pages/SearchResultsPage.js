@@ -33,9 +33,13 @@ const SearchResultsPage = async () => {
   const nombreResultats = results.length;
   if (nombreResultats === 0) {
     resultStatus.innerHTML += `<p>No results found</p>`;
-  } else {
+  }else if(nombreResultats === 1){
+    resultStatus.innerHTML += `<p>${nombreResultats} result found</p>`;
+    ProductLibrary.prototype.showProducts(results);
+  }else{
     resultStatus.innerHTML += `<p>${nombreResultats} results found</p>`;
     ProductLibrary.prototype.showProducts(results);
   } // fin else
+  
 }; // fin page
 export default SearchResultsPage;

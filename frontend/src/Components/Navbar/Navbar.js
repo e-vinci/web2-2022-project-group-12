@@ -79,55 +79,69 @@ const Navbar = () => {
     `;
     navbarWrapper.innerHTML = navbar;
 
-    categoriesNavbar();
-    ProductLibrary.prototype.searchBar();
-    
-
-    if(active === 'homePage'){ // active home
-        const activeD = document.getElementById('homePage');
-        activeD.innerHTML += `
+    if (active === 'homePage') {
+      // active home
+      const activeD = document.getElementById('homePage');
+      activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
         `;
-    }if (active !== 'homePage'){ // inactive home
+    }
+    if (active !== 'homePage') {
+      // inactive home
       const activeD = document.getElementById('homePage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
       `;
-    }if (active === 'loginPage'){ // active login
+    }
+    if (active === 'loginPage') {
+      // active login
       const activeD = document.getElementById('loginPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
       `;
-    }if (active !== 'loginPage'){ // inactive login
+    }
+    if (active !== 'loginPage') {
+      // inactive login
       const activeD = document.getElementById('loginPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/login"><i class="bi bi-box-arrow-in-right"></i> Sign-in</a>
       `;
-    }if (active === 'registerPage'){ // inactive register
+    }
+    if (active === 'registerPage') {
+      // inactive register
       const activeD = document.getElementById('registerPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
       `;
-    }if (active !== 'registerPage'){ // inactive register
+    }
+    if (active !== 'registerPage') {
+      // inactive register
       const activeD = document.getElementById('registerPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/register"><i class="bi bi-person-plus"></i> Sign-up</a>
       `;
-    }if (active === 'shopPage'){ // inactive shop
+    }
+    if (active === 'shopPage') {
+      // inactive shop
       const activeD = document.getElementById('shopPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
       `;
-    }if (active !== 'shopPage'){ // inactive shop
+    }
+    if (active !== 'shopPage') {
+      // inactive shop
       const activeD = document.getElementById('shopPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
       `;
-    } 
+    }
+
+    categoriesNavbar();
+    ProductLibrary.prototype.searchBar();
   } else {
     const totalProduct = countProductCart();
 
-   const navbar = `
+    const navbar = `
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a href="#" data-uri="/" class="text-decoration-none">
@@ -192,62 +206,73 @@ const Navbar = () => {
   `;
     navbarWrapper.innerHTML = navbar;
 
-    categoriesNavbar();
-    ProductLibrary.prototype.searchBar();
-
-    if(active === 'homePage'){ // active home
-        const activeD = document.getElementById('homePage');
-        activeD.innerHTML += `
+    if (active === 'homePage') {
+      // active home
+      const activeD = document.getElementById('homePage');
+      activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
         `;
-    }if (active !== 'homePage'){ // inactive home
+    }
+    if (active !== 'homePage') {
+      // inactive home
       const activeD = document.getElementById('homePage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/"><i class="bi bi-house-door"></i> Home</a>
       `;
     }
-    
+
     // icon thing
-    if (userIcon === 'userPage'){ // active user
+    if (userIcon === 'userPage') {
+      // active user
       const activeD = document.getElementById('userPage');
       activeD.innerHTML += `
           <a id="user" class="nav-item nav-link active"><i class="bi bi-person-fill"></i></a>
       `;
-    }else if (userIcon === 'extUserPage'){ // inactive extern user
+    } else if (userIcon === 'extUserPage') {
+      // inactive extern user
       const activeD = document.getElementById('userPage');
       activeD.innerHTML += `
           <a id="user" class="nav-item nav-link"><i class="bi bi-person"></i></a>
       `;
     }
 
-
     // adds to icon thing
-    if (active === 'userPage'){ // active user
-        const activeD = document.getElementById('user');
-        activeD.classList.add("active");
+    if (active === 'userPage') {
+      // active user
+      const activeD = document.getElementById('user');
+      activeD.classList.add('active');
     }
 
-    if (active === 'statisticPage'){ // active insights
+    if (active === 'statisticPage') {
+      // active insights
       const activeD = document.getElementById('statisticPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
       `;
-    }if (active !== 'statisticPage'){ // inactive insights
+    }
+    if (active !== 'statisticPage') {
+      // inactive insights
       const activeD = document.getElementById('statisticPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/stats"><i class="bi bi-graph-up"></i> Your Insights</a>
       `;
-    }if (active === 'shopPage'){ // inactive shop
+    }
+    if (active === 'shopPage') {
+      // inactive shop
       const activeD = document.getElementById('shopPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link active" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
       `;
-    }if (active !== 'shopPage'){ // inactive shop
+    }
+    if (active !== 'shopPage') {
+      // inactive shop
       const activeD = document.getElementById('shopPage');
       activeD.innerHTML += `
           <a href="#" class="nav-item nav-link" data-uri="/allProducts"><i class="bi bi-shop"></i> Shop</a>
       `;
-    } 
+    }
+    categoriesNavbar();
+    ProductLibrary.prototype.searchBar();
 
     const userBtn = document.getElementById('user');
     userBtn.addEventListener('click', async (e) => {
@@ -255,27 +280,34 @@ const Navbar = () => {
       clearActive();
       Navigate('/user?=', user.userId);
     });
-  } 
-  
-}; 
+  }
+};
 
-async function categoriesNavbar(){
-
+async function categoriesNavbar() {
   const btnCategory = document.getElementById('btnCategory');
   const allCategories = await CategoryLibrary.prototype.getAllCategories();
 
-
-  btnCategory.addEventListener('click' , async (e) => {
-
+  btnCategory.addEventListener('click', async (e) => {
     e.preventDefault();
-    allCategories.forEach(element => {
+    allCategories.forEach((element) => {
       const nameCat = element.name;
+      const categoryId =element.id_category;
 
       btnCategory.innerHTML += `
-      <li><a class="dropdown-item categoryName " href="#">${nameCat}</a></li>
+      <li><a class="dropdown-item categoryName " href="#" name="${categoryId}">${nameCat}</a></li>
       `;
     });
-  
-});
+
+    const cat = document.getElementsByClassName('categoryName');
+    for (let j = 0; j < cat.length; j += 1) {
+      cat[j].addEventListener('click', async (k) => {
+        console.log(cat[j].name);
+        k.preventDefault();
+        const idcat = cat[j].name;
+        // eslint-disable-next-line prefer-template
+        Navigate('/category?=', idcat);
+      });
+    }
+  });
 }
 export default Navbar;

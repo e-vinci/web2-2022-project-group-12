@@ -46,7 +46,8 @@ const StorePage = async () => {
                 </div>
             </div>
         </div>
-        <h3>Products catalog : </h3>
+        <hr/>
+        <p style="font-size:150%">Products catalog: </p>
         <div class="allStoreProducts" class="row justify-content" id="imgProduct">
         
         </div>
