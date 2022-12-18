@@ -8,6 +8,7 @@ import { setUserIcon } from '../../utils/userIcon';
 import Navbar from '../Navbar/Navbar';
 import relativeTime from '../../utils/utilsDate';
 import ProductLibrary from '../../Domain/ProductLibrary';
+import { renderPopUp } from '../../utils/utilsForm';
 
 // Cette page permet l'affichage des données d'un seul produit en cliquant sur un bouton de la homepage
 
@@ -155,9 +156,11 @@ const ProductPage = async () => {
       const reviewMessage = document.getElementById('reviewMessage').value;
       const errorMessage = document.getElementById('errorMessage');
       if (reviewMessage.length < 1) {
-        errorMessage.innerHTML += `<div id="snackbar">You can not send an empty review!</div>`;
+        errorMessage.innerHTML = `<div id="snackbar">You can not send an empty review!</div>`;
+        renderPopUp();
       } else if (reviewMessage.length > 500) {
-        errorMessage.innerHTML += `<div id="snackbar">Your review is too long, limit is 500 characters!</div>`;
+        errorMessage.innerHTML = `<div id="snackbar">Your review is too long, limit is 500 characters!</div>`;
+        renderPopUp();
       } else {
         // Création d'un nouvel objet json
         const NewReview = {
@@ -177,7 +180,7 @@ const ProductPage = async () => {
   const reviewlist = await ProductLibrary.prototype.getReviews(productId);
   console.log(reviewlist, 'le review list');
   if (reviewlist.length === 0) {
-    reviewshtml.innerHTML += `<p>No reviews on this product yet</p>`;
+    reviewshtml.innerHTML += `<p style="font-size:150%;padding:10px" class="text-center">No reviews on this product yet</p>`;
   } else {
     reviewlist.forEach(async (lareview) => {
       const userFirstNameReview = lareview.first_name;

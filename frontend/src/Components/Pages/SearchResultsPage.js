@@ -5,7 +5,9 @@ import { getSearch } from '../../utils/utilsSearch';
 import { clearPage } from '../../utils/render';
 import {setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
+// eslint-disable-next-line import/no-cycle
 import Navbar from '../Navbar/Navbar';
+// eslint-disable-next-line import/no-cycle
 import ProductLibrary from '../../Domain/ProductLibrary';
 
 // HTML CODE
@@ -13,8 +15,8 @@ const html = `
 <div class="text-center" id="resultStatus">
 
 </div>
-
-<div class="py-5">
+<hr>
+<div class="py-1">
     <div class="row justify-content" id="imgProduct">
       
     </div>

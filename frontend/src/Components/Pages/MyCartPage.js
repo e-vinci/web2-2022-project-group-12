@@ -10,7 +10,7 @@ import 'animate.css';
 
 // HTML 
 const html = `
-    <div class="col-md-4 order-md-2 mb-4 mx-auto animate__animated animate__headShake" style="margin-top: 5%">
+    <div class="col-md-8 order-md-2 mb-4 mx-auto animate__animated animate__headShake" style="margin-top: 5%">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Your cart</span>
             <span class="badge badge-secondary badge-pill">3</span>

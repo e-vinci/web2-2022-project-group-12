@@ -273,7 +273,6 @@ class UserLibrary {
             <div id="snackbar">Your first name has been updated!</div>
           `;
           renderPopUp();
-          Navigate('/user?idSeller=', user.userId);
           /* const user = await reponse.json(); */
         } catch (err) {
           // eslint-disable-next-line no-console
@@ -332,7 +331,6 @@ class UserLibrary {
             <div id="snackbar">Your last name has been updated!</div>
           `;
           renderPopUp();
-          Navigate('/user?idSeller=', user.userId);
           /* const user = await reponse.json(); */
         } catch (err) {
           // eslint-disable-next-line no-console
@@ -387,7 +385,6 @@ class UserLibrary {
             <div id="snackbar">Your password has been updated!</div>
           `;
           renderPopUp();
-          Navigate('/user?idSeller=', user.userId);
           /* const user = await reponse.json(); */
         } catch (err) {
           // eslint-disable-next-line no-console
