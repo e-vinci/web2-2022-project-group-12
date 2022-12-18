@@ -170,6 +170,7 @@ class UserLibrary {
     });
   }
 
+
   async becomeSeller(user) {
     const btn = document.getElementById('sell');
 
