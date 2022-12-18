@@ -5,7 +5,9 @@ import { getSearch } from '../../utils/utilsSearch';
 import { clearPage } from '../../utils/render';
 import {setActiveLink } from '../../utils/activeLink';
 import { setUserIcon } from '../../utils/userIcon';
+// eslint-disable-next-line import/no-cycle
 import Navbar from '../Navbar/Navbar';
+// eslint-disable-next-line import/no-cycle
 import ProductLibrary from '../../Domain/ProductLibrary';
 
 // HTML CODE
@@ -13,32 +15,47 @@ const html = `
 <div class="text-center" id="resultStatus">
 
 </div>
-
-<div class="py-5">
+<hr>
+<div class="py-1">
     <div class="row justify-content" id="imgProduct">
       
     </div>
 </div>
   `;
 
+// page des resultats du search dans la navbar
 const SearchResultsPage = async () => {
   clearPage();
   setActiveLink('extUserPage');
   setUserIcon('extUserPage');
+
+  // reload la navbar apres avoir set l'actif
   Navbar();
+
   const main = document.querySelector('main');
   main.innerHTML = html;
+
+  // recupere les produits trouvé par le search
   const results = getSearch();
+
   const resultStatus = document.getElementById('resultStatus');
   const nombreResultats = results.length;
   if (nombreResultats === 0) {
+
     resultStatus.innerHTML += `<p>No results found</p>`;
+
   }else if(nombreResultats === 1){
+
     resultStatus.innerHTML += `<p>${nombreResultats} result found</p>`;
+    // affiche les produits du search
     ProductLibrary.prototype.showProducts(results);
+
   }else{
+
     resultStatus.innerHTML += `<p>${nombreResultats} results found</p>`;
+    // affiche les produits du search
     ProductLibrary.prototype.showProducts(results);
+
   } // fin else
   
 }; // fin page

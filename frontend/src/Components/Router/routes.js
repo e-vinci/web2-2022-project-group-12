@@ -23,7 +23,6 @@ const routes = {
   '/login': LoginPage,
   '/product': Product,
   '/stats': StatisticPage,
-  '/add': NewProductPage,
   '/logout': '/logout',
   '/cart': MyCartPage,
   '/addProduct': NewProductPage,
@@ -40,7 +39,5 @@ const routes = {
   '/cgu' : CGU,
   
 };
-
-console.log('routes',routes);
 
 export default routes;

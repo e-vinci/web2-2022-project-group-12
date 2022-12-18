@@ -2,6 +2,7 @@ let currentPage;
 
 const getActiveLink = () => currentPage;
 
+// permet de mettre cette page en actif dans la navbar
 const setActiveLink = (page) => {
   currentPage = page;
 };

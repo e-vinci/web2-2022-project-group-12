@@ -1,5 +1,5 @@
 import UserLibrary from '../../Domain/UserLibrary';
-import { setActiveLink } from '../../utils/activeLink';
+import { clearActive, setActiveLink } from '../../utils/activeLink';
 import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage } from '../../utils/render';
 import { setUserIcon } from '../../utils/userIcon';
@@ -11,10 +11,15 @@ const UpdateUser = () => {
   setActiveLink('userPage');
   setUserIcon('extUserPage');
   Navbar();
+
+  // recupere l'utilisateur connecté
   const user = getAuthenticatedUser();
   if (user === undefined) {
+    // renvoye vers login si pas connecté
+    clearActive();
     Navigate('/login');
   } else {
+    // renderise la page settings
     const html = `
         <form>   
               <div class="row d-flex align-items-end">
@@ -25,7 +30,7 @@ const UpdateUser = () => {
                       
                   </div>
                   <div class="col">
-                    <button type="submit" class="btn btn-success" id="lastnameBtn" >Save</button>
+                    <button type="button" class="btn btn-success" id="lastnameBtn" >Save</button>
                   </div>
               </div>
               <div class="row d-flex align-items-end">
@@ -35,17 +40,7 @@ const UpdateUser = () => {
                       
                   </div>
                   <div class="col">
-                    <button type="submit" class="btn btn-success" id="firstnameBtn" >Save</button>
-                  </div>
-              </div>
-              <div class="row d-flex align-items-end">
-                  <div class="col-3 mt-3">
-                      <label for="email">E-mail: </label>
-                      <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email">
-                      
-                  </div>
-                  <div class="col">
-                    <button type="submit" class="btn btn-success" id="emailBtn" >Save</button>
+                    <button type="button" class="btn btn-success" id="firstnameBtn" >Save</button>
                   </div>
               </div>
                   <p style="font-size:200%; margin-top:50px">Change password</p>
@@ -58,7 +53,15 @@ const UpdateUser = () => {
                       <label for="confpassword">Confirm password</label>
                       <input type="password" class="form-control" id="confpassword" placeholder="Repeat your password" name="confpassword">
                   </div>
-                  <button type="submit" class="btn btn-success" id="passwordBtn" >Save</button>
+                  <button type="button" class="btn btn-success" id="passwordBtn" >Save</button>
+              
+              </div>
+
+              </div>
+                  <p style="font-size:200%; margin-top:50px">Delete your account</p>
+                  <p>This will permanently delete your account and all of your informations</p>
+                  <button type="button" class="btn btn-outline-danger" id="deleteBtn" >Delete</button>
+                  
               
               </div>
               
@@ -69,11 +72,11 @@ const UpdateUser = () => {
     const main = document.querySelector('main');
     main.innerHTML = html;
 
+    // methodes appelant les boutons en questions et executant les methodes backend
     UserLibrary.prototype.changeFirstName(user);
     UserLibrary.prototype.changeLastName(user);
-    UserLibrary.prototype.changeEmail(user);
     UserLibrary.prototype.changePassword(user);
-    
+    UserLibrary.prototype.deleteAccount(user);
   }
 }
 

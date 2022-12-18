@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductLibrary from '../../Domain/ProductLibrary';
+import SellerLibrary from '../../Domain/SellerLibrary';
 import { setActiveLink } from '../../utils/activeLink';
 import { clearPage } from '../../utils/render';
 import { setUserIcon } from '../../utils/userIcon';
@@ -9,19 +10,26 @@ import Navbar from '../Navbar/Navbar';
 const StorePage = async () => {
   clearPage();
   setActiveLink('userPage');
-
   setUserIcon('extUserPage');
+
+  // reload la navbar apres avoir set l'actif
   Navbar();
+  
   const main = document.querySelector('main');
 
   // permet d'aller chercher un paramètre dans l'url
   const id = window.location.search;
   const url = id.split('=');
-  const store = await getStoreById(url[1]);
+
+  // renvoye les informations principales du store
+  const store = await SellerLibrary.prototype.getStoreById(url[1]);
+
   if (store === null) {
+    // si store est null alors la page affiche une erreur 404
     const error = `<h1>404 Store Not Found</h1>`;
-    main.innerHTML += `${error}`;
+    main.innerHTML = `${error}`;
   } else {
+    // sinon renderiser les info de la page
     const idStore = store[0].id_user;
     const storeName = store[0].store_name;
     const firstName = store[0].first_name;
@@ -48,73 +56,25 @@ const StorePage = async () => {
         </div>
         <hr/>
         <p style="font-size:150%">Products catalog: </p>
-        <div class="allStoreProducts" class="row justify-content" id="imgProduct">
+        <div class="allStoreProducts" id="imgProduct">
         
         </div>
     `;
     main.innerHTML = profile;
-    const products = await getAllStoreProducts(idStore);
+
+    // recupere tous les produits de ce store
+    const products =await  ProductLibrary.prototype.getAllStoreProducts(idStore);
     const resultStatus = document.getElementById('products');
     if (products.length === 0) {
-      resultStatus.innerHTML += `<p>This store doesn't have any products to sell yet</p>`;
+      resultStatus.innerHTML += `<p style="font-size:150%" class="text-center">This store doesn't have any products to sell yet</p>`;
     } else {
+      // affiche les produits de ce store
       ProductLibrary.prototype.showProducts(products);
     } // fin else
+
   } // fin else
+
 }; // fin page
 
-async function getAllStoreProducts(id) {
-  // Permet d'aller chercher les informations du produit
-  let products;
 
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    /// const reponse = await fetch(`${process.env.API_BASE_URL}/api/products/getAllBySeller/` + id, options);
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/products/getAllBySeller/` + id, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    products = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return products;
-} // fin function getAllStoreProducts(id)
-
-async function getStoreById(id) {
-  // Permet d'aller chercher les informations du produit
-  let store;
-
-  try {
-    const options = {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // eslint-disable-next-line prefer-template
-    // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/getStore/` + id, options);
-    // eslint-disable-next-line prefer-template
-    const reponse = await fetch(`/api/users/getStore/` + id, options);
-
-    if (!reponse.ok) {
-      throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
-    }
-    store = await reponse.json();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('error: ', err);
-  }
-  return store;
-} // fin function getStoreById(id)
 export default StorePage;

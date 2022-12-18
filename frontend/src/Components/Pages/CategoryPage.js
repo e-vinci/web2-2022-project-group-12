@@ -27,13 +27,19 @@ const CategoryPage = async () => {
   main.innerHTML = html;
   const id = window.location.search;
   const url = id.split('=');
+
+  // recherche des produits de la categorie cliqué
   const results = await CategoryLibrary.prototype.listbyCategorie(url[1]);
+
+  // renvoie tous les champs de la categorie cliqué
   const category = await CategoryLibrary.prototype.getCategorie(url[1]);
 
   const titleCategory = document.getElementById('titleCategory');
   titleCategory.innerHTML = `
     <h2>Category: ${category.name}</h2>
   `;
+
+  // affiche les produits de la categorie cliqué
   ProductLibrary.prototype.showProducts(results);
 };
 

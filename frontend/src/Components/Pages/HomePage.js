@@ -14,7 +14,7 @@ import CategoryLibrary from '../../Domain/CategoryLibrary';
 // HTML CODE
 const html = `
     <div class="text-center">
-        <h1 class="display-3"> Vinci Store </h1>
+        <h1 class="display-3 animate__animated animate__flip"> Vinci Store </h1>
     </div>
 
     <!-- HTML CAROUSSEL -->
@@ -112,14 +112,14 @@ const HomePage = async () => {
   }
   carouselButtons.innerHTML = items;
 
+  // affichage des produits de la home page
   ProductLibrary.prototype.showProducts(await ProductLibrary.prototype.selectLastProduct());
   const cat = await CategoryLibrary.prototype.getAllCategories();
   await showCategories(cat);
 }; // fin page
 
 async function showCategories(categories) {
-  
-  console.log(categories)
+  // fonction qui affiche les categories à l'ecran
   const category = document.getElementById('categories')
   categories.forEach(element => {
     const categoryName = element.name;
@@ -128,16 +128,16 @@ async function showCategories(categories) {
     category.innerHTML+=`
       <div class="col-lg-4 col-md-6 pb-1">
           <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                <a href = "#" class="text-dark categoryName textProduct" name="${categoryId}"><h5 class="font-weight-semi-bold m-0" >${categoryName}</h5></a>
+                <a href = "#" class="text-dark categoryName textProduct " name="${categoryId}"><h5 class="font-weight-semi-bold m-0" >${categoryName}</h5></a>
           </div>
       </div>
     `
   });
-   
+  
+  // permet de redirect vers la page de la categorie en cliqué
   const cat = document.getElementsByClassName('categoryName');
   for (let j = 0; j < cat.length; j += 1) {
     cat[j].addEventListener('click', async (e) => {
-      console.log(cat[j].name)
       e.preventDefault();
       const idcat = cat[j].name;
       // eslint-disable-next-line prefer-template
