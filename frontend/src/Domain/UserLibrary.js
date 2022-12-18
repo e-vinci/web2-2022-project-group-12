@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import Navigate from '../Components/Router/Navigate';
 import { clearActive } from '../utils/activeLink';
-import { shoppingCart } from '../utils/utilsCart';
+import { deleteCart, shoppingCart } from '../utils/utilsCart';
 import { renderPopUp } from '../utils/utilsForm';
-import { createOrder } from '../utils/utilsOrders';
-import { setAuthenticatedUser } from '../utils/auths';
+import { createOrder, deleteOrders } from '../utils/utilsOrders';
+import { clearAuthenticatedUser, setAuthenticatedUser } from '../utils/auths';
 import Navbar from '../Components/Navbar/Navbar';
 
 class UserLibrary {
@@ -495,6 +495,34 @@ class UserLibrary {
       console.error('error: ', err);
     }
     return idUSER;
+  }
+
+  async deleteAccount(user) {
+    try {
+      const options = {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify(user.userId),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      // const reponse = await fetch(`${process.env.API_BASE_URL}/api/users/updateUser`, options);
+
+      // eslint-disable-next-line prefer-template
+      const reponse = await fetch(`/api/users/deleteAccount `, options);
+
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+      }
+      deleteCart();
+      deleteOrders();
+      Navigate("/logout");
+      
+      /* const user = await reponse.json(); */
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
+    }
   }
 }
 

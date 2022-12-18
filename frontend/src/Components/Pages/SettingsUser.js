@@ -73,6 +73,7 @@ const UpdateUser = () => {
     UserLibrary.prototype.changeLastName(user);
     UserLibrary.prototype.changeEmail(user);
     UserLibrary.prototype.changePassword(user);
+    
   }
 }
 
