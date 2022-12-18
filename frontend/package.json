@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "myJScourse's modern frontend boilerplate to build a phaser game",
   "scripts": {
+    "deploy": "npm run build && gh-pages -d dist",
     "dev": "webpack --mode development --config webpack.config.base.js",
     "build": "webpack --mode production --config webpack.config.prod.js",
     "start": "webpack serve --mode development --config webpack.config.base.js"
@@ -22,15 +23,21 @@
     "html-webpack-plugin": "^5.3.1",
     "prettier-airbnb-config": "^1.0.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.38.1",
+    "webpack": "^5.75.0",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@paypal/paypal-js": "^5.1.4",
     "@popperjs/core": "^2.9.2",
-    "bootstrap": "^5.0.1",
+    "animate": "^1.0.0",
+    "animate.css": "^4.1.1",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.2",
+    "chart": "^0.1.2",
+    "chart.js": "^4.0.1",
     "clean-webpack-plugin": "^4.0.0",
-    "phaser": "^3.55.2",
+    "gh-pages": "^4.0.0",
     "terser-webpack-plugin": "^5.3.6",
     "webpack-merge": "^5.8.0"
   }

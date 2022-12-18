@@ -1,24 +1,66 @@
+import { clearAuthenticatedUser } from '../../utils/auths';
+import { usePathPrefix } from '../../utils/path-prefix';
+import Navbar from '../Navbar/Navbar';
+import Navigate from './Navigate';
 import routes from './routes';
 
 const Router = () => {
   onFrontendLoad();
   onNavBarClick();
   onHistoryChange();
+  onFooterClick()
 };
 
 function onNavBarClick() {
-  const navItems = document.querySelectorAll('.nav-link');
+  const navbarWrapper = document.querySelector('#navbarWrapper');
 
-  navItems.forEach((item) => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      const uri = e.target?.dataset?.uri;
-      const componentToRender = routes[uri];
-      if (!componentToRender) throw Error(`The ${uri} ressource does not exist.`);
+  navbarWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+    const navBarItemClicked = e.target;
+    let uri = navBarItemClicked?.dataset?.uri;
+    if (!uri) {
+      const parent = navBarItemClicked.parentElement;
+      uri = parent?.dataset?.uri;
+    }
+    const componentToRender = routes[uri];
+    if (!componentToRender) {
+      throw Error(`The ${uri} ressource does not exist.`);
+    }
+    
 
+    if (componentToRender === '/logout') {
+      logout();
+    }else{
       componentToRender();
-      window.history.pushState({}, '', uri);
-    });
+      window.history.pushState({}, '', usePathPrefix(uri));
+    }
+  });
+}
+
+
+function onFooterClick() {
+  const navbarWrapper = document.querySelector('#footerWrapper');
+
+  navbarWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+    const navBarItemClicked = e.target;
+    let uri = navBarItemClicked?.dataset?.uri;
+    if (!uri) {
+      const parent = navBarItemClicked.parentElement;
+      uri = parent?.dataset?.uri;
+    }
+    const componentToRender = routes[uri];
+    if (!componentToRender) {
+      throw Error(`The ${uri} ressource does not exist.`);
+    }
+    
+
+    if (componentToRender === '/logout') {
+      logout();
+    }else{
+      componentToRender();
+      window.history.pushState({}, '', usePathPrefix(uri));
+    }
   });
 }
 
@@ -38,6 +80,12 @@ function onFrontendLoad() {
 
     componentToRender();
   });
+}
+
+function logout() {
+  clearAuthenticatedUser();
+  Navbar();
+  Navigate('/login');
 }
 
 export default Router;
