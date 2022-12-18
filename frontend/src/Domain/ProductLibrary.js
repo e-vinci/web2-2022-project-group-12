@@ -429,13 +429,8 @@ class ProductLibrary {
       }
       idReview = await reponse.json();
       console.log(idReview);
-      /*  
-  console.log("id ::::::", idProduct);
-  const path =`'../../assets/product/image${idProduct}.img'`;
-  console.log("le path pour nouveau file::",path);
-  fs.appendFile(path,image); 
-  */
-      /* const user = await reponse.json(); */
+   
+      
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('error: ', err);
